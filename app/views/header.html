@@ -1,0 +1,208 @@
+
+<div class="top_menu" ng-if="currentPage !== '/' && currentPage !== '/resetPassword' && currentPage !=='/takesurvey'" ng-controller ="loginController">
+		<nav class="navbar navbar-default">
+			<div class="container-fluid">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed"
+						data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+						aria-expanded="false">
+						<span class="sr-only">Toggle navigation</span> <span
+							class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href=''><img data-ng-src="{{clientPic.dataUrl}}" style="height: 35px;"
+						alt="visualyx logo" class="top_logo" /></a>
+				</div>
+
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse"
+					id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav">
+						<li ng-show="can('my_survey')" ui-sref-active="active"><a href ui-sref="mySurvey"> <svg
+									version="1.1" xmlns="http://www.w3.org/2000/svg"
+									xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+									viewBox="0 0 20 20" width="20px" height="20px"
+									style="enable-background: new 0 0 20 20;" xml:space="preserve">
+                    <g>
+                        <path class="top_menu_icon"
+										d="M7.6,11.3l0.9,0.9c0.2,0.3,0.2,0.5,0,0.8L3,19.2c-0.2,0.3-0.5,0.3-0.7,0l-1.6-1.7c-0.3-0.3-0.3-0.5,0-0.7
+                            l6.1-5.5C7.1,11.1,7.3,11.1,7.6,11.3z M4.3,7.9c-1,0-1.8-0.4-2.6-1.1c-0.5-0.5-0.9-1.2-1-2C0.5,4.2,0.6,3.4,1,2.7
+                            C1,2.7,1.1,2.6,1.2,2.6c0.1,0,0.1,0,0.2,0.1l2.3,2.3C3.8,5.1,4,5.2,4.3,5.2c0.2,0,0.4-0.1,0.6-0.3c0.2-0.2,0.3-0.4,0.3-0.6
+                            c0-0.2-0.1-0.5-0.3-0.6L2.6,1.4C2.6,1.4,2.5,1.3,2.6,1.2c0-0.1,0.1-0.1,0.1-0.2c0.5-0.2,1-0.4,1.6-0.4c1,0,1.9,0.4,2.6,1.1
+                            c0.5,0.5,0.8,1.1,1,1.7s0.1,1.3-0.1,2l2.1,2.1L7.5,9.9L5.4,7.8C5,7.9,4.6,7.9,4.3,7.9z M14.8,6.8l-0.2-0.2L9,12.1
+                            C9,12,8.9,11.9,8.9,11.9l-0.9-0.9c-0.1-0.1-0.1-0.1-0.2-0.2l5.5-5.5l-0.1-0.1c0,0,0-0.1-0.1-0.1c0-0.1,0-0.1-0.1-0.3s0-0.2,0.1-0.3
+                            c0.1-0.2,0.2-0.3,0.2-0.6c0-0.2,0-0.5-0.1-0.7C13,3,12.8,2.7,12.6,2.5C12.3,2.2,12,2,11.5,1.8c-0.5-0.2-1-0.4-1.6-0.5
+                            C9.5,1.2,9.4,1.1,9.8,0.9c1.9-0.7,4.2,0.3,6.8,2.9c0.1,0.1,0.2,0.3,0.4,0.5c0.1,0.2,0.3,0.5,0.5,0.9c0.2,0.4,0.3,0.7,0.3,0.9
+                            c0,0.1,0.1,0.4,0.5,0.9l0.2-0.2c0.3-0.3,0.6-0.3,0.9,0c0.3,0.3,0.3,0.6,0,0.9l-1.4,1.4c-0.3,0.3-0.6,0.3-0.9,0
+                            c-0.3-0.3-0.3-0.6,0-0.9l0.2-0.2v0c0,0-0.2-0.1-0.5-0.4c-0.3-0.2-0.6-0.4-0.8-0.6C15.8,7,15.6,6.9,15.5,7C15.4,7,15.3,7,15.2,7
+                            c-0.1,0-0.2-0.1-0.3-0.2L14.8,6.8z M15.7,12.2c1,0,1.8,0.4,2.6,1.1c0.5,0.5,0.9,1.2,1,2c0.1,0.8,0,1.5-0.3,2.2
+                            c-0.1,0.1-0.1,0.1-0.2,0.1c-0.1,0-0.1,0-0.2-0.1l-2.3-2.3c-0.2-0.2-0.4-0.3-0.6-0.3c-0.2,0-0.4,0.1-0.6,0.3
+                            c-0.2,0.2-0.3,0.4-0.3,0.6c0,0.2,0.1,0.5,0.3,0.6l2.3,2.3c0.1,0.1,0.1,0.1,0.1,0.2c0,0.1-0.1,0.1-0.1,0.2c-0.5,0.2-1,0.4-1.6,0.4
+                            c-1,0-1.9-0.4-2.6-1.1c-0.5-0.5-0.8-1.1-1-1.7s-0.1-1.3,0.1-2l-2.4-2.4l2.3-2.3l2.4,2.4C15,12.2,15.4,12.2,15.7,12.2z" />
+                    </g>
+                    </svg> <span class="sr-only">(current)</span></a></li>
+						<li ng-show="can('participants_tab')" ui-sref-active="active" class="participants"><a href="#/participants"
+							ui-sref="participants"> <svg version="1.1"
+									xmlns="http://www.w3.org/2000/svg"
+									xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+									viewBox="0 0 20 20" style="enable-background: new 0 0 20 20;"
+									xml:space="preserve" width="20px" height="20px">
+                        <g>
+                            <path class="particpant_icon top_menu_icon"
+										d="M3.7,11.5H2.3c-1,0-1.9-0.5-1.9-1.6c0-0.8,0-3.5,1.2-3.5c0.2,0,1.3,0.9,2.6,0.9c0.5,0,0.9-0.1,1.3-0.2
+                                c0,0.2-0.1,0.4-0.1,0.7c0,0.9,0.3,1.8,0.8,2.6C5.3,10.2,4.3,10.7,3.7,11.5z M4.2,6.3c-1.4,0-2.6-1.2-2.6-2.6s1.2-2.6,2.6-2.6
+                                s2.6,1.2,2.6,2.6S5.6,6.3,4.2,6.3z M14.4,19.2H5.6c-1.6,0-2.7-1-2.7-2.6c0-2.3,0.5-5.8,3.5-5.8c0.3,0,1.6,1.4,3.6,1.4
+                                s3.3-1.4,3.6-1.4c2.9,0,3.5,3.5,3.5,5.8C17.1,18.2,16,19.2,14.4,19.2z M10,11.5c-2.1,0-3.9-1.7-3.9-3.9S7.9,3.8,10,3.8
+                                c2.1,0,3.9,1.7,3.9,3.9S12.1,11.5,10,11.5z M15.8,6.3c-1.4,0-2.6-1.2-2.6-2.6s1.2-2.6,2.6-2.6s2.6,1.2,2.6,2.6S17.2,6.3,15.8,6.3z
+                                 M17.7,11.5h-1.3c-0.7-0.8-1.6-1.3-2.7-1.3c0.5-0.8,0.8-1.7,0.8-2.6c0-0.2,0-0.4,0-0.7c0.4,0.2,0.9,0.2,1.3,0.2
+                                c1.4,0,2.4-0.9,2.6-0.9c1.3,0,1.2,2.7,1.2,3.5C19.6,11,18.7,11.5,17.7,11.5z" />
+                        </g>
+                        </svg>
+						</a></li>
+						<li ng-show="can('dashboard')" ui-sref-active="active"><a  ui-sref="dashboard"> 
+							<!--<li ><a  href=""> -->
+							 <svg version="1.1"
+									xmlns="http://www.w3.org/2000/svg"
+									xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+									viewBox="0 0 20 20" style="enable-background: new 0 0 20 20;"
+									xml:space="preserve" width="20px" height="20px">
+                        <g>
+                            <path class="analysis_icon top_menu_icon"
+										d="M3.3,16.7H19v2.3H1v-18h2.3V16.7z M5.4,15.4c-0.2-0.1-0.4-0.2-0.5-0.4s-0.3-0.3-0.4-0.5s-0.1-0.4-0.1-0.7
+                                s0-0.5,0.1-0.7s0.2-0.4,0.4-0.5s0.3-0.3,0.5-0.4s0.4-0.1,0.7-0.1c0,0,0,0,0,0s0,0,0,0c0,0,0,0,0,0s0,0,0,0l1.8-3C8,9.1,7.9,9,7.9,9
+                                S7.8,8.8,7.8,8.8c0-0.1,0-0.2-0.1-0.2s0-0.2,0-0.3c0-0.2,0-0.5,0.1-0.7s0.2-0.4,0.4-0.5s0.3-0.3,0.5-0.4s0.4-0.1,0.7-0.1
+                                s0.5,0,0.7,0.1s0.4,0.2,0.5,0.4s0.3,0.3,0.4,0.5s0.1,0.4,0.1,0.7c0,0.1,0,0.2,0,0.3s0,0.2-0.1,0.2C11,8.8,11,8.9,11,9
+                                s-0.1,0.1-0.1,0.2l1.8,3c0,0,0,0,0,0s0,0,0,0c0,0,0,0,0,0s0,0,0,0c0,0,0,0,0.1,0s0,0,0.1,0l3-5.2c0-0.1-0.1-0.1-0.1-0.2
+                                c0-0.1-0.1-0.2-0.1-0.2c0-0.1,0-0.2-0.1-0.3s0-0.2,0-0.3c0-0.2,0-0.5,0.1-0.7S16,5,16.1,4.8s0.3-0.3,0.5-0.4s0.4-0.1,0.7-0.1
+                                s0.5,0,0.7,0.1s0.4,0.2,0.5,0.4s0.3,0.3,0.4,0.5S19,5.8,19,6s0,0.5-0.1,0.7s-0.2,0.4-0.4,0.5S18.2,7.5,18,7.6s-0.4,0.1-0.7,0.1
+                                c0,0,0,0-0.1,0c0,0,0,0-0.1,0l-3,5.2c0,0.1,0.1,0.1,0.1,0.2s0.1,0.2,0.1,0.2c0,0.1,0,0.2,0.1,0.3c0,0.1,0,0.2,0,0.3
+                                c0,0.2,0,0.5-0.1,0.7s-0.2,0.4-0.4,0.5s-0.3,0.3-0.5,0.4s-0.4,0.1-0.7,0.1s-0.5,0-0.7-0.1s-0.4-0.2-0.5-0.4s-0.3-0.3-0.4-0.5
+                                s-0.1-0.4-0.1-0.7c0-0.1,0-0.2,0-0.3s0-0.2,0.1-0.2c0-0.1,0.1-0.2,0.1-0.2s0.1-0.1,0.1-0.2l-1.8-3c0,0,0,0,0,0s0,0,0,0c0,0,0,0,0,0
+                                s0,0,0,0s0,0,0,0s0,0,0,0c0,0,0,0,0,0s0,0,0,0l-1.8,3c0,0.1,0.1,0.1,0.1,0.2s0.1,0.1,0.1,0.2c0,0.1,0,0.2,0.1,0.2s0,0.2,0,0.3
+                                c0,0.2,0,0.5-0.1,0.7s-0.2,0.4-0.4,0.5s-0.3,0.3-0.5,0.4s-0.4,0.1-0.7,0.1S5.6,15.5,5.4,15.4z" />
+                        </g>
+                        </svg>
+						</a></li>
+						<li ng-show="can('dashboard')" ui-sref-active="active">
+							<a href ui-sref="yesno" class="yesno">
+								<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+									 width="20px" height="20px" viewBox="0 0 96 96" style="enable-background:new 0 0 96 96;" xml:space="preserve">
+								<g>
+									<g>
+										<rect y="83.429" width="96" height="3.429" class="readIt"/>
+										<path class="readIt" d="M12.264,73.271l14.564-14.564c1.248-1.246,1.705-2.98,1.382-4.588l3.389-3.392c7.651,5.729,18.578,5.121,25.531-1.832
+											c7.622-7.622,7.622-20.025,0-27.647c-7.623-7.623-20.027-7.623-27.649,0c-6.951,6.952-7.561,17.878-1.831,25.53l-3.391,3.39
+											c-1.606-0.324-3.341,0.135-4.589,1.381L5.105,66.112c-1.976,1.978-1.976,5.183,0,7.159C7.083,75.248,10.288,75.248,12.264,73.271z
+											 M33.431,25.199c5.444-5.445,14.304-5.445,19.749,0c5.445,5.444,5.443,14.304,0,19.748c-5.445,5.445-14.305,5.445-19.749,0
+											C27.984,39.501,27.984,30.644,33.431,25.199z"/>
+										<rect class="readIt" x="81.521" y="9.143" width="7.429" height="72"/>
+										<path class="readIt" d="M73.521,20.892h-7.43v8.661c0.479,1.89,0.754,3.845,0.754,5.847c0,2.003-0.273,3.958-0.754,5.848v39.896h7.43V20.892z"/>
+										<path class="readIt" d="M49.977,81.143h7.428v-26.91c-2.25,1.689-4.752,2.963-7.428,3.748V81.143z"/>
+										<path class="readIt" d="M33.234,81.143h7.429V58.787c-1.349-0.148-2.667-0.414-3.953-0.787h-3.476V81.143z"/>
+										<polygon class="readIt" points="16.262,81.143 23.689,81.143 23.689,69.57 21.949,69.57 16.262,75.258 		"/>
+									</g>
+								</svg>
+							</a>
+						</li>
+						<li ng-show="can('spcaller')" ui-sref-active="active"><a  ui-sref="spcaller"> 
+							
+                        <svg width="20" height="20"
+								viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
+								<path class="top_menu_icon"
+									d="M809 1689q0-11-13-58t-31-107-20-69q-1-4-5-26.5t-8.5-36-13.5-21.5q-15-14-51-14-23 0-70 5.5t-71 5.5q-34 0-47-11-6-5-11-15.5t-7.5-20-6.5-24-5-18.5q-37-128-37-255t37-255q1-4 5-18.5t6.5-24 7.5-20 11-15.5q13-11 47-11 24 0 71 5.5t70 5.5q36 0 51-14 9-8 13.5-21.5t8.5-36 5-26.5q2-9 20-69t31-107 13-58q0-22-43.5-52.5t-75.5-42.5q-20-8-45-8-34 0-98 18-57 17-96.5 40.5t-71 66-46 70-45.5 94.5q-6 12-9 19-49 107-68 216t-19 244 19 244 68 216q56 122 83 161 63 91 179 127l6 2q64 18 98 18 25 0 45-8 32-12 75.5-42.5t43.5-52.5zm159-913q-26 0-45-19t-19-45.5 19-45.5q37-37 37-90 0-52-37-91-19-19-19-45t19-45 45-19 45 19q75 75 75 181t-75 181q-21 19-45 19zm181 181q-27 0-45-19-19-19-19-45t19-45q112-114 112-272t-112-272q-19-19-19-45t19-45 45-19 45 19q150 150 150 362t-150 362q-18 19-45 19zm181 181q-27 0-45-19-19-19-19-45t19-45q90-91 138.5-208t48.5-245-48.5-245-138.5-208q-19-19-19-45t19-45 45-19 45 19q109 109 167 249t58 294-58 294-167 249q-18 19-45 19z" /></svg>
+					</a></li>
+						
+						<li ui-sref-active="active" style='display:none'><a href ui-sref="analysis"> <svg
+									version="1.1" xmlns="http://www.w3.org/2000/svg"
+									xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+									viewBox="0 0 20 20" style="enable-background: new 0 0 20 20;"
+									xml:space="preserve" width="20px" height="20px">
+                        <rect x="0.6" y="1.5" width="18.8" height="16.5"
+										style="fill:none; " />
+                        <path class="top_menu_icon"
+										d="M17.9,1.5H2.2c-0.9,0-1.5,0.7-1.5,1.5v10.2c0,0.9,0.7,1.5,1.5,1.5h5.1l-1,2.1c-0.1,0.2-0.1,0.5,0.1,0.7
+                            c0.1,0.2,0.4,0.3,0.6,0.3h6.2c0.4,0,0.7-0.3,0.7-0.7c0-0.1,0-0.2-0.1-0.3l-1-2.1h5.1c0.9,0,1.5-0.7,1.5-1.5V3.2
+                            C19.5,2.3,18.8,1.5,17.9,1.5z M18,13.4c0,0.1-0.1,0.2-0.2,0.2H2.2c-0.1,0-0.2-0.1-0.2-0.2V3.2C2,3.1,2.1,3,2.2,3h15.7
+                            C17.9,3,18,3.1,18,3.2C18,3.2,18,13.4,18,13.4z" />
+                        <path class="top_menu_icon"
+										d="M15.9,4c-0.8-0.1-1.5,0.5-1.5,1.2c0,0.3,0,0.5,0.1,0.7l-3,2.2c-0.2-0.3-0.6-0.5-1-0.5c-0.5-0.2-1,0.1-1.2,0.5L5.6,6.8
+                            C5.7,6,5.1,5.4,4.4,5.3C3.6,5.2,2.9,5.7,2.8,6.5C2.7,7.3,3.3,7.9,4.1,8c0.5,0.1,0.9-0.1,1.1-0.4L9,9.1c0,0.7,0.6,1.2,1.2,1.3
+                            c0.8,0.1,1.5-0.5,1.5-1.2c0-0.1,0-0.1,0-0.2l3.3-2.4c0.2,0.1,0.4,0.2,0.6,0.2c0.8,0.1,1.5-0.5,1.5-1.2C17.3,4.8,16.7,4,15.9,4z
+                             M4.2,7.2C3.9,7.1,3.7,6.9,3.7,6.6c0-0.3,0.3-0.5,0.6-0.5c0.3,0,0.5,0.3,0.5,0.6S4.5,7.2,4.2,7.2z M10.5,9.5c-0.3,0-0.5-0.3-0.5-0.6
+                            s0.3-0.5,0.6-0.5s0.5,0.3,0.5,0.6C11.1,9.3,10.8,9.5,10.5,9.5z M15.8,5.8c-0.3,0-0.5-0.3-0.5-0.6c0-0.3,0.3-0.5,0.6-0.5
+                            c0.3,0,0.5,0.3,0.5,0.6C16.4,5.6,16.1,5.8,15.8,5.8z" />
+                        <path class="top_menu_icon"
+										d="M15.8,7.6c-0.1,0-0.1,0-0.2,0c-0.2-0.1-0.4-0.1-0.5-0.1l-2.9,2.1c-0.1,1-1,1.6-1.9,1.6c-0.1,0-0.1,0-0.2,0
+                            c-0.8-0.1-1.4-0.7-1.6-1.4L5.2,8.5C4.9,8.7,4.6,8.8,4.2,8.8l0,0c-0.1,0-0.1,0-0.2,0C3.5,8.7,3,8.5,2.7,8.1v4.6h14.5V6.9
+                            C16.9,7.3,16.4,7.6,15.8,7.6L15.8,7.6z" />
+                        </svg>
+						</a></li>
+						<li style='display:none' ui-sref-active="active"><a ui-sref="spcaller">
+						<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                         width="20px" height="20px" viewBox="0 0 460.298 460.297" style="enable-background:new 0 0 460.298 460.297;"
+                         xml:space="preserve">
+                    <g>
+                        <g>
+                            <path class="top_menu_icon"  d="M230.149,120.939L65.986,256.274c0,0.191-0.048,0.472-0.144,0.855c-0.094,0.38-0.144,0.656-0.144,0.852v137.041
+                                c0,4.948,1.809,9.236,5.426,12.847c3.616,3.613,7.898,5.431,12.847,5.431h109.63V303.664h73.097v109.64h109.629
+                                c4.948,0,9.236-1.814,12.847-5.435c3.617-3.607,5.432-7.898,5.432-12.847V257.981c0-0.76-0.104-1.334-0.288-1.707L230.149,120.939
+                                z"/>
+                            <path class="top_menu_icon"  d="M457.122,225.438L394.6,173.476V56.989c0-2.663-0.856-4.853-2.574-6.567c-1.704-1.712-3.894-2.568-6.563-2.568h-54.816
+                                c-2.666,0-4.855,0.856-6.57,2.568c-1.711,1.714-2.566,3.905-2.566,6.567v55.673l-69.662-58.245
+                                c-6.084-4.949-13.318-7.423-21.694-7.423c-8.375,0-15.608,2.474-21.698,7.423L3.172,225.438c-1.903,1.52-2.946,3.566-3.14,6.136
+                                c-0.193,2.568,0.472,4.811,1.997,6.713l17.701,21.128c1.525,1.712,3.521,2.759,5.996,3.142c2.285,0.192,4.57-0.476,6.855-1.998
+                                L230.149,95.817l197.57,164.741c1.526,1.328,3.521,1.991,5.996,1.991h0.858c2.471-0.376,4.463-1.43,5.996-3.138l17.703-21.125
+                                c1.522-1.906,2.189-4.145,1.991-6.716C460.068,229.007,459.021,226.961,457.122,225.438z"/>
+                        </g>
+                    </g>
+                    </svg>
+						</a></li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li ng-show="can('add_client')"><a href="#/addClient" class="btn btn-primary"> Add Client </a></li> 
+						<li> 
+						<div id="customer_selection" class="customer_selection" ng-show="callerAdmin"> 
+						 <input name="customers" ng-readonly="customerSelection" type="text" placeholder="Select a Customer" ng-model="selectedCustomer" ng-change="onSelectCustomerChange()" uib-typeahead="customer.name for customer in customers | filter:$viewValue | limitTo:8"  typeahead-on-select="onSelect($item, $model, $label)"  class=" form-control">
+	                   </div>
+	                   <style>
+	                   #customer_selection >  ul > li:hover > a{ color:#00a0ac!important;}
+	                   #customer_selection > ul > li.active > a{ color:#00a0ac!important;}	                   
+	                   #customer_selection .form-group{margin: 0;padding: 5px 0} 
+	                   </style>
+						</li>
+						<li class="dropdown" ng-controller="myProfileController"><a
+							href="" class="dropdown-toggle profile_btn"
+							data-toggle="dropdown" role="button" aria-haspopup="true"
+							aria-expanded="false"><img
+								data-ng-src="{{myprofilePic.dataUrl}}" alt=""
+								class="profile_img" /></a>
+							<ul class="dropdown-menu">
+								<li ng-show="can('edit_client')"><a href="#/myProfile"><i class="material-icons">face</i>
+										&nbsp; My Profile</a></li>
+								<li ng-show="selectedCustomer!=undefined && can('edit_client')"><a href="#/editClient"><i class="material-icons">person</i>
+										&nbsp; Edit Client</a></li>
+								<li class="ng-hide"><a href=""><i class="material-icons">settings</i>
+										&nbsp; Settings</a></li>
+								<li role="separator" class="divider"></li>
+								<li><a href="" class="md-button md-primary"
+									ng-click="logout()">Signout</a></li>
+							</ul></li>
+					</ul>
+				</div>
+				<!-- /.navbar-collapse -->
+			</div>
+			<!-- /.container-fluid -->
+		</nav>
+	</div>
+	<style type="text/css">
+		.active .readIt{
+			fill:#5c9741!important;
+		}
+		.readIt{
+			fill: #bfbfbf!important;			
+		}
+		.yesno:hover .readIt{
+			fill:#5c9741!important;
+		}
+	</style>

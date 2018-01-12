@@ -1,0 +1,1306 @@
+
+ <!--Flash messages start-->
+    <flash-message   name="flash-fixed-save" id="save_survey"></flash-message> 
+    <flash-message   name="flash-fixed-send" id="send_survey"></flash-message> 
+    <flash-message   name="flash-fixed-Question" id="question_flash"></flash-message>
+    <flash-message   name="flash-fixed-Category" id="category_flash"></flash-message>
+<!--Flash messages end-->
+<!--  Title Row -->
+<section class="title_row">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <span class="pull-left" ng-if="showsurveyname" ><button class="md-button md-accent dashboard_btn" type="button" ng-click="gotoMySurvey()"><i class=" fa fa-list"></i> Survey Dashboard</button></span>
+                    <div id="lang_selection" class="pull-right" ng-if="showsurveyname">                
+                        <!-- language selection start-->	
+                        <tags-input template="my-custom-template" ng-model="tags" display-property="name" add-from-autocomplete-only="true"  placeholder="Enter language"  tag-class="{active:$tag.active == true}"  on-tag-added="pushLanguageDropDown($tag)" 
+                                    on-tag-clicked="setLanguageKey($tag)" on-tag-removing="$tag.lang_code!='en'" on-tag-removed="pushRemovedTag($tag)"  id="lang_selection">
+                        <auto-complete highlight-matched-text="false" source="loadLanguages($query)" min-length="0" load-on-empty="false" max-results-to-show="10"></auto-complete>
+                        </tags-input>
+                    <div class="dropdown lang_selection_dropdown">
+                        <button class="btn dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">  <span class="fa fa-chevron-down"></span>  </button>
+                            <ul class="dropdown-menu dropdown-menu-right ">
+                                <li ng-click="pushLanguage(lang)" ng-repeat="lang in languages">
+                                {{lang.name}}
+                            </li>
+                        </ul> 
+                    </div>
+                        <!-- language selection end-->	
+                </div>                                      
+            </div>
+        </div>
+    </div>
+</section>
+
+  <!--  /Title Row -->
+<section>
+    <div class="content_block build_survey_cnt">              
+    <div class="build_survey_lft">
+                <div class="build_survey_toolbar clearfix">
+                    <div class="form-group">
+                        <div class="input-group">                        
+                        <input type="text" id="addon1" placeholder="search" ng-disabled="language_key!=default_language_key" ng-change='searchTemplateQuestions()' class="searchbar form-control" ng-model="search_text">
+                        <span class="input-group-addon"><i class="fa fa-close" ng-click="search_text = undefined"></i></span>
+                            </div> 
+                    </div>  
+                </div>                
+                <div class="build_survey_templates ">
+                     <h2 class="template_title" href="" ng-hide="search_text">Templates</h2>
+                    <div class="template_divider" ng-hide="search_text"></div>
+                        <div class="template_block" ng-hide="search_text">
+                            <ul>
+                                <li ng-repeat="template in surveyTypes " class="row"  data-drag="true"  data-jqyoui-options="{revert: 'invalid', helper:'clone', cursorAt: { left: 0 }, opacity: 0.55}" ng-model="surveyTypes" jqyoui-draggable="{index: {{$index}},placeholder:'keep'}">
+                                    <span class="categoriestxt">{{template.name[default_language_key][template.name[default_language_key].length-1]}}</span><span class=" categoriestxt_count">({{template.count}})</span></li>
+                            </ul>   
+                        </div>
+                    <h2 class="template_title" ng-hide="search_text">Categories</h2>
+                    <div class="template_divider" ng-hide="search_text"></div>
+                        <div class="template_block" ng-hide="search_text">
+                            <ul>
+                                <li ng-repeat="template in categories "  data-drag="true"  data-jqyoui-options="{revert: 'invalid', helper:'clone', cursorAt: { left: 0 }, opacity: 0.55}" ng-model="categories" jqyoui-draggable="{index: {{$index}},placeholder:'keep'}">
+                                    <span class="categoriestxt">{{template.name[default_language_key][template.name[default_language_key].length-1]}} </span> <span class="categoriestxt_count">({{template.count}})</span></li>
+                            </ul>
+                        </div>
+                        <div class="template_block" ng-show="search_text"  >
+                            <ul>
+                                <li ng-repeat="searchQuestion in srchResultsArr track by $index" data-drag="true"  data-jqyoui-options="{revert: 'invalid', helper:'clone', cursorAt: { left: 0 }, opacity: 0.55}" ng-model="searchQuestion" jqyoui-draggable="{index: {{$index}},placeholder:'keep'}" >
+                                {{searchQuestion.text[language_key][searchQuestion.text[language_key].length-1]}}</li>
+                            </ul>
+                        </div>
+                </div>   
+            </div>
+        <div class="build_survey_rgt">
+             <div class="build_survey_tabs clearfix" >
+                <div class="survey_title_block pull-left" ng-show="showsurveyname">
+                    <h3 class="clearfix" style='padding:0px;font-size: 20px;'>         
+                           	    
+                       <!--  <div ng-class="{enableOverflow : survey_name.length>18}" data-text="Enter text here" style="float: left;min-width: 50px;min-height:26px;max-height:30px;max-width:326px;padding-bottom:8px;"  ng-model='survey_name' 
+                         contenteditable="true" style='white-space: pre-line;' placeHldr="Survey Name" ng-blur='setPlaceHolder2("Survey Name")'></div>
+                          -->
+                          <div>
+                         <input  type='text' id='surveyNameText' maxlength="60" ng-class="{enableOverflow2 : survey_name.length==0}" size='{{survey_name.length>25?25:survey_name.length}}' ng-blur='resetSurveyName(survey_name)'
+                          style="color:gray;font-weight:normal;max-height:35px;float: left;padding-bottom:0px;border:0px solid #000;background:#f8f8f8;"  ng-model='survey_name' 
+                         placeHolder="Survey Name"></input>
+                         </div>
+                        <div class="dropdown" style="float: left;padding:0px">
+                            <button style='padding:0px' class="dropdown-toggle survey_type_btn" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" ng-init="product_type_id='Survey'">  ( {{product_type_id}} Type )  </button>
+                            <ul class="dropdown-menu">
+                                <li 
+                                ng-click="setSurveyType(x.name[default_language_key][x.name[default_language_key].length-1])"  
+                                ng-model="survey_type_id" 
+                                ng-repeat="x in product_types">
+                                <a href=""> {{x.name[default_language_key][x.name[default_language_key].length-1]}}</a>
+                                </li>
+                            </ul> 
+                        </div>
+                    </h3>
+                    
+                    <p ng-show="showsurveyname">
+                    <!-- <div ng-show="showsurveyname" class="link txt_accent" contenteditable="true" style="min-width: 150px;"  style='white-space: pre-line;'
+                    ng-model='survey_description' placeHldr="Survey Description" 
+                    ng-blur='setSurveyDescPlaceHolder("Survey Description")'
+                    ></div> -->
+                    <textarea ng-show="showsurveyname" style="resize: none;max-height:27px;border:0px solid #f8f8f8;background:#f8f8f8;line-height: normal;" 
+                    class="link txt_accent" ng-model='survey_description' placeholder="Survey Description"
+                    rows="1" cols="62"></textarea>
+                    </p>
+                </div> 
+                <div class="col-md-3" ng-hide="showsurveyname">
+                    <h3 style="line-height: 50px">    
+                        <div ng-if="survey_name!=''" style="white-space: nowrap;">{{nameformat(survey_name)}} - {{product_type_id}}</div>
+                    </h3>
+                </div>
+                                	               
+                <ul class="nav nav-tabs pull-right clearfix" role="tablist">
+                    <li role="presentation" id="DesignTab" class="active" ng-click="displayname('design')"><a href="#design" aria-controls="design" role="tab" data-toggle="tab" class="text-center"><i class=" fa fa-paint-brush"></i> <br> Design</a></li>
+                    <!--
+                    <li role="presentation" id="Tab"
+                     ng-click="displayname('message')"><a href="#message" aria-controls="message" role="tab" data-toggle="{{survey_name!='' && product_type_id!='Survey'?'tab':''}} " class="text-center"><i class=" fa fa-envelope"></i> <br> Message</a></li>
+                    <li role="presentation" id="DistributeTab" ng-click="displayname('distribute')"><a href="#distribute" aria-controls="distribute" role="tab" data-toggle="{{survey_name!='' && product_type_id!='Survey'?'tab':''}}" class="text-center"><i class=" fa fa-share-alt"></i> <br> Distribute</a></li>
+                    -->
+                    <li role="presentation" id="Tab" ng-click="displayname('message')">
+                        <a href="#message" aria-controls="message" role="tab" 
+                           data-toggle="{{mandatoryMessage==''?'tab':''}}" class="text-center"><i class=" fa fa-envelope"></i> <br> Message</a>
+                    </li>
+                    <li role="presentation" id="DistributeTab" ng-click="displayname('distribute')">
+                        <a href="#distribute" aria-controls="distribute" role="tab" 
+                          data-toggle="{{mandatoryMessage==''?'tab':''}}" class="text-center">
+                        <i class=" fa fa-share-alt"></i> <br> Distribute</a></li>
+                </ul>
+                <div id="lang_selection" class="pull-right" ng-if='showSelectedLangs=="yes"' ng-hide="showsurveyname" style="padding-right: 15px;">                
+                        <!-- language selection start-->	
+                        <div >                
+                        <!-- language selection start-->	
+                        <tags-input template="my-custom-template" ng-model="tags" display-property="name" add-from-autocomplete-only="true"  placeholder="Enter language"  tag-class="{active:$tag.active == true}"  on-tag-added="pushLanguageDropDown($tag)" 
+                                    on-tag-clicked="setLanguageKey($tag)" on-tag-removing="$tag.lang_code!='en'" on-tag-removed="pushRemovedTag($tag)"  id="lang_selection">
+                        <auto-complete highlight-matched-text="false" source="loadLanguages($query)" min-length="0" load-on-empty="false" max-results-to-show="10"></auto-complete>
+                        </tags-input>
+                    <div class="dropdown lang_selection_dropdown">
+                        <button class="btn dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">  <span class="fa fa-chevron-down"></span>  </button>
+                            <ul class="dropdown-menu dropdown-menu-right ">
+                                <li ng-click="pushLanguage(lang)" ng-repeat="lang in languages">
+                                {{lang.name}}
+                            </li>
+                        </ul> 
+                    </div>
+                        <!-- language selection end-->	
+                </div>       
+                        <!-- language selection end-->	
+                </div>   
+            </div> 
+            <div class="build_survey_rgt_cnt">
+                <div class="left_arrow" id="expand_btn"><i class=" fa fa-chevron-left"></i> </div>
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="design">                        	
+                        <div class="questions_drop_block clearfix">                           
+                            <div class="category_tabs clearfix" id='dragQuestion' data-drop="true" ng-model='droppedData' data-jqyoui-options="" jqyoui-droppable="{multiple:true,onDrop:'getQuestions'}">
+								<div class="col-md-10 position-inherit p-0" >
+                                    <slick class="slider" settings="dragconfig" ng-if="loadslider">
+                                        <div  index="$index" class="list-category"  ng-click="dispQuesByCat($index,catname)"  ng-class="{active : catname.category_id==category_id}"  id='{{catname.category_id}}' ng-repeat="catname in categoryTabs" >
+                                              <!-- Delete category Modal Start-->
+    
+                                        <input type="text" id="editedCat{{$index}}" maxlength="100" ng-model="editedCategoryNames[catname.category_id+'\t'+language_key]"  ng-blur="checkDistinctCustomizedCat(catname,$index)" class="pull-left" name="" style="background-color: transparent;border: 0;width: 88%">
+                                         &nbsp;<span style="cursor: pointer;cursor: hand;" class="pull-right" data-toggle="modal" data-target="#Deletecategory{{category_id}}" ng-click="confirmCloseCat($index,catname.category_id)"><i  class="material-icons">close</i></span>
+                                          
+
+                                         </div> 
+                                    </slick>
+                                            <div class="modal fade"  id="Deletecategory{{category_id}}" tabindex="-1" role="dialog" aria-labelledby="DeletecategoryLabel" >
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="material-icons">close</i></button>
+                                                        <h4 class="modal-title">Delete Category</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        {{deleteCatMsg}}
+                                                    </div>
+                                                    <div class="modal-footer" >
+                                                        <button type="button" class="btn btn-primary"  data-dismiss="modal" ng-click="closeCat()">Yes</button>
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                                                        
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                            </div>  
+                                </div> 
+                                <div class="dropdown  col-md-1">
+                                    <button ng-if="language_key==default_language_key" class="btn btn-default dropdown-toggle " style="text-transform: none;padding: 10px;float: left;padding: 10px 3px 15px 3px;" type="button" title="Add Category" id="addnewcat" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="fa fa-plus-circle txt_green"></i></button>
+                                    <button ng-click="reorderCategories()" title="Move Category" ng-show="categoryTabs.length>1" class="btn btn-default" style="float: left;padding: 10px 3px 15px 3px;text-transform: none;"><i class="fa fa-arrows-alt txt_green" aria-hidden="true"></i></button>
+                                    <ul class="dropdown-menu dropdown-menu-right">
+                                        <li>
+                                            <a><input type="text" ng-model='new_category_name'  placeholder="Add Category" class="form-control"/></a>
+                                            <button class="md-button md-icon-button" ng-disabled="new_category_name==''?'disabled':''" ng-class="new_category_name==''?'compDisabled':''" ng-click="addCategory()"><i class="material-icons txt_green" >check</i> </button>
+                                            <button class="md-button md-icon-button" ng-click="clearCat()" ><i  class="material-icons txt_red" >close</i> </button>
+                                        </li>
+                                        
+                                    </ul>
+                                </div> 
+                                <div class="col-md-1" ng-if="categoryTabs.length>0">
+                                    <ul class="list-inline pull-right slider-arrow">
+                                        <li ng-click="prev()" id='catSlidePrev' ng-class="currentIndex<slides2Scroll?'disable':''"><i class="fa fa-caret-left" aria-hidden="true"></i></li>
+                                        <li ng-click="nextslide()" id='catSlideNext' ng-class="categoryTabs.length-currentIndex<=slides2Scroll?'disable':''"><i class="fa fa-caret-right" aria-hidden="true"></i></li>
+                                    </ul>
+                                </div> 
+                            </div>                       
+                            <div class="questions_block questions_drop_block" id="ques_block" >
+                                <p class="description_text">
+                                    <!--<div class="link txt_accent " id='catDesc_{{category_id}}' contenteditable="true" 
+                                    style="white-space: pre-line;min-width: 150px;padding: 0 10px;"
+                                    ng-model="category_description[category_id+'\t'+language_key]" udfmaxlength="300">
+                                    </div>-->
+                                    <textarea   ng-if="categoryTabs.length!=0" class="link txt_accent " id='catDesc_{{category_id}}' style="resize: none;max-height:50px;border:0px solid #f8f8f8;padding: 0 10px;" 
+                                        class="link txt_accent" ng-model="category_description[category_id+'\t'+language_key]" placeholder="Category Description"
+                                        rows="2" cols="100">
+                                    </textarea>
+                                   <span class="link txt_green pull-right" ng-click="addQuestion()"
+                                        ng-if="categoryTabs.length!=0 && language_key==default_language_key" style="cursor: pointer;cursor: hand;">+ Add question
+                                    </span>                                     
+                                </p>
+                         		
+                                <!-- adding new question--> 								
+
+								<div class="addaquestion_block clearfix" ng-show="newQuestion">
+                                	<div class="addaquestion" >                                     
+                                        <textarea class="form-control" rows="6" placeholder=" Enter the new question here..." ng-model="newQuestionText"></textarea>
+                                        <span class="flex"></span>
+                                        <div class="dropdown">
+                                          <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
+                                            {{val==''?'Answer type':val}} <span class="caret"></span>
+                                            </button> <div class="ripple-container"></div> 
+                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu3" >
+                                                <li><a href="" ng-click="singleSelectAns('Single Select')" ng-model="singleSelect">Single Select</a></li>
+                                                <li><a href="" ng-click="singleSelectAns('Open Ended')" ng-model="openEnded">Open Ended</a></li>
+                                                <li><a href="" ng-click="singleSelectAns('Ranked')" ng-model="ranked">Ranked</a></li>                                               
+                                                <li><a href="" ng-click="singleSelectAns('Yes/No')" ng-model="yesNo">Yes/No</a></li>
+                                                <li><a href="" ng-click="singleSelectAns('Matrix')" ng-model="matrix">Matrix</a></li> 
+                                            </ul> 
+                                        </div>
+                                        <button class="md-button md-icon-button" ng-if="val!='Open Ended'" ng-disabled="answer_scaleModel.length<=0 || val==''?'disabled':''" ng-class="answer_scaleModel.length<=0 || val==''?'compDisabled':''" ng-click="saveNewQuestion()" ng-show="newQuestion"><i class="material-icons txt_green" >check</i> </button>
+                                         <button class="md-button md-icon-button" ng-if="val=='Open Ended'" ng-disabled=" val==''?'disabled':''" ng-class="val==''?'compDisabled':''" ng-click="saveNewQuestion()" ng-show="newQuestion"><i class="material-icons txt_green" >check</i> </button>
+                                        <button class="md-button md-icon-button" ng-click="closeNewQuestion()" ng-show="newQuestion"><i  class="material-icons txt_red" >close</i> </button>
+                                    </div> 
+                                    <div class="answer_choices" ng-show="singleSelect">
+                                    	<ul class="list-inline clearfix">
+                                            <!--<li ng-repeat="(key, value) in answer_scaleModel track by $index">
+                                                 <div class="input-group">
+                                                        <span ng-style="{'background-color': 'rgba(255,161,45,'+ (1/answer_scaleModel.length*($index+1)) +')'}" class="input-group-addon question_addon">{{key}}</span>
+                                                	<input type="text" class="" ng-model="answer_scaleModel[key+'']"/>  
+                                                	<span class="input-group-addon delete_addon" ng-click="removeChoice(key)"><i class="fa fa-trash-o"></i></span>
+                                                </div>
+                                            </li> -->
+                                            <li ng-repeat="(key, value) in answer_scaleModel">
+                                                 <div class="input-group">
+                                                        <span ng-style="{'background-color': 'rgba(255,161,45,'+ (1/answer_scaleModel.length*($index+1)) +')'}" class="input-group-addon question_addon">{{key}}</span>
+                                                	<input type="text" class="" ng-model="answer_scaleModel[key+'']"/>  
+                                                	<span class="input-group-addon delete_addon" ng-click="removeChoice(key)"><i class="fa fa-trash-o"></i></span>
+                                                </div>
+                                            </li> 
+                                            </ul>
+                                        <p><a class="pull-right link txt_accent" ng-click="addNewChoice()">+ Add Choices</a></p>
+                                  </div> 
+                                   <div class="answer_choices" ng-show="ranked">
+                                    	<ul class="list-inline clearfix">
+                                            <li ng-repeat="(key, value) in answer_scaleModel">
+                                                 <div class="input-group">
+                                                         <span ng-style="{'background-color': 'rgba(255,161,45,'+ (1/answer_scaleModel.length*($index+1)) +')'}" class="input-group-addon question_addon">{{key}}</span> 
+                                                        <!--<input style='height:33px;width:33px;display: inline-block;'type='text' ng-disabled="true"
+                                                        ng-init='rankedAnswerScaleModel[key]=key+1'
+                                                        ng-model='rankedAnswerScaleModel[key]'
+                                                         ng-style="{'background-color': 'rgba(255,161,45,'+ (1/answer_scaleModel.length*($index+1)) +')'}" 
+                                                        class="input-group-addon question_addon"/>-->
+                                                	<input type="text" class="" ng-model="answer_scaleModel[key+'']" style="display: inline-block;"/>  
+                                                	<span class="input-group-addon delete_addon" ng-click="removeChoice(key)"><i class="fa fa-trash-o"></i></span>
+                                                </div>
+                                            </li> 
+                                            </ul>
+                                        <p><a class="pull-right link txt_accent" ng-click="addNewChoice()">+ Add Choices</a></p>
+                                  </div>
+                                  <div class="answer_choices" ng-show="matrix">
+                                    	<ul class="list-inline clearfix">
+                                            <li ng-repeat="(key, value) in answer_scaleModel">
+                                                 <div class="input-group">
+                                                        <span style='display:none' ng-style="{'background-color': 'rgba(255,161,45,'+ (1/answer_scaleModel.length*($index+1)) +')'}" class="input-group-addon question_addon">{{key}}</span>
+                                                	<input type="text" class="" ng-model="answer_scaleModel[key+'']"/>  
+                                                	<span class="input-group-addon delete_addon" ng-click="removeChoice(key)"><i class="fa fa-trash-o"></i></span>
+                                                </div>
+                                            </li> 
+                                            </ul>
+                                        <p><a class="pull-right link txt_accent" ng-click="addNewChoice()">+ Add Choices</a></p>
+                                 </div>
+                                 <div class="addaquestion_block clearfix" ng-show="matrix">
+                                  <table>
+                                    <tr>
+                                     <td style='padding-left:18px'><a ng-click="matrixQuestion()" ng-model="subQuestion">+ Add sub question</a></td>
+                                    </tr>
+                                    <tr ng-repeat="(key, value) in matrixRow[language_key] track by $index">
+                                        <td style='padding-left:18px'>
+                                            {{$index+1}}. <input type="text" class="" ng-model="matrixRow[language_key][$index]" size="62"/>
+                                        </td>
+                                        <td>
+                                            <span class="input-group-addon delete_addon" ng-click="closeNewSubQuestion2($index)"><i class="fa fa-trash-o"></i></span>
+                                        </td>
+                                    </tr>
+                                  </table>
+                                </div>
+                                <!--<div class="addaquestion_block clearfix" ng-show="matrix">
+                                <p><a ng-click="addSubQuestion()" ng-model="subQuestion">Add sub question</a></p>
+                                <div  ng-show="subQuestion">
+                                    <p ng-repeat="(key, value) in matrixRow[language_key] track by $index">{{$index+1}}. {{value}}</p>
+                                <textarea class="form-control" placeholder=" Enter the new question here..." ng-model="subQuestionText"></textarea>
+                                 <button class="md-button md-icon-button" ng-if="val=='Matrix'" ng-disabled=" val==''?'disabled':''" ng-class="val==''?'compDisabled':''" ng-click="matrixQuestion()" ng-show="newQuestion"><i class="material-icons txt_green" >check</i> </button>
+                                <button class="md-button md-icon-button" ng-click="closeNewSubQuestion()"><i  class="material-icons txt_red" >close</i> </button>
+                                </div>-->
+                                  <!--</div> -->
+                                    
+
+                                   <div class="answer_choices" ng-show="yesNo" style='display:none'>
+                                    	<ul class="list-inline clearfix">
+                                            <li ng-repeat="(key, value) in answer_scaleModel track by $index">
+                                                 <div class="input-group">
+                                                        <span ng-style="{'background-color': 'rgba(255,161,45,'+ (1/answer_scaleModel.length*($index+1)) +')'}" class="input-group-addon question_addon">{{key+1}}</span>
+                                                	<input type="text" class="" ng-model="answer_scaleModel[key+'']"/>  
+                                                	<span style="display:none" class="input-group-addon delete_addon" ng-click="removeChoice(key)"><i class="fa fa-trash-o"></i></span>
+                                                </div>
+                                            </li> 
+                                            </ul>
+                                        <p style='display:none'><a class="pull-right link txt_accent" ng-click="addNewChoice()">+ Add Choices</a></p>
+                                  </div> 
+                                 
+                                </div>
+                                <div style="margin-top: 20px;" class="addaquestion_block clearfix" ng-show="search_text"  data-drop="true"  ng-model="droppedSearchQuestion" data-jqyoui-options="" jqyoui-droppable="{multiple:true,onDrop:'appendSearchQuestions'}" >
+                                    <h4 class="text-center"> Drag and Drop Your Question Here </h4>
+                                </div> <!-- /adding new question--> 
+                                <!-- default lang question list start -->   
+                                <ul id='LangUL' ng-if="language_key==default_language_key"  ui-sortable="sortableOptions" ng-model="Questions" id="sortable_list">
+                                    <li ng-mousedown='enableSort2($event,"LangUL");'     ng-repeat="Question in Questions" style="display: block; width: 100%; float: left;" >
+                                        <div class="questions_list col-md-8  clearfix">
+                                            <span style="float: left;">{{$index+1}}. &nbsp;</span>
+                                            <div  onblur="this.style.border=''" class="general_questions" 
+                                            style='white-space: pre-line;'
+                                            ng-change="checkDistinctCustomizedQuestion(questions2Save[Question._id+'\t'+Question.category_id+'\t'+default_language_key],Question._id)"
+                                                onfocus="this.style.border='1px solid #999'"  ng-blur='enableSort()'
+                                                ng-mousedown='disableSort($event,this);' contenteditable="true"
+                                                ng-model="questions2Save[Question._id+'\t'+Question.category_id+'\t'+default_language_key]">{{Question.text[default_language_key][Question.text[default_language_key].length-1]}}
+                                            </div>
+
+                                             <div onblur="this.style.border=''" ng-if="Question.question_type=='Matrix'"  class="general_questions" 
+                                             style="white-space: pre-line;padding-left:45px"
+                                             onfocus="this.style.border='1px solid #999'" 
+                                             ng-blur='enableSort()'
+                                            ng-mousedown='disableSort($event,this);' contenteditable="true"     
+                                            ng-repeat="(key1 , value1) in Question.rows[language_key] track by $index" ng-init="subquestionsave[Question._id+'\t'+key1+'\t'+Question.category_id+'\t'+default_language_key]=value1"
+                                            ng-model="subquestionsave[Question._id+'\t'+key1+'\t'+Question.category_id+'\t'+default_language_key]" >
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="questions_list_actions pull-right clearfix">
+                                                <span class="scale_tags text-left pull-left" ng-if="Question.question_type=='Open Ended'">   
+                                                    {{Question.question_type}}
+                                                </span>
+                                                <div class="dropdown"  ng-class="{ 'dropup': isDropUp }" ng-click="toggleDropUpLang($event)">
+                                                    <button class="dropdown-toggle scale_tags" ng-if="(Question.question_type=='Single Select')||(Question.question_type=='Ranked')||(Question.question_type=='Yes/No')||(Question.question_type=='Matrix')"  type="button" data-toggle="dropdown"  aria-haspopup="true" aria-expanded="true">{{Question.question_type}}</button>
+                                                    <ul class="dropdown-menu  dropdown-menu-right" ng-if="Question.answer_set[default_language_key] | isValidObject" style="z-index: 999;">
+                                                            <li ng-repeat="(key, value) in Question.answer_set[default_language_key]"  >
+                                                                <input 
+                                                                 onfocus="this.style.border='1px solid #999'"
+                                                                 onblur="this.style.border='#fff'"
+                                                                 size="{{answers2Save[Question._id+'\t'+key+'\t'+Question.category_id+'\t'+default_language_key].length}}"
+                                                                ng-init="answers2Save[Question._id+'\t'+key+'\t'+Question.category_id+'\t'+default_language_key]=value" 
+                                                                type="text" ng-model="answers2Save[Question._id+'\t'+key+'\t'+Question.category_id+'\t'+default_language_key]" 
+                                                                style='border:0px;padding:5px;'/>         
+                                                        </li>
+                                                    </ul> 
+                                                </div>	
+                                                <div class="dropdown">
+                                                    <button class="dropdown-toggle scaletag_move " type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> <i class="fa fa-arrows"></i> </button>
+                                                    <ul class="dropdown-menu dropdown-menu-right" ng-if="categoryTabs.length>1">
+                                                        <li 
+                                                            ng-if="x.name[default_language_key][x.name[default_language_key].length-1]!=Question.category[default_language_key][Question.category[default_language_key].length-1]"
+                                                            ng-click="moveQuesToCat(Question._id,x.category_id)"  
+                                                            ng-model="moveCat"
+                                                            ng-repeat="x in categoryTabs">                   
+                                                            <!--<a href="">{{x.name[language_key][x.name[language_key].length-1]}}</a>-->
+                                                            <a href="" ng-bind-html="editedCategoryNames[x.category_id+'\t'+language_key]"></a>
+                                                        </li>
+                                                    </ul> 
+                                                </div>
+
+
+                                                    <a href="" style="display:block">
+                                                    <i class="fa fa-cog" 
+                                                      data-toggle="modal" style="font-size: 20px;margin-top: 4px;" 
+                                                       ng-if="Question.question_type=='Single Select' || Question.question_type=='Yes/No'"
+                                                     data-target="#dlg{{Question._id}}"
+                                                     ng-click='processDemoMapping(Question,Question._id+"\t"+default_language_key,Question._id,category_id,Question.text[default_language_key][Question.text[default_language_key].length-1])'>
+                                                     </i></a>
+                                                         <!-- Demographic Question Modal Start-->
+                                                <div class="modal fade"  id="dlg{{Question._id}}" tabindex="-1" role="dialog" aria-labelledby="DeleteQuestionsLabel" >
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="material-icons">close</i></button>
+                                                            <h4 class="modal-title">Map Response to Report Group</h4>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="form-group">
+                                                        <h4>{{Question.text[default_language_key][Question.text[default_language_key].length-1]}}</h4>
+                                                        </div>
+                                                         <div>
+                                                                 <select ng-change='handleDemoRGSelection(Question,Question._id+"\t"+default_language_key)' class="form-control"  
+                                                                    ng-model="selectedDemoMappingRgs[Question._id+'\t'+default_language_key]" >
+                                                                    
+                                                                         <option value="" disabled selected >Select Report Group</option> 
+                                                                         <option ng-repeat="x in demoMappingRgs" value="{{x.field}}">{{x.displayName}}</option>
+                                                                         </select> 
+                                                         </div>             
+                                                        <div>
+                                                            <ul style="list-style-type: none;padding:0; ">
+                                                                <li ng-repeat="choice in demoMappingAnsChoices track by $index" class="row" style="margin-bottom: 10px;">
+                                                                    <div class="col-md-6">
+                                                                        {{choice.value}}
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                    	<div ng-if="demoMappingRgItems.length>0">
+                                                                    		<select  ng-if="Question.question_type=='Single Select'" ng-change='handleDemoRGItemSelection(Question,choice,choice.key.split("\t")[1])' ng-model='selectedDemoMappingRgItem[Question._id+"\t"+choice.key.split("\t")[1]+"\t"+default_language_key]' style="width: 100%;">
+	                                                                        <option ng-repeat="item in demoMappingRgItems" value="{{item}}">{{item}}</option>
+	                                                                        </select>
+	                                                                         <select style="width: 100%;"  ng-if="Question.question_type=='Yes/No'" ng-change='handleDemoRGItemSelectionYN(Question,choice,($index+1))' ng-model='selectedDemoMappingRgItemYN[Question._id+"\t"+($index+1)+"\t"+default_language_key]'>
+	                                                                            
+	                                                                            <option ng-repeat="item in demoMappingRgItems" value="{{item}}">{{item}}</option>
+	                                                                        </select>
+                                                                    	</div>
+                                                                        <div ng-if="demoMappingRgItems==undefined || demoMappingRgItems=='' || demoMappingRgItems==null || demoMappingRgItems.length==0">
+                                                                        	<input type="text" ng-if="Question.question_type=='Single Select'" ng-change='handleDemoRGItemSelection(Question,choice,choice.key.split("\t")[1])' ng-model='selectedDemoMappingRgItem[Question._id+"\t"+choice.key.split("\t")[1]+"\t"+default_language_key]'>
+                                                                        	<input style="width: 100%;"  ng-if="Question.question_type=='Yes/No'" ng-change='handleDemoRGItemSelectionYN(Question,choice,($index+1))' ng-model='selectedDemoMappingRgItemYN[Question._id+"\t"+($index+1)+"\t"+default_language_key]'>
+	                                                                            
+                                                                        </div>
+                                                                        
+                                                                        
+                                                                        
+                                                                    </div>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+
+                                                             
+                                                        <div>
+                                                            <input type="checkbox"  ng-init="includeInDashboardModel[Question._id+'\t'+category_id+'\t'+default_language_key]==undefined?includeInDashboardModel[Question._id+'\t'+category_id+'\t'+default_language_key]=true:''" ng-model="includeInDashboardModel[Question._id+'\t'+category_id+'\t'+default_language_key]" />&nbsp; Display in Dashboard
+                                                        </div> 
+                                                        </div>                                                    
+                                                       
+                                                         <div class="modal-footer" >
+                                                            <button type="button" class="btn btn-primary"  data-dismiss="modal" ng-click='processDemoMappingSubmit()'>Submit</button>
+                                                            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click='processDemoMappingCancel()'>Cancel</button>
+                                                           
+                                                        </div>
+                                                    </div>
+                                                </div> 
+                                                </div>
+                                                     
+                                                <!-- Demographic Question Modal End -->  
+                                               
+
+                                                <a href=""><i class="fa fa-filter" data-toggle="modal" data-target="#queryBuider" ng-click='js_dlaQuerybuilder(Question._id,category_id,Question.text[default_language_key][Question.text[default_language_key].length-1])'></i></a><a href="" ng-click="deleteQuestion($index,Question)"><i  data-toggle="modal" data-target="#DeleteQuestions{{Question._id}}" class="material-icons">close</i></a>
+                                                <div class="modal fade" id="queryBuider" tabindex="-1" role="dialog" aria-labelledby="dlaLabel" >
+                                                    <div class="modal-dialog modal-lg">
+                                                        <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="material-icons">close</i></button>
+                                                            <h4 class="modal-title" id='queryBuiderModalTitle'></h4>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                        <flash-message  name="questionFilterFlash" id="questionFilterFlash"></flash-message>
+                                                        <div id="builder"></div>
+                                                        
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" ng-click="js_updateQuery()" class="md-button md-primary">Submit </button>
+                                                        </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Filter Questions Modal Start-->
+                                                        <!--<div class="modal fade" id="FilterQuestions{{Question._id}}" tabindex="-1" role="dialog" aria-labelledby="FilterQuestionsLabel" >
+                                                        <div class="modal-dialog filter_questionsDailog"  style="min-width: 62%;">
+                                                            <div class="modal-content filter_questionsContent" style="min-height: 80%;">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="material-icons">close</i></button>
+                                                                <h4 class="modal-title">Filter Questions</h4>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div class="dropdown" style="float: left" ng-repeat="(key,value) in reportGroupMappings">
+                                                                <button style="float: left" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">{{key}}</button>
+                                                                <ul class="dropdown-menu" >
+                                                                    <li ng-repeat="rgItem in value" style="padding: 10px;white-space: nowrap;">
+                                                                        <input type="checkbox" 
+                                                                        value="{{rgItem}}"
+                                                                        
+                                                                        ng-model="reportGroupMappingModel[Question._id+'\t'+key+'\t'+$index]" />&nbsp; {{rgItem}}
+                                                                    </li>
+                                                                </ul> 
+                                                            </div>
+                                                            </div>
+                                                            <div class="modal-footer"> 
+                                                              
+                                                            </div>
+                                                            </div>
+                                                        </div>
+                                                        </div>      -->
+                                                <!-- Filter Questions Modal End --> 
+                                                <!-- Delete Question Modal Start-->
+                                                <div class="modal fade"  id="DeleteQuestions{{Question._id}}" tabindex="-1" role="dialog" aria-labelledby="DeleteQuestionsLabel" >
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="material-icons">close</i></button>
+                                                            <h4 class="modal-title">Delete Question</h4>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            {{deletemsg}}     
+                                                        </div>
+                                                        <div class="modal-footer" >
+                                                            <button type="button" class="btn btn-primary"  data-dismiss="modal" ng-click="removeConfirmedQuestion($index,Question)">Yes</button>
+                                                            <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                                                           
+                                                        </div>
+                                                        </div>
+                                                    </div>
+                                                </div>      
+                                                <!-- Delete Question Modal End -->   
+                                         
+                                            </div>
+                                        </div>
+                                        </li>
+                                    </ul>
+                                    <!-- default lang question list end --> 
+                                    <!-- multi language question list start -->
+                                    <ul id='multiLangUL' ng-if="language_key!=default_language_key" ui-sortable="sortableOptions" ng-model="Questions" id="sortable_list"  >   
+                                        <li  ng-mousedown='enableSort2($event,"multiLangUL")'  ng-repeat="Question in Questions" style="display: block; width: 100%; float: left;" >                                      
+                                            <div class="questions_list col-md-8  clearfix">
+                                                <span style="float: left;">{{$index+1}}. &nbsp;</span>
+                                                <div ng-mousedown='disableSort($event,this);' > 
+                                                    {{Question.text[default_language_key][Question.text[default_language_key].length-1]}} <br>
+                                                    Translate Question <br>
+                                                </div>
+                                                <div onblur="this.style.border=''" ng-if="Question.text[language_key]==undefined || Question.text[language_key]=='undefined'"
+                                                    onfocus="this.style.border='1px solid #999'" class="questions_list"  ng-blur='enableSort()'
+                                                    ng-init=""
+                                                    style='white-space: pre-line;min-height: 26px;'
+                                                    ng-mousedown='disableSort($event,this);' contenteditable="true" 
+                                                    ng-model="questions2Save[Question._id+'\t'+Question.category_id+'\t'+language_key]"
+                                                    ng-minlength="1"
+                                                    ng-class="(questions2Save[Question._id+'\t'+Question.category_id+'\t'+language_key]==null || !questions2Save[Question._id+'\t'+Question.category_id+'\t'+language_key].length)?'transempty':''"
+                                                ></div>
+                                               
+                                                <div onblur="this.style.border=''" ng-if="Question.text[language_key]!=undefined && Question.text[language_key]!='undefined'"
+                                                    onfocus="this.style.border='1px solid #999'" class="questions_list"  ng-blur='enableSort()'
+                                                    ng-init="questions2Save[Question._id+'\t'+Question.category_id+'\t'+language_key]=Question.text[language_key][Question.text[language_key].length-1]"
+                                                    style='min-height: 26px;'
+                                                    ng-mousedown='disableSort($event,this);' contenteditable="true" 
+                                                    ng-model="questions2Save[Question._id+'\t'+Question.category_id+'\t'+language_key]"
+                                                    ng-minlength="1"
+                                                    ng-class="(questions2Save[Question._id+'\t'+Question.category_id+'\t'+language_key]==null || !questions2Save[Question._id+'\t'+Question.category_id+'\t'+language_key].length)?'transempty':''"
+                                                ></div>
+                                                <div ng-repeat="(key , value1) in Question.rows[default_language_key] track by $index" ng-if="Question.question_type=='Matrix'">
+                                                     
+                                                     <div onblur="this.style.border=''"   class="general_questions"  style="width:100%;">
+                                                         {{value1}}  
+                                                         <br>
+                                                         Translate Sub Question   
+                                                     </div>
+                                         <input  ng-if="Question.rows[language_key][key]==undefined"
+                                                                        ng-init="subquestionsave[Question._id+'\t'+key+'\t'+Question.category_id+'\t'+language_key]=''"
+                                                                        size="{{subquestionsave[Question._id+'\t'+key+'\t'+Question.category_id+'\t'+language_key].length}}"
+                                                                        onfocus="this.style.border='1px solid #999'"
+                                                                        onblur="this.style.border='#fff'"
+                                                                        type="text" ng-model="subquestionsave[Question._id+'\t'+key+'\t'+Question.category_id+'\t'+language_key]" 
+                                                                        style='border:0px;padding:5px;'/>
+                                                                    <input  ng-if="Question.rows[language_key][key]!=undefined"
+                                                                        ng-init="subquestionsave[Question._id+'\t'+key+'\t'+Question.category_id+'\t'+language_key]=Question.rows[language_key][key]"
+                                                                        size="{{subquestionsave[Question._id+'\t'+key+'\t'+Question.category_id+'\t'+language_key].length}}"
+                                                                        onfocus="this.style.border='1px solid #999'"
+                                                                        onblur="this.style.border='#fff'"
+                                                                        type="text" ng-model="subquestionsave[Question._id+'\t'+key+'\t'+Question.category_id+'\t'+language_key]" 
+                                                                        style='border:0px;padding:5px;'/>
+                                                </div> 
+                                            </div>
+                                            <span class="flex"></span>
+                                            <div class="col-md-4">
+                                            <div class="questions_list_actions pull-right  clearfix"> 
+                                            <span class="scale_tags text-left pull-left" ng-if="Question.question_type=='Open Ended'">   
+                                                {{Question.question_type}}
+                                            </span> 
+                                            <div class="dropdown"  ng-class="{ 'dropup': isDropUp }" ng-click="toggleDropUpLang($event)">
+                                                <button class="dropdown-toggle scale_tags" ng-if="(Question.question_type=='Single Select')||(Question.question_type=='Ranked')||(Question.question_type=='Yes/No')||(Question.question_type=='Matrix')" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">{{Question.question_type}}</button>
+                                                <ul  class="dropdown-menu  dropdown-menu-right" ng-if="Question.answer_set[default_language_key] | isValidObject">
+                                                         <li ng-repeat="(key, value) in Question.answer_set[default_language_key]">
+                                                                <div>
+                                                                    <!--<input disabled
+                                                                        size="{{answers2Save[Question._id+'\t'+key+'\t'+Question.category_id+'\t'+default_language_key].length}}"
+                                                                        type="text" ng-model="answers2Save[Question._id+'\t'+key+'\t'+Question.category_id+'\t'+default_language_key]" 
+                                                                        style='border:0px;padding:5px;margin:2px'/>-->
+                                                                        <input readonly
+                                                                        size="{{value.length}}"
+                                                                        type="text" ng-model="value" 
+                                                                        style='border:0px;padding:5px;margin:2px;background:lightgray'/>
+                                                                        
+                                                                </div>
+                                                                <div>
+                                                                    <input  ng-if="Question.answer_set[language_key][key]==undefined"
+                                                                        ng-init="answers2Save[Question._id+'\t'+key+'\t'+Question.category_id+'\t'+language_key]=''"
+                                                                        size="{{answers2Save[Question._id+'\t'+key+'\t'+Question.category_id+'\t'+language_key].length}}"
+                                                                        onfocus="this.style.border='1px solid #999'"
+                                                                        onblur="this.style.border='#fff'"
+                                                                        type="text" ng-model="answers2Save[Question._id+'\t'+key+'\t'+Question.category_id+'\t'+language_key]" 
+                                                                        style='border:0px;padding:5px;'/>
+                                                                    <input  ng-if="Question.answer_set[language_key][key]!=undefined"
+                                                                        ng-init="answers2Save[Question._id+'\t'+key+'\t'+Question.category_id+'\t'+language_key]=Question.answer_set[language_key][key]"
+                                                                        size="{{answers2Save[Question._id+'\t'+key+'\t'+Question.category_id+'\t'+language_key].length}}"
+                                                                        onfocus="this.style.border='1px solid #999'"
+                                                                        onblur="this.style.border='#fff'"
+                                                                        type="text" ng-model="answers2Save[Question._id+'\t'+key+'\t'+Question.category_id+'\t'+language_key]" 
+                                                                        style='border:0px;padding:5px;'/>
+                                                                </div>   
+                                                        </li>
+                                                </ul>   
+                                            </div>                   
+                                            <div class="dropdown" style='display:none'>
+                                                <button class="dropdown-toggle scaletag_move " type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> <i class="fa fa-arrows"></i> </button>
+                                                <ul class="dropdown-menu dropdown-menu-right" ng-if="categoryTabs.length>1">
+                                                    <li 
+                                                        ng-if="x.name[language_key][x.name[language_key].length-1]!=Question.category[language_key][Question.category[language_key].length-1]"
+                                                        ng-click="moveQuesToCat(Question._id,x.category_id)"  
+                                                        ng-model="moveCat"
+                                                        ng-repeat="x in categoryTabs">
+                                                       <a href="" ng-bind-html="editedCategoryNames[x.category_id+'\t'+language_key]"></a>
+                                                    </li>
+                                                </ul> 
+                                            </div>
+                                            <a href="" ><i style='display:none' class="fa fa-filter"></i></a><a href=""  style='display:none' ng-click="deleteQuestion($index)"><i class="material-icons">close</i></a>   
+                                            </div>                                
+                                        </li>
+                                    </ul>
+                                    <!-- multi language question list end -->
+                                 
+                                </div> 
+                                  <button type="button" ng-click="save()" ng-show="saveDisplay=='true'" class="md-button md-primary" style="float: right;height: 10px !important;margin-top: 0px;line-height: 25px !important;min-height: 25px !important;margin-right: 35px;">save</button>                              
+                        </div>  
+                          
+                    </div>
+                     
+                            
+                                       
+                        <div role="tabpanel" class="tab-pane" id="message">
+                        	<div class="message_inner">
+                                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                  <div class="panel panel-default message_panel">
+                                    <div class="panel-heading" role="tab" id="headingOne">
+                                      <h4 class="panel-title">
+                                      	Email
+                                        <a class="pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                         <i class="material-icons">keyboard_arrow_down</i>
+                                        </a>
+                                      </h4>
+                                    </div>
+                                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                      <div class="panel-body">
+                                         <table width="100%" ng-if="language_key==default_language_key">
+                                        <tr><td style="padding:5px;"><label class="control-label">Subject</label></td></tr>
+                                        <tr>
+                                           <td width='100%' style="padding:5px;font-size: 15px;background-color: #fff;color: #555;margin-top: 10px">
+                                            <div  style="min-height:26px;vertical-align:top;display:inline-block;cursor:default">
+                                           <!--  <font class='uneditable' style='font-style:italic;color:gray;'>&lt;survey name&gt;</font></div> &nbsp; -->
+												  <input type='text'  
+                                        	     	ng-model='email_subject[default_language_key]'
+                                        	     	size="63"
+                                        	     	onfocus="this.style.border='1px solid #999'"
+                                                    onblur="this.style.border='#fff'"
+                                        	     	style='padding:0px;border:1px solid #fff'></input>
+                                           </td>
+                                        </tr>
+                                        <tr><td style="padding:5px;"><label class="control-label">Message</label></td></tr>
+                                        <tr>
+                                          <td width='100%' style="padding:5px;font-size: 15px;background-color: #fff;border: 0px solid #eee;color: #555;margin-top: 10px">
+                                        	
+                                        			<input type='text' 
+                                        	     	ng-model='email_greet[default_language_key]'
+                                        	     	size="4"
+                                        	     	onfocus="this.style.border='1px solid #999'"
+                                                    onblur="this.style.border='#fff'"
+                                        	     	style='padding:0px;border:1px solid #fff'></input>
+                                        	<font class='uneditable' style='font-style:italic;color:gray;'>&lt;First Name&gt; &lt;Last name&gt;</font>
+                                        	</td>
+                                        </tr>
+                                        
+                                        <tr>
+                                          <td width='100%' style="padding:5px;font-size: 15px;background-color: #fff;border: 0px solid #eee;color: #555;margin-top: 10px">
+                                          
+                                               <textarea style='padding:0px;border:1px solid #fff'
+                                           		onfocus="this.style.border='1px solid #999'"
+                                                onblur="this.style.border='#fff'"
+                                               	ng-model='email_body[default_language_key]' rows='5' cols='80'>
+                                               </textarea>
+                                         
+                                          </td>
+                                         </tr>
+                                          <tr>
+                                          <td width='100%' style="padding:0px;font-size: 15px;background-color: #fff;border: 0px solid #eee;color: #555;margin-top: 10px">
+                                              
+                                              	<input type='text' 
+                                              		onfocus="this.style.border='1px solid #999'"
+                                                    onblur="this.style.border='#fff'"
+                                        	     	ng-model='email_url[default_language_key]'
+                                        	     	size="{{email_url[default_language_key].length==0?5:email_url[default_language_key].length}}"
+                                        	     	style='padding:0px;border:1px solid #fff;max-width: 600px;'></input>
+                                              <font class='uneditable' style='font-style:italic;color:gray;'>&lt;url&gt;</font>
+                                              
+                                          </td>
+                                         </tr>
+                                        </table>
+                                        
+                                         <table width="100%" ng-if="language_key!=default_language_key">
+                                        <tr><td style="padding:5px;"><label class="control-label">Subject</label></td></tr>
+                                        <tr>
+                                           <td width='100%' style="padding:5px;font-size: 15px;background-color: #eee;color: #555;margin-top: 10px">
+                                            <div  style="min-height:26px;vertical-align:top;display:inline-block;cursor:default">
+                                            <!-- <font class='uneditable' style='font-style:italic;color:gray;'>&lt;survey name&gt;</font></div> &nbsp; -->
+												  <input type='text'  
+                                        	     	ng-model='email_subject[default_language_key]'
+                                        	     	size="63"
+                                        	     	readonly
+                                        	     	style='background:#eee;padding:0px;border:1px solid #eee'></input>
+                                           </td>
+                                        </tr>
+                                         <tr><td style="padding:5px;">Translate:</td></tr>
+                                         <tr>
+                                           <td width='100%' style="padding:5px;font-size: 15px;background-color: #fff;color: #555;margin-top: 10px">
+                                            <div  style="min-height:26px;vertical-align:top;display:inline-block;cursor:default">
+                                           <!--  <font class='uneditable' style='font-style:italic;color:gray;'>&lt;survey name&gt;</font></div> &nbsp; -->
+												  <input type='text'  
+                                        	     	ng-model='email_subject[language_key]'
+                                        	     	size="63"
+                                        	     	onfocus="this.style.border='1px solid #999'"
+                                                    onblur="this.style.border='#999'"
+                                        	     	style='padding:0px;border:1px solid #999'></input>
+                                           </td>
+                                        </tr>
+                                        <tr><td style="padding:5px;"><label class="control-label">Message</label></td></tr>
+                                        <tr>
+                                         <td><table style='background:#eee'>
+                                        <tr>
+                                          <td width='100%' style="padding:5px;font-size: 15px;margin-top: 10px">
+                                        	
+                                        			<input type='text'  class='uneditable'
+                                        	     	ng-model='email_greet[default_language_key]'
+                                        	     	size="4"
+                                        	     	readonly
+                                        	     	style='padding:0px;border:1px solid #eee;background:#eee'></input>
+                                        	<font class='uneditable' style='font-style:italic;color:gray;'>&lt;First Name&gt; &lt;Last name&gt;</font>
+                                        	</td>
+                                        </tr>
+                                         <tr>
+                                          <td width='100%' style="padding:5px;font-size: 15px;border: 0px solid #eee;color: #555;margin-top: 10px">
+                                          
+                                               <textarea style='background:#eee;padding:0px;border:1px solid #eee'
+                                           		readonly  class='uneditable'
+                                               	ng-model='email_body[default_language_key]' rows='5' cols='80'>
+                                               </textarea>
+                                         
+                                          </td>
+                                         </tr>
+                                          <tr>
+                                          <td width='100%' style="padding:0px;font-size: 15px;border: 0px solid #eee;color: #555;margin-top: 10px">
+                                              	<input class='uneditable' readonly type='text'
+                                        	     	ng-model='email_url[default_language_key]'
+                                        	     	size="{{email_url[default_language_key].length==0?5:email_url[default_language_key].length}}"
+                                        	     	style='padding:0px;border:1px solid #eee;background:#eee;max-width: 600px;'></input>
+                                              <font class='uneditable' style='font-style:italic;color:gray;'>&lt;url&gt;</font>
+                                              
+                                          </td>
+                                         </tr>
+                                         </table></td></tr>
+                                         
+                                         <tr><td style="padding:5px;">Translate:</td></tr>
+                                         <tr>
+                                          <td width='100%' style="padding:5px;font-size: 15px;background-color: #fff;border: 0px solid #eee;color: #555;margin-top: 10px">
+                                        	
+                                        			<input type='text' 
+                                        	     	ng-model='email_greet[language_key]'
+                                        	     	size="4"
+                                        	     onfocus="this.style.border='1px solid #999'"
+                                                onblur="this.style.border='#999'"
+                                        	     	style='padding:0px;border:1px solid #999'></input>
+                                        	<font class='uneditable' style='font-style:italic;color:gray;'>&lt;First Name&gt; &lt;Last name&gt;</font>
+                                        	</td>
+                                        </tr>
+                                         
+                                           <tr>
+                                          <td width='100%' style="padding:5px;font-size: 15px;background-color: #fff;border: 0px solid #eee;color: #555;margin-top: 10px">
+                                          
+                                               <textarea style='padding:0px;border:1px solid #999'
+                                           		onfocus="this.style.border='1px solid #999'"
+                                                onblur="this.style.border='#999'"
+                                               	ng-model='email_body[language_key]' rows='5' cols='80'>
+                                               </textarea>
+                                         
+                                          </td>
+                                         </tr>
+                                          
+                                         <tr>
+                                          <td width='100%' style="padding:0px;font-size: 15px;border: 0px solid #eee;color: #555;margin-top: 10px">
+                                              	<input type='text'
+                                              	onfocus="this.style.border='1px solid #999'"
+                                                onblur="this.style.border='#fff'"
+                                        	     	ng-model='email_url[language_key]'
+                                        	     	size="{{email_url[language_key].length==0?5:email_url[language_key].length}}"
+                                        	     	style='padding:0px;border:1px solid #999;max-width: 600px;'></input>
+                                              <font class='uneditable' style='font-style:italic;color:gray;'>&lt;url&gt;</font>
+                                              
+                                          </td>
+                                         </tr>
+                                        </table>
+                                          
+                                          
+                                        
+                                           
+                                      </div>
+                                    </div>
+                                  </div>
+                                  
+                                  
+                                  <div class="panel panel-default message_panel">
+                                    <div class="panel-heading" role="tab" id="headingTwo">
+                                      <h4 class="panel-title">
+                                      	SMS Text
+                                        <a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                          <i class="material-icons">keyboard_arrow_down</i>
+                                        </a>
+                                      </h4>
+                                    </div>
+                                    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo" >
+                                      <div class="panel-body">
+                                      		 <table width="100%" ng-if="language_key==default_language_key">
+                                        <tr>
+                                          <td nowrap style="padding:5px;font-size: 15px;background-color: #fff;border: 0px solid #eee;color: #555;margin-top: 10px">
+                                        	<div contenteditable="{{distributestorage.channel.email.email_select}}" 
+                                        	     	ng-model='sms_greet[default_language_key]'
+                                        	     	ng-class="(sms_greet[default_language_key]==null || !sms_greet[default_language_key])?'transempty':''"  
+                                        			style='float:left;min-width:26px;padding-right:5px;min-height:26px'></div>
+                                        		<font class='uneditable' style='font-style:italic;color:gray;'>&lt;First Name&gt; &lt;Last name&gt;</font>	
+                                        	</td>
+                                        </tr>
+                                        
+                                        <tr>
+                                          <td width='100%' style="padding:5px;font-size: 15px;background-color: #fff;border: 0px solid #eee;color: #555;">
+                                           <div 
+                                           		contenteditable="{{distributestorage.channel.email.email_select}}" 
+                                               ng-model='sms_body[default_language_key]'
+                                               ng-class="(sms_body[default_language_key]==null || !sms_body[default_language_key])?'transempty':''" 
+                                               style='white-space:pre-line;min-width:60%;min-height:44px'></div>
+                                          </td>
+                                         </tr>
+                                          <tr>
+                                          <td nowrap width='100%' style="padding:5px;font-size: 15px;background-color: #fff;border: 0px solid #eee;color: #555;">
+                                               
+                                              <div 
+                                              style='display:inline-block;white-space:pre-line;min-width:120px;min-height:26px' 
+                                               ng-class="(sms_url[default_language_key]==null || !sms_url[default_language_key])?'transempty':''" 
+                                              contenteditable="{{distributestorage.channel.email.email_select}}" ng-model='sms_url[default_language_key]'> </div> 
+                                              <font class='uneditable' style='font-style:italic;color:gray;'>&lt;url&gt;</font>
+                                              
+                                          </td>
+                                         </tr>
+                                        </table>
+                                        
+                                        <table width="100%" ng-if="language_key!=default_language_key">
+                                         <tr>
+                                          <td width='100%' style="padding:5px;font-size: 15px;border: 0px solid #eee;color: #555;margin-top: 10px">
+                                        	<span style='min-width:15px;padding-right:5px'>{{nameformat(sms_greet[default_language_key])}}</span><font class='uneditable' style='font-style:italic;color:gray;'>&lt;First Name&gt; &lt;Last name&gt;</font>
+                                        	</td>
+                                        </tr>
+                                        
+                                        <tr>
+                                          <td width='100%' style="padding:5px;font-size: 15px;border: 0px solid #eee;color: #555;margin-top: 10px">
+                                           <span
+                                               style='white-space: pre-line;padding-left: 5px;'>{{nameformat(sms_body[default_language_key])}}</span>
+                                                <span style='white-space: pre-line;padding-left: 5px;'> 
+                                               {{nameformat(sms_url[default_language_key])}}</span> 
+                                              <font class='uneditable' style='font-style:italic;color:gray;'>&lt;url&gt;</font> 
+                                          </td>
+                                         </tr>
+                                         
+                                         
+                                            <tr><td style="padding-left:5px;">Translate:</td></tr>
+                                        <tr>
+                                          <td nowrap style="padding:5px;font-size: 15px;background-color: #fff;border: 0px solid #eee;color: #555;margin-top: 10px">
+                                        	<div contenteditable="{{distributestorage.channel.email.email_select}}" 
+                                        	     	ng-model='sms_greet[language_key]'
+                                        	     	ng-class="(sms_greet[language_key]==null || !sms_greet[language_key])?'transempty':''"  
+                                        			style='float:left;min-width:26px;padding-right:5px;min-height:26px'></div>
+                                        		<font class='uneditable' style='font-style:italic;color:gray;'>&lt;First Name&gt; &lt;Last name&gt;</font>	
+                                        	</td>
+                                        </tr>
+                                        
+                                        <tr>
+                                          <td width='100%' style="padding:5px;font-size: 15px;background-color: #fff;border: 0px solid #eee;color: #555;">
+                                           <div 
+                                           		contenteditable="{{distributestorage.channel.email.email_select}}" 
+                                               ng-model='sms_body[language_key]'
+                                               ng-class="(sms_body[language_key]==null || !sms_body[language_key])?'transempty':''" 
+                                               style='white-space:pre-line;min-width:60%;min-height:44px'></div>
+                                          </td>
+                                         </tr>
+                                          <tr>
+                                          <td nowrap width='100%' style="padding:5px;font-size: 15px;background-color: #fff;border: 0px solid #eee;color: #555;">
+                                               
+                                              <div 
+                                              style='display:inline-block;white-space:pre-line;min-width:120px;min-height:26px' 
+                                               ng-class="(sms_url[language_key]==null || !sms_url[language_key])?'transempty':''" 
+                                              contenteditable="{{distributestorage.channel.email.email_select}}" ng-model='sms_url[language_key]'> </div> 
+                                              <font class='uneditable' style='font-style:italic;color:gray;'>&lt;url&gt;</font>
+                                              
+                                          </td>
+                                         </tr>
+                                        </table>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="modal-footer">
+                                  <button type="button" ng-click="save()" class="md-button md-primary">save</button>
+                                    </div>   
+                                </div>
+                            </div>                        
+                        </div>
+                        
+                        
+                        <div role="tabpanel" class="tab-pane" id="distribute" ng-controller="distributeController">
+                            <form name="myForm" >
+                        	<div class="container h-100" >
+                            	<div class="row" id="sendSurvey_title">
+                            	<button class="md-accent md-button pull-right"  ng-click="sendSurveysToParticipants()" ng-disabled="(showSurveyDateRange || !start_date || !end_date || !enableSendSurvey)" ng-class="(showSurveyDateRange || !start_date || !end_date || !enableSendSurvey)?'disblesubmit uneditable':''"> <i class="fa fa-paper-plane"></i> &nbsp; Send Survey</button>
+                            	<button class="md-accent md-button pull-right"  ng-click="saveCustomerSurveyFromDistribute()" ng-disabled="(showSurveyDateRange || !start_date || !end_date )" ng-class="(showSurveyDateRange || !start_date || !end_date )?'disblesubmit uneditable':''" > <i class="fa fa-floppy-o" aria-hidden="true"></i> &nbsp; Save Survey</button>
+                                	
+                                </div>
+                                <div class="row h-100">
+                                    <div class="distribute_inner">
+                                    	<div class="row clearfix">
+                                        	<div class="col-md-6">
+                                                <div class="form-group label-floating">
+                                                	<label class="control-label">Survey URL </label>
+                                                	<input type="text" id="distribute_surveyUrl" ng-readonly="true" ng-model="survey_url"  ng-change='syncDistributeDataChanges()' class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 col-xs-offset-2">
+                                        <div class="togglebutton"> <label><input type="checkbox"  ng-model="anonymous" ng-true-value="true" ng-false-value="false">Anonymous<br> <span class="labeltxt">By default all surveys are confidential </span>  </label></div>
+                                            </div>
+                                        </div>
+                                        <div class="row clearfix">
+                                            <div class="col-md-4">
+                                                <div class="form-group" >
+                                                	<label class="control-label">Survey Start Date *</label>
+                                                	<datepicker date-format="MM/dd/yyyy">
+                                                        <input name="start_date" id="distribute_startDate" type="text" placeholder="mm/dd/yyyy" autocomplete="off" ng-model="start_date" ng-pattern="datePattern" ng-change='syncDistributeDataChanges()'  class="form-control" required> 
+                                                    </datepicker>
+                                                </div>
+                                                <p ng-show="myForm.start_date.$invalid && !myForm.start_date.$pristine && !myForm.start_date.$error.pattern" class="help-block text-danger">Start Date is required.</p>
+                                                <p ng-show="myForm.start_date.$error.pattern" class="help-block text-danger">Date Format should be mm/dd/yyyy</p>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                	<label class="control-label">Survey End Date *</label>
+                                                	<datepicker date-format="MM/dd/yyyy">
+                                                        <input name="end_date" id="distribute_endDate" type="text" placeholder="mm/dd/yyyy" autocomplete="off" ng-model="end_date"  ng-pattern="datePattern" ng-change='syncDistributeDataChanges();' class="form-control" required>
+                                                    </datepicker>
+                                                </div>
+                                                <!--<p ng-if="(start_date) > (end_date)" class="help-block text-danger">End date should be greater than the start date!</p>-->
+                                                <p ng-if="showSurveyDateRange" class="help-block text-danger">Invalid date range!</p>
+                                                <p ng-show="myForm.end_date.$invalid && !myForm.end_date.$pristine && !myForm.end_date.$error.pattern" class="help-block text-danger">End Date is required.</p>
+                                                <p ng-show="myForm.end_date.$error.pattern" class="help-block text-danger">Date Format should be mm/dd/yyyy</p>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="pulse_block">
+                                                    <div class="togglebutton"> <label><input type="checkbox" ng-true-value="true" ng-false-value="false" ng-model="distribute_pulse"> Pulse <br> <span class="labeltxt">By default all surveys are non-pulse </span>  </label>
+                                                    </div>
+                                                    <div class="select_dropdown pulse_dropdown" ng-show="distribute_pulse==true">
+                                                        <select id="" class="form-control" ng-model="distribute_pulse_period" ng-init="distribute_pulse_period='Weekly'" ng-change='syncDistributeDataChanges()'>
+                                                        <option>Weekly</option>
+                                                        <option>Monthly</option>
+                                                        <option>Quarterly</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="row clearfix">
+											<h3><div class="togglebutton"> <label><input type="checkbox" checked=""> Define your Audience </label> </div></h3>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="radio radio-primary">  <label> <input type="radio" name="optionsRadios" ng-disabled="true" id="optionsRadios1" value="trigger_select" ng-model="target_audience" ng-change='syncDistributeDataChanges()'><span class="circle"></span><span class="check"></span> Trigger </label> </div>                                                                        
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="radio radio-primary"> <label> <input type="radio" name="optionsRadios" id="optionsRadios2" value="select_all" ng-model="target_audience" ng-change='syncDistributeDataChanges()'><span class="circle"></span><span class="check"></span> Select   </label> </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="random_block">
+                                                        <div class="radio radio-primary"> <label> <input type="radio" name="optionsRadios" ng-disabled="true" id="optionsRadios3" value="random_select" ng-model="target_audience" ng-change='syncDistributeDataChanges()'><span class="circle"></span><span class="check"></span>     Random Select </label> 
+                                                        </div>
+                                                        <div class="form-group random_percentage" ng-show="target_audience=='random_select'">
+                                                            <input type="text" ng-model="random_percentage" class="form-control" ng-change='syncDistributeDataChanges()'>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>                               
+                                            <div class="row" ng-show="target_audience=='trigger_select'">
+                                                <div class="col-md-12">
+                                                    <div class="trigger_block clearfix">
+                                                        <div class="trigger_head clearfix">
+                                                            <span class="pull-left">Select Filters</span>
+                                                            <span class="pull-right"><a href="" class="link txt_accent"><i class="fa fa-plus"></i> Add Rule</a></span>
+                                                            <span class="pull-right" style="padding-right: 50px!important;"><a href="" class="link txt_accent"><i class="fa fa-plus"></i> Add Group</a></span>
+                                                        </div>
+                                                        <div class="trigger_cnt clearfix">
+                                                            <div class="col-md-5">
+                                                                <div class="form-group trigger_cnt_grp is-empty">                                                                  
+                                                                    <input type="text" class="form-control" placeholder="Hire date">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-5">
+                                                                <div class="form-group trigger_cnt_grp is-empty">                                                                  
+                                                                    <input type="text" class="form-control" placeholder="Physician">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                <button class="md-button md-icon-button txt_green text-right pull-right"><i class="material-icons">delete</i></button>
+                                                            </div>                                                            
+                                                        </div>	                                                    
+                                                    </div>                                                
+                                                </div>                                            
+                                            </div>
+                                        </div>              
+                                        <div class="row">
+                                            <div class="col-md-12"><h3>How do you want to distribute your survey?</h3></div>                                            	
+                                            <div class="col-md-4">
+                                                <div class="togglebutton">
+                                                    <label uib-tooltip="Calls up to 8 times" tooltip-placement="bottom"><input type="checkbox" ng-model="phone"  ng-change='syncDistributeDataChanges()' ng-true-value="true" ng-false-value="false">Phone </label>               
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="togglebutton">
+                                                    <label uib-tooltip="Sends 4 reminders" tooltip-placement="bottom"><input type="checkbox" ng-model="email" ng-change='syncDistributeDataChanges()' ng-true-value="true" ng-false-value="false"> Email </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="togglebutton">
+                                                    <label uib-tooltip="Sends 3 messages" tooltip-placement="bottom"><input type="checkbox" ng-model="sms" ng-change='syncDistributeDataChanges()' ng-true-value="true" ng-false-value="false"> SMS </label>
+                                                    <!--<label uib-tooltip="Sends 3 messages" tooltip-placement="bottom" ng-if="toggleDistributesms=='false'"><input type="checkbox" ng-model="sms" ng-true-value="true" ng-false-value="false" disabled> SMS </label>-->
+                                                </div>
+                                            </div>    
+                                        </div>                                                  
+                                    </div>
+                                </div>                            	
+                            </div>
+                            </form>
+                        </div>               
+                     </div>
+             </div>                           
+        </div>
+    </div>
+</section>
+  
+<!-- Validate Survey Name Modal Start-->
+<div class="modal fade" id="validationsurveyname" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="resetlinkExpiredmodalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                    aria-hidden="true">
+                    <i class="material-icons">close</i>
+                </button>
+                <h4 class="modal-title">Validation</h4>
+            </div>
+            <div class="modal-body">
+                
+                <!--<span>Please enter the {{survey_name!=''?'':'Survey Name'}} {{survey_name=='' && product_type_id=='Survey'?'and':''}} {{product_type_id!='Survey'?'':'Survey Type'}}</span> -->
+                <span>{{mandatoryMessage}}</span>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Validate Survey Name Start-->
+
+ 
+<!-- Validate Category With Questions Start -->
+<div class="modal fade" id="validateCatWithQues" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="validateCatWithQuesLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+           <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="material-icons">close</i></button>
+                <h4 class="modal-title">Category Validation</h4>
+            </div>
+            <div class="modal-body">
+                <span>Category cannot be empty!</span> 
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="reorderCategories" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="reorderCategories">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+           <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="material-icons">close</i></button>
+                <h4 class="modal-title">Reorder Categories</h4>
+            </div>
+            <div class="modal-body">
+              <ul class="list-inline clearfix" style='background-color: #ededed;'>
+					<li style='padding:5px;background-color: #fff;margin: 5px;border-radius: 5px;' ng-repeat="reorder in categoryTabs" data-drop="true" data-drag="true" ng-model='categoryTabs' jqyoui-droppable="{index: {{$index}},onDrop:'saveReorderCategories(categoryTabs)'}" data-jqyoui-options="{revert: 'invalid'}" jqyoui-draggable="{index: {{$index}},insertInline: true, placeholder:true}">
+					<div ng-hide="!reorder.name[language_key][0]">{{reorder.name[language_key][0]}}
+					</div>
+					</li>
+				</ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Validate Category With Questions End -->
+ <script type="text/ng-template" id="my-custom-template" >
+        <div class="custom_tags">
+          <span>{{$getDisplayText()}}</span>
+          <a ng-if="$getDisplayText()!='English'" class="remove-button" ng-click="$removeTag()">&#10006;</a>
+        </div>
+</script>
+<script>
+$('#surveyNameText').on(
+                     'keypress',
+                     function(event) {
+                           var regex = new RegExp("^[a-zA-Z0-9_-]+$");
+                           var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+                          // console.log(key,'event.keyCode',event.charCode);
+                           if (event.keyCode == 8 || event.keyCode == 46||  event.charCode == 35|| event.charCode == 36
+                                         || event.charCode == 37 || event.charCode == 32 || event.charCode ==0) {
+                                             return true;
+                            }else if (!regex.test(key)) {
+                                  event.preventDefault();
+                                  return false;
+                           }
+                     });
+
+
+	$.material.options.autofill = true;
+	$.material.init();
+	//  $(document).ready(function() {		
+	var build_survey_container = $(".content_block");
+	var window_height = $(window).height();
+	var build_survey_container_position = build_survey_container.offset();
+
+	var content_blockheight = $(window).height()
+			- $('.build_survey_cnt').offset().top - 30;
+	$(".build_survey_cnt").height(content_blockheight);
+
+	// }); 
+
+	var toggle = "true";
+	$("#expand_btn").click(function() {
+		if (toggle == "true") {
+			$(".build_survey_lft").css("width", "0px");
+			$(".build_survey_rgt").css("width", "100%");
+			$("#expand_btn i").addClass("fa-rotate-180");
+			toggle = "";
+		} else {
+
+			$(".build_survey_lft").css("width", "20%");
+			$(".build_survey_rgt").css("width", "80%");
+			$("#expand_btn i").removeClass("fa-rotate-180");
+			toggle = "true";
+		}
+	});
+
+	$("#DesignTab").click(
+			function() {
+				$(".build_survey_lft").css("width", "20%");
+				$(".build_survey_rgt").css("width", "80%");
+				$("#expand_btn").css("display", "block");
+				var build_survey_container = $(".content_block");
+				var window_height = $(window).height();
+				var build_survey_container_position = build_survey_container
+						.offset();
+				setTimeout(function() {
+					var content_blockheight = $(window).height()
+							- $('.build_survey_cnt').offset().top - 30;
+					$(".build_survey_cnt").height(content_blockheight);
+				}, 200);
+				$(".build_survey_cnt").height(content_blockheight);
+			});
+
+	// $( "#MessageTab" ).click(function() {
+	//     $("#save_survey").hide();
+	//     var build_survey_container = $( ".content_block" );
+	//     var window_height= $(window).height();
+	//     var build_survey_container_position = build_survey_container.offset();
+	//     var content_blockheight = $(window).height() - build_survey_container_position.top - 20;
+	//     $(".build_survey_cnt").height(content_blockheight);	
+	//     // $(".build_survey_cnt").height("100%");	
+	//     $(".build_survey_lft").css("width", "0px");
+	//     $("#expand_btn").css("display", "none");
+	//     $(".build_survey_rgt").css("width", "100%");
+	// });
+
+	// $( "#DistributeTab" ).click(function() {
+	//         $(".build_survey_cnt").height("100%");
+	//         $(".build_survey_lft").css("width", "0px");
+	//         $("#expand_btn").css("display", "none");
+	//         $(".build_survey_rgt").css("width", "100%");
+	// });
+
+	$("#accordion a, .build_survey_tabs a").click(function(event) {
+		event.preventDefault();
+	});
+</script>
+
+
+<style>
+    [contentEditable=true]:empty:not(:focus):before{
+        content:attr(placeHldr)
+    }
+    .custom_tags > a{color: #595959;font-size: 12px!important}
+    .compDisabled{opacity: 0.1;}
+    #LangUL > li { cursor:move; }
+    #LangUL > li>div {cursor: auto; }
+    #multiLangUL > li {cursor:move;}
+    #multiLangUL > li>div {cursor: auto;}
+
+    .togglebutton label{ color:rgba(0,0,0,0.5); line-height: 26px; }
+    .togglebutton label > span.labeltxt{ padding-left: 47px;}
+    .answer_choices > ul > li > .input-group > .input-group-addon { width:auto;}
+    .answer_choices > ul > li > .input-group { background-color: #fff; min-width: 250px;}
+    /*.category_tabs{position: relative}
+	.slick-arrow{position: absolute;}
+    .position-inherit{position: initial}
+    .slick-next{right: 0;font: normal normal normal 14px/1 FontAwesome;background-color: transparent;border: 0;font-size: 0;top: 0;bottom: 0}
+    .slick-next::before{content: "\f0da";font-size: 20px}
+    .slick-prev{right: 15px;font: normal normal normal 14px/1 FontAwesome;background-color: transparent;border: 0;font-size: 0;top: 0;bottom: 0;}
+    .slick-prev::before{content: "\f0d9";font-size: 20px;}
+    .slick-disabled{color: #eeeeee} .questions_drop_block{ padding:0 15px; height:100%;} */
+    .questions_drop_block {overflow: inherit;height: 100%;}
+    .questions_drop_block .questions_block {height: 77%;overflow: auto;}
+	.questions_drop_block > .category_tabs{ border-bottom:1px solid #00a0ac;}
+	.slick-track .list-category.active > span > i, .slick-track .list-category > span > i{ font-size:16px;}
+	.slick-track .list-category.active { color:#00a0ac;}
+	.slick-track .list-category.active{ background-color:#ecf8f8; color:#00a0ac;}
+    .editing{width: 86%}
+    .close-class{cursor: pointer;width: 10%}
+    .list-category{background-color: #f8f8f8;padding: 10px 16px;float: left;border-left: 1px solid #eee;margin-top: 0px;font-size: 14px; }
+	.slider-arrow li{cursor: pointer;font-size: 20px}
+	.slider-arrow li.disable i{color: #eeeeee} 
+	.build_survey_templates .template_block > ul > li:after{top: 0;}
+	.general_questions{float: left;padding: 0 10px;width: 95%}
+	.questions_drop_block .questions_block > ul > li .questions_list_actions > .scale_tags{ background-color:#eee; padding:5px 10px; border-radius:2px; margin:0 10px; color:#999; min-width:60px; text-align:center;  }
+    .questions_drop_block .questions_block > ul > li .questions_list_actions > .dropdown > .scale_tags{ background-color:#eee; padding:5px 10px; border-radius:2px; margin:0 10px; color:#999; min-width:60px; text-align:center; border:0;  }
+    .questions_drop_block .questions_block > ul > li .questions_list_actions > .dropdown > .scaletag_move{ border: 0; background-color: transparent; color: #ccc;  font-size:18px!important;  }
+    .questions_drop_block .questions_block > ul > li .questions_list_actions > .dropdown { float:left; max-width: 160px;    }
+    .questions_drop_block .questions_block > ul > li .questions_list_actions > a { margin-left:6px; float: left;    }
+    .questions_drop_block .questions_block > ul > li .questions_list_actions > a > i{ color:#ccc; margin:0 5px;  }
+    .questions_drop_block .questions_block > ul > li .questions_list_actions > a > i.fa-filter{ font-size:18px!important; line-height:24px; }
+    .questions_drop_block .questions_block > ul > li .questions_list_actions > a > i:hover{ color:#595959;}
+	/*.questions_drop_block .questions_block > ul > li > .questions_list {word-break: break-all;}*/
+	.filter_questionsDailog{height: 100%!important;width: 50%!important;};
+	.filter_questionsContent{height: 100%!important;width: 100%!important}
+    .questions_list_actions .dropup ul.dropdown-menu-right{background-color: #fff}
+ .transempty{
+     border:1px solid #999;
+ }
+  .answer_border{border: 1px solid #999!important;}
+ 
+ #collapseOne .panel-body label{font-size: 16px;color: #595959} 
+ html{height: 100%;}
+ .distribute_inner{margin-bottom: 50px;}
+ #accordion{height: 75vh;display: inline-block;width: 100%;}
+ .disblesubmit{opacity: 0.5;}
+ .open>.dropdown-menu {
+    display: block;
+}
+.build_survey_rgt {
+    width: 80%;
+    height: 99%;
+}
+.enableOverflow{overflow: auto;padding-bottom: 5px;}
+.enableOverflow2{padding-bottom: 3px;width:29%}
+body{height: 100%;}
+@-moz-document url-prefix() {
+    .txt_accent {
+        max-height: 34px!important;
+    }
+} 
+</style> 
+ 
+
+
+
+
+
+
+

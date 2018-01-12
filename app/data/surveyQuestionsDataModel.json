@@ -1,0 +1,348 @@
+{
+	"survey_questions": {
+		"Career Opportunities & Professional Development": [{
+			"_id": "58bfa252a892e69df80b5ac4",
+			"template_name": {
+				"en": [
+					"STOP"
+				],
+				"es": [
+					"DETENER"
+				],
+				"zh-Hans": [
+					"停"
+				]
+			},
+			"question_type": "Single Select",
+			"category": {
+				"en": [
+					"Career Opportunities & Professional Development"
+				],
+				"es": [
+					"Oportunidades de Carrera & Desarrollo Profesional"
+				],
+				"zh-Hans": [
+					"就业机会 & 专业发展"
+				]
+			},
+			"text": {
+				"en": [
+					"The company provided me with opportunities to grow professionally"
+				],
+				"es": [
+					"La empresa me brindó oportunidades para crecer profesionalmente"
+				]
+			},
+			"answer_set": {
+				"name": {
+					"en": [
+						"Orientation Agreement 1-5"
+					],
+					"es": [
+						"Acuerdo de orientación 1-5"
+					]
+				},
+				"en": {
+					"0": "No answer",
+					"1": "Strongly Disagree",
+					"2": "Disagree",
+					"3": "Somewhat Agree/Somewhat Disagree",
+					"4": "Agree",
+					"5": "Strongly Agree"
+				},
+				"es": {
+					"0": "Sin respuesta",
+					"1": "Muy en desacuerdo",
+					"2": "Discrepar",
+					"3": "Algo de acuerdo / Algo en desacuerdo",
+					"4": "De acuerdo",
+					"5": "Totalmente de acuerdo"
+				}
+			}
+		}],
+		"Orientation/onboard": [{
+			"_id": "58bfa252a892e69df80b5ac5",
+			"template_name": {
+				"en": [
+					"STOP"
+				],
+				"es": [
+					"DETENER"
+				],
+				"zh-Hans": [
+					"停"
+				]
+			},
+			"question_type": "Single Select",
+			"category": {
+				"en": [
+					"Orientation/onboard"
+				],
+				"es": [
+					"Orientación / a bordo"
+				],
+				"zh-Hans": [
+					"方向/车载"
+				]
+			},
+			"text": {
+				"en": [
+					"Client Specific Single Select"
+				],
+				"es": [
+					"Selección individual específica del cliente"
+				]
+			},
+			"answer_set": {
+				"name": {
+					"en": [
+						"Agreement 1-4"
+					],
+					"es": [
+						"Acuerdo 1-4"
+					]
+				},
+				"en": {
+					"1": "Strongly Disagree",
+					"2": "Disagree",
+					"3": "Agree",
+					"4": "Strongly Agree"
+				},
+				"es": {
+					"1": "Muy en desacuerdo",
+					"2": "Discrepar",
+					"3": "Algo de acuerdo / Algo en desacuerdo",
+					"4": "De acuerdo"
+				}
+			}
+		}],
+		"Job Satisfaction": [{
+			"_id": "58bfa252a892e69df80b5ac7",
+			"template_name": {
+				"en": [
+					"STOP"
+				],
+				"es": [
+					"DETENER"
+				],
+				"zh-Hans": [
+					"停"
+				]
+			},
+			"question_type": "Single Select",
+			"category": {
+				"en": [
+					"Job Satisfaction"
+				],
+				"es": [
+					"Satisfacción laboral"
+				],
+				"zh-Hans": [
+					"工作满意度"
+				]
+			},
+			"text": {
+				"en": [
+					"I am motivated to go beyond what is normally expected of me to help the organization be successful"
+				],
+				"es": [
+					"Estoy motivado para ir más allá de lo que normalmente se espera de mí para ayudar a la organización a tener éxito"
+				]
+			},
+			"answer_set": {
+				"name": {
+					"en": [
+						"Orientation Agreement 1-5"
+					],
+					"es": [
+						"Acuerdo de orientación 1-5"
+					]
+				},
+				"en": {
+					"0": "No answer",
+					"1": "Strongly Disagree",
+					"2": "Disagree",
+					"3": "Somewhat Agree/Somewhat Disagree",
+					"4": "Agree",
+					"5": "Strongly Agree"
+				},
+				"es": {
+					"0": "Sin respuesta",
+					"1": "Muy en desacuerdo",
+					"2": "Discrepar",
+					"3": "Algo de acuerdo / Algo en desacuerdo",
+					"4": "De acuerdo",
+					"5": "Totalmente de acuerdo"
+				}
+			}
+		}, {
+			"_id": "58bfa252a892e69df80b5ac8",
+			"template_name": {
+				"en": [
+					"STOP"
+				],
+				"es": [
+					"DETENER"
+				],
+				"zh-Hans": [
+					"停"
+				]
+			},
+			"question_type": "Single Select",
+			"category": {
+				"en": [
+					"Job Satisfaction"
+				],
+				"es": [
+					"Satisfacción laboral"
+				],
+				"zh-Hans": [
+					"工作满意度"
+				]
+			},
+			"text": {
+				"en": [
+					"Client Specific Single Select"
+				],
+				"es": [
+					"Selección individual específica del cliente"
+				]
+			},
+			"answer_set": {
+				"name": {
+					"en": [
+						"Orientation Agreement 1-5"
+					],
+					"es": [
+						"Acuerdo de orientación 1-5"
+					]
+				},
+				"en": {
+					"0": "No answer",
+					"1": "Strongly Disagree",
+					"2": "Disagree",
+					"3": "Somewhat Agree/Somewhat Disagree",
+					"4": "Agree",
+					"5": "Strongly Agree"
+				},
+				"es": {
+					"0": "Sin respuesta",
+					"1": "Muy en desacuerdo",
+					"2": "Discrepar",
+					"3": "Algo de acuerdo / Algo en desacuerdo",
+					"4": "De acuerdo",
+					"5": "Totalmente de acuerdo"
+				}
+			}
+		}, {
+			"_id": "58bfa252a892e69df80b5ac9",
+			"template_name": {
+				"en": [
+					"STOP"
+				],
+				"es": [
+					"DETENER"
+				],
+				"zh-Hans": [
+					"停"
+				]
+			},
+			"question_type": "Single Select",
+			"category": {
+				"en": [
+					"Job Satisfaction"
+				],
+				"es": [
+					"Satisfacción laboral"
+				],
+				"zh-Hans": [
+					"工作满意度"
+				]
+			},
+			"text": {
+				"en": [
+					"I put in extra energy and effort into my work as needed"
+				],
+				"es": [
+					"Pongo más energía y esfuerzo en mi trabajo según sea necesario"
+				]
+			},
+			"answer_set": {
+				"name": {
+					"en": [
+						"Orientation Agreement 1-5"
+					],
+					"es": [
+						"Acuerdo de orientación 1-5"
+					]
+				},
+				"en": {
+					"0": "No answer",
+					"1": "Strongly Disagree",
+					"2": "Disagree",
+					"3": "Somewhat Agree/Somewhat Disagree",
+					"4": "Agree",
+					"5": "Strongly Agree"
+				},
+				"es": {
+					"0": "Sin respuesta",
+					"1": "Muy en desacuerdo",
+					"2": "Discrepar",
+					"3": "Algo de acuerdo / Algo en desacuerdo",
+					"4": "De acuerdo",
+					"5": "Totalmente de acuerdo"
+				}
+			}
+		}],
+		"NewCategory": [{
+			"_id": "58bfa252a892e69df80b5ac6",
+			"template_name": {
+				"en": [
+					"STOP"
+				],
+				"es": [
+					"DETENER"
+				],
+				"zh-Hans": [
+					"停"
+				]
+			},
+			"question_type": "Single Select",
+			"category": {
+				"en": [
+					"NewCategory"
+				]
+			},
+			"text": {
+				"en": [
+					"My job makes good use of my skills and abilities"
+				],
+				"es": [
+					"Mi trabajo hace buen uso de mis habilidades y habilidades"
+				]
+			},
+			"answer_set": {
+				"name": {
+					"en": [
+						"Agreement 1-4"
+					],
+					"es": [
+						"Acuerdo 1-4"
+					]
+				},
+				"en": {
+					"1": "Strongly Disagree",
+					"2": "Disagree",
+					"3": "Agree",
+					"4": "Strongly Agree"
+				},
+				"es": {
+					"1": "Muy en desacuerdo",
+					"2": "Discrepar",
+					"3": "Algo de acuerdo / Algo en desacuerdo",
+					"4": "De acuerdo"
+				}
+			}
+		}]
+	}
+}

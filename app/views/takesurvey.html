@@ -1,0 +1,241 @@
+<style> 
+    .grid_qs_table > tbody > tr > td{ padding:0px 10px; width:50px; font-size:12px; color:#595959; }
+    .grid_qs_table > thead > tr > th{ font-weight:normal; font-size:12px; color:#595959; }
+    .grid_qs_table > tbody > tr > td:nth-child(1){ width:auto;}
+
+    .yes_no_qs_table > tbody > tr > td{ min-width:100px; }
+
+    .radio.accent input[type="radio"]:checked ~ .circle, label.radio-inline input[type="radio"]:checked ~ .circle{ border-color:#ffa12d; }
+    .radio.accent input[type="radio"]:checked ~ .check, label.radio-inline input[type="radio"]:checked ~ .check{ background-color:#ffa12d; }
+
+     
+
+.ranking_qs > .ranking_qs_list > li > div { background-color:#f8f8f8; border:1px solid #ededed; border-radius:2px; padding:5px 10px; min-width:100px; font-size:13px; margin-left:10px; }
+
+    .ranking_qs > .ranking_qs_list > li > div > span{ background-color:#ffa12d; color:#fff; width:20px; height:20px; display:block; text-align:center; border-radius:50%; float:left; margin-right:10px; font-size:13px; }
+
+    .slick-initialized{
+        position: inherit;
+    }
+    .slick-arrow{
+        position: absolute;
+        color: #8f8f8f;
+    }
+    .category_slider{
+        position: relative;
+                   display: inline-block !important;
+    width: 100% ;
+    }
+    .slick-next{right: 0;font: normal normal normal 14px/1 FontAwesome;background-color: transparent;border: 0;font-size: 0;top: 0;bottom: 0}
+    .slick-next::before{content: "\f0da";font-size: 20px}
+    .slick-prev{right: 15px;font: normal normal normal 14px/1 FontAwesome;background-color: transparent;border: 0;font-size: 0;top: 0;bottom: 0;}
+    .slick-prev::before{content: "\f0d9";font-size: 20px;}
+    .slick-disabled{color: #eeeeee}
+    .take_logo{height: 35px;}
+     body .loader{
+        display: block;
+    } 
+    .comment_qs
+    {
+        width: 100%;
+    }
+    .yesnotype li{width: 70px;height: 30px;margin-right: 3px;background-color: #ededed;cursor: pointer}
+    </style>    
+<!-- Top menu -->
+ <!--Flash messages start-->
+<!--Flash messages end-->
+<div class="top_menu takesurvey_menu">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#"><img src="{{clientlogo}}" alt="SP logo" class="top_logo take_logo" /></a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#"><i class="fa fa-home"></i><span class="sr-only">(current)</span></a></li>
+                </ul>
+                
+                <ul class="nav navbar-nav navbar-right">
+                	<li ng-if="selectedLanguages.length>0">
+                		<select ng-model="selectedLanguage" ng-change="setLanguageKey(selectedLanguage)" ng-options="x.name for x in selectedLanguages">
+						</select>
+                	</li>
+                    <li>
+                        Welcome <span class="txt_green"> {{userDetails.firstname}} {{userDetails.lastname}} </span> <i class="fa fa-user"> </i>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+</div>
+<flash-message   name="flash-fixed-submit" id="submit_survey"></flash-message> 
+    <!-- /Top menu -->  
+<section class="content_block " ng-show='displayContentBlock'>
+    <div class="participants_block">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading no-brdr">
+                            <h4 class="panel-title"><span class="text-left">{{surveyObj.survey_name}}</span> </h4>
+                            <span class=" pull-right panel-title txt_green" ng-model='ttt' ng-change='tt(keys(answers).length/count*100 | number:0)'> {{keys(answers).length/count*100 | number:0}}% Completed </span>
+                        </div>
+                        <div class="panel-body">
+                            <p>{{survey_description}}</p>                           
+                            <div class="category_slider">
+                                <div class="category_width">
+                                    <slick class="slider" settings="slickConfig2" ng-if="slideload">
+                                          <div role="presentation" class="takesurveytab" ng-class="{active: category[language_key][category[language_key].length-1] == tabvalue}" ng-repeat="category in categoryTabs track by $index" ng-click="tabschange(category[language_key][category[language_key].length-1], category)"><a href="" aria-controls="home" role="tab" data-toggle="tab">{{category[language_key][category[language_key].length-1]=='' || category[language_key][category[language_key].length-1]==undefined || category[language_key][category[language_key].length-1]==null?category[default_language_key][category[default_language_key].length-1]:category[language_key][category[language_key].length-1]}}</a></div>
+                                    </slick>
+                                </div>
+                            </div>
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane" id="{{question[0].category[language_key][0]}}" ng-class="{active: question[0].category[language_key][0] == tabvalue}" ng-repeat="question in surveyObj.survey_questions | customFilter">
+                                    <!-- <p>{{categoryWithDescription}}{{categoryWithDescription[language_key]!='Category Description'?categoryWithDescription[language_key]:''}}</p> -->
+                                    <p>{{categoryWithDescription[category_id[language_key][category_id[language_key].length-1]]}}</p>
+                                    <section class="take_survey_qs_block" >
+                                        <div class="take_survey_qs_list" ng-repeat="questiontype in question" ng-click="mystyle=true" ng-init="mystyle=true;myansindex;questiontop=false" ng-show='questiontype.displayQues'>
+                                            <div class="row" ng-if="questiontype.question_type=='Single Select'" ng-init="questiontype.text[language_key][questiontype.text[language_key].length-1]==undefined || questiontype.text[language_key][questiontype.text[language_key].length-1]=='' || questiontype.text[language_key][questiontype.text[language_key].length-1]==null?language_key=default_language_key:''">
+                                                <div class="col-md-6">
+                                                    <p ng-style="questiontop==false?{'margin-top':'60px'}:''">{{questiontype.questionNo}}.  {{questiontype.text[language_key][questiontype.text[language_key].length-1]}}</p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="single_select_qs">
+                                                        <table border="0" cellspacing="0" cellpadding="0" class="single_select_qs_table pull-right">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <!--<td ng-repeat="(key, value) in questiontype.answer_set[language_key]" ng-hide="($parent.$index>=1?keys(question[$parent.$index-1].answer_set[language_key]).length:'0')==keys(questiontype.answer_set[language_key]).length" >{{value}}</td>-->
+                                                                    <!--<td ng-repeat="(key, value) in questiontype.answer_set[language_key]"  ng-if="questiontype.question_type!=question[$parent.$index-1].question_type" >{{value}}</td>-->
+                                                                    <td ng-repeat="(key, value) in questiontype.answer_set[language_key]" ng-hide="showdata(question[$parent.$index-1].answer_set[language_key], questiontype.answer_set[language_key]);$parent.questiontop=showdata(question[$parent.$index-1].answer_set[language_key], questiontype.answer_set[language_key])" >{{value}}</td>                                                                    
+                                                                </tr>
+                                                                <tr>
+                                                                
+                                                                    <!--<td ng-repeat="(key, value) in questiontype.answer_set[language_key]" ng-init="$parent.myansindex=answers[questiontype.localqid].answer">
+                                                                  
+                                                                        <button class="answer_btn" ng-click="saveAns(questiontype,$index);$parent.myansindex=$index" 
+                                                                        ng-style="mystyle?answers[questiontype.localqid].answer >= $index?$index!=0?{'background-color': 'rgba(255,161,45,'+ (1/keys(questiontype.answer_set[language_key]).length*($index+1)) +')'}:$parent.myansindex==0?{'background-color':'#a9a9a9'}:'':'':''">{{$index==0?'NA':$index}}</button> 
+                                                                    </td>   -->
+                                                                   <td ng-repeat="(key, value) in questiontype.answer_set[language_key]" ng-init="$parent.myansindex=answers[questiontype.localqid].answer">
+                                                                        <button class="answer_btn" ng-click="saveAns(questiontype,key);$parent.myansindex=key" 
+                                                                        ng-style="mystyle?answers[questiontype.localqid].answer >= (key==$index?$index:$index+1)?key!=0?{'background-color': 'rgba(255,161,45,'+ (1/keys(questiontype.answer_set[language_key]).length*($index+1)) +')'}:$parent.myansindex==0?{'background-color':'#a9a9a9'}:'':'':''">{{key==0?'NA':key}}</button> 
+                                                                    </td> 
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row" ng-if="questiontype.question_type=='Open Ended'" ng-init="questiontype.text[language_key][questiontype.text[language_key].length-1]==undefined || questiontype.text[language_key][questiontype.text[language_key].length-1]=='' || questiontype.text[language_key][questiontype.text[language_key].length-1]==null?language_key=default_language_key:''">
+                                                <div class="col-md-6">
+                                                    <p>{{questiontype.questionNo}}.  {{questiontype.text[language_key][questiontype.text[language_key].length-1]}}</p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="comment_qs pull-right">
+                                                        <textarea class=""  ng-model='answers[questiontype.localqid].answer' id='oe_{{questiontype.localqid}}' ng-change="saveAns(questiontype,key,oe_ans)"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row" ng-if="questiontype.question_type=='Ranked'" ng-init="questiontype.text[language_key][questiontype.text[language_key].length-1]==undefined || questiontype.text[language_key][questiontype.text[language_key].length-1]=='' || questiontype.text[language_key][questiontype.text[language_key].length-1]==null?language_key=default_language_key:''">
+                                                <div class="col-md-6">
+                                                    <p>{{questiontype.questionNo}}.  {{questiontype.text[language_key][questiontype.text[language_key].length-1]}}</p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="ranking_qs pull-right"> 
+                                                        <ul class="ranking_qs_list list-inline clearfix" style='background-color: #ededed;' >
+                                                            <li  style='padding:5px' ng-repeat="ranked in questiontype.answer_set[language_key]" ng-init="rankedans=questiontype.answer_set[language_key]" data-drop="true" ng-model='rankedans' jqyoui-droppable="{index: {{$index}},onDrop:'saveRank(questiontype,rankedans)'}" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" jqyoui-draggable="{index: {{$index}},insertInline: true, animate: true, placeholder:true}"><div ng-hide="!ranked.title"><span>{{$index+1}}</span> 
+                                                            {{ranked.title}}</div> </li>
+                                                        </ul>            
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+                                            <div class="row" ng-if="questiontype.question_type=='Yes/No'" ng-init="questiontype.text[language_key][questiontype.text[language_key].length-1]==undefined || questiontype.text[language_key][questiontype.text[language_key].length-1]=='' || questiontype.text[language_key][questiontype.text[language_key].length-1]==null?language_key=default_language_key:''">
+                                                <div class="col-md-6">
+                                                    <p>{{questiontype.questionNo}}.  {{questiontype.text[language_key][questiontype.text[language_key].length-1]}}</p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="ranking_qs pull-right">
+                                                    <ul class="ranking_qs_list list-inline clearfix yesnotype">
+												<!-- <li  style='padding:5px' ng-repeat="(key, value) in questiontype.answer_set[language_key]">	
+													<input type='radio' 
+													ng-click="saveAns(questiontype,key)"
+													ng-model="answers[questiontype.localqid].answer"
+													value="{{key}}"
+													name='yesNo_{{questiontype.localqid}}'
+													>&nbsp;&nbsp;{{value}}
+												</li> -->
+                                                <li class="text-center" style='padding:5px' ng-init="yesnoObj=false" ng-repeat="(key, value) in questiontype.answer_set[language_key]" ng-click="saveAns(questiontype,key);yesnoObj=true" ng-style="key==answers[questiontype.localqid].answer?{'background-color':'#ffa12d'}:''"> 
+                                                    {{value}}
+                                                </li>
+											</ul>                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                         <div class="row" ng-if="questiontype.question_type=='Matrix'" ng-init="questiontype.text[language_key][questiontype.text[language_key].length-1]==undefined || questiontype.text[language_key][questiontype.text[language_key].length-1]=='' || questiontype.text[language_key][questiontype.text[language_key].length-1]==null?language_key=default_language_key:''">
+                                            <div class="col-md-6">
+                                                <p>{{questiontype.questionNo}}.  {{questiontype.text[language_key][questiontype.text[language_key].length-1]}}</p>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="grid_qs pull-right">
+                                                    <table border="0" cellspacing="0" cellpadding="0" class="grid_qs_table pull-right table-striped">
+                                                      <thead>
+                                                        <tr>
+                                                          <th> </th>
+                                                          <th ng-repeat="(key, value) in questiontype.answer_set[language_key]">
+                                                              {{value}}
+                                                          </th>
+                                                         <!--  <th>No Impact</th>
+                                                          <th>Some Impact</th>
+                                                          <th>Strong Impact</th>
+                                                          <th>Main Reason for leaving</th> -->
+                                                        </tr>
+                                                      </thead>
+                                                      <tbody>
+                                                        <!-- <tr>
+                                                          <td>a. Compensation/Pay </td>
+                                                          <td><div class="radio accent"> <label> <input type="radio" name="sample1" value="option1" checked=""> <span class="circle"></span><span class="check"></span> </label> </div> </td>
+                                                          <td><div class="radio accent"> <label> <input type="radio" name="sample1" value="option1" checked=""> <span class="circle"></span><span class="check"></span> </label> </div> </td>
+                                                        </tr>
+ -->                                                                                                                                                                                      <tr ng-repeat="subquestion in questiontype.rows[language_key]">
+                                                                <td>{{subquestion}}</td>
+                                                                <td ng-repeat="(key, value) in questiontype.answer_set[language_key]" ><div class="radio accent"> <label> <input type="radio" name="" ng-model="answers[questiontype.localqid].answer[language_key][subquestion]" ng-click="saveAns(questiontype,value,subquestion)" value="{{value}}"> <span class="circle"></span><span class="check"></span> </label> </div></td>
+                                                            </tr>
+                                                      </tbody>
+                                                    </table>                                      
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row" ng-if="questiontype.question_type=='Demographic'" ng-init="questiontype.text[language_key][questiontype.text[language_key].length-1]==undefined || questiontype.text[language_key][questiontype.text[language_key].length-1]=='' || questiontype.text[language_key][questiontype.text[language_key].length-1]==null?language_key=default_language_key:''">
+                                            <div class="col-md-6">
+                                                <p>{{questiontype.questionNo}}.  {{questiontype.text[language_key][questiontype.text[language_key].length-1]}}</p>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="grid_qs pull-right" ng-init="DemographicModel=questiontype.answer">
+                                                    <select ng-model="DemographicModel" id="demoselect" ng-change="saveAns(questiontype, DemographicModel)" ng-options="x for x in questiontype.answer_set[language_key]">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                    <p class="pull-right">
+                                         <button class="md-button md-primary" ng-click="saveResponse($index+1, $last, tabvalue, question)">{{$last?'Submit':'Continue'}}</button>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

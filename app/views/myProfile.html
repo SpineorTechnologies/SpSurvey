@@ -1,0 +1,114 @@
+    <!--  Content -->
+    <flash-message name="flash-fixed-myProfile"></flash-message> 
+     <form name="myProfileForm"   novalidate>
+    	<section class="content_block">
+        	<div class="mysurvey_block">
+            	<div class="container-fluid">
+                	<div class="row">
+                    	<div class=" col-sm-5 col-md-3">
+                        	<div class="panel panel-default">
+                              <div class="panel-body myprofile_block text-center">
+                                <div class="row">
+                                  <div class="col-md-12">
+                              	<figure ng-show="!cropShow"> 
+                                	<img data-ng-src="{{myprofilePic.dataUrl}}" alt=""  class="center-block img-responsive"/>                                
+                                </figure>
+                              </div>
+                        	</div>
+                                <div class="row">
+                                  <div class="col-md-12 cropArea" ng-show="cropShow">
+                                        	<ui-cropper allow-crop-resize-on-corners="false" image="myImage" result-image-size="100" result-image="myCroppedImage" area-type="circle" result-image-format="image/jpeg" result-image-quality="1.0"></ui-cropper>
+                                          </div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col-md-12 marginT1">
+                                          <label for="image" class="custom-file-upload">
+                                          <i class="fa fa-cloud-upload"></i> Upload Picture
+                                          </label>
+                                          <input id="image" name="image" type="file"/>
+                        </div>                    
+                                  </div>
+                              </div>                                          
+                        	</div>
+                        </div>                    
+                    	<div class="col-sm-7 col-md-9">
+                        	<div class="panel panel-default">
+                              <div class="panel-body p-40 myprofile_block">
+                              	<div class="row">
+                                	<div class="col-md-6">
+                                      <div class="form-group label-static">
+                                        <label for="i2" class="control-label">First Name *</label>
+                                        <input type="text" class="form-control" name="firstName" id="firstName" ng-model="firstName" required>
+                                      </div>                                     
+                                        <p ng-show="submitted && myProfileForm.firstName.$error.required" class="help-block text-danger">First name is required.</p>
+                                    </div>
+                                	<div class="col-md-6">
+                                      <div class="form-group label-static">
+                                        <label for="i3" class="control-label">Last Name *</label>
+                                        <input type="text" class="form-control" name="lastName" id="lastName" ng-model="lastName" required>
+                                      </div>                                    
+                                        <p ng-show="submitted && myProfileForm.lastName.$error.required" class="help-block text-danger">Last name is required.</p>
+                                    </div>
+                                	<div class="col-md-12">
+                                      <div class="form-group label-static">
+                                        <label for="i4" class="control-label">Email id *</label>
+                                        <input type="email" disabled class="form-control" id="emailId" ng-model="emailId" required>
+                                        <!-- <p ng-show="myProfileForm.emailId.$invalid && !myProfileForm.emailId.$pristine" class="help-block">Email is required.</p> -->
+                                      </div>                                    
+                                    </div>
+                                	<div class="col-md-12">
+                                    	<h4 class="display-1">Change Password</h4>                                 
+                                    </div>
+                                	<div class="col-md-6"> 
+                                      <div class="form-group label-static">
+                                        <label for="i5" class="control-label">Current Password</label>
+                                        <input type="password" class="form-control" id="currentPwd" ng-model="currentPwd"  ng-blur="validateCurrentPwd();">
+                                      </div>                                    
+                                         <p ng-show="validatePwd" class="help-block text-danger">The Entered Password is Incorrect.</p>
+                                    </div>
+                                	<div class="col-md-6">
+                                      <div class="form-group label-static">
+                                        <label for="i6" class="control-label">New Password</label>
+                                        <input type="password" class="form-control" id="newPwd" ng-model="newPwd">
+                                      </div>                                    
+                                    </div>
+                                	<div class="col-md-12">
+										 <button ng-click="profileUpdate(myProfileForm.$valid);" class="md-button md-primary"> Submit </button>                                  
+                                    </div>
+                                </div>
+                              </div>
+                        	</div>
+                    	</div>
+                    </div>
+                </div>
+            </div>        
+        </section>
+        </form>
+    
+    <!--  /Content -->
+<style type="text/css">
+  .cropArea {
+      background: #E4E4E4;  
+      overflow: hidden;
+      width:290px;
+      height:280px;
+    }
+    input[type="file"] {
+    display: none;
+    }
+    .custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    background: #00a0ac;
+    color: #fff !important;
+
+    }
+    .marginT1 {
+      margin-top:1% !important;
+    }
+</style>    
+    
+    
+  

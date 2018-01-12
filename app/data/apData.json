@@ -1,0 +1,95 @@
+{
+	"totalParticipants": [{
+		"_id": {
+			"customer_survey_id": "591a715babad96182f6204d4",
+			"questionText": "My compensation meets the expectations I had when joining [company]"
+		},
+		"count": 2
+	}, {
+		"_id": {
+			"customer_survey_id": "591a715babad96182f6204d4",
+			"questionText": "My compensation is competitive with similar organizations"
+		},
+		"count": 2
+	}, {
+		"_id": {
+			"customer_survey_id": "591a715babad96182f6204d4",
+			"questionText": "I am paid fairly for the work I do"
+		},
+		"count": 2
+	}, {
+		"_id": {
+			"customer_survey_id": "591ab531411fb3350d970372",
+			"questionText": "My compensation meets the expectations I had when joining [company]"
+		},
+		"count": 1
+	}, {
+		"_id": {
+			"customer_survey_id": "591a715babad96182f6204d4",
+			"questionText": "My compensation was competitive with similar organizations"
+		},
+		"count": 2
+	}, {
+		"_id": {
+			"customer_survey_id": "591a715babad96182f6204d4",
+			"questionText": "I was paid appropriately for my job responsibilities"
+		},
+		"count": 2
+	}, {
+		"_id": {
+			"customer_survey_id": "591a715babad96182f6204d4",
+			"questionText": "My compensation is competitive with other healthcare organizations in the area"
+		},
+		"count": 2
+	}],
+	"completedParticipants": [{
+		"_id": {
+			"customer_survey_id": "591a715babad96182f6204d4",
+			"questionText": "My compensation is competitive with other healthcare organizations in the area",
+			"answer": 5
+		},
+		"count": 1
+	}, {
+		"_id": {
+			"customer_survey_id": "591a715babad96182f6204d4",
+			"questionText": "My compensation meets the expectations I had when joining [company]",
+			"answer": 5
+		},
+		"count": 1
+	}, {
+		"_id": {
+			"customer_survey_id": "591a715babad96182f6204d4",
+			"questionText": "My compensation is competitive with similar organizations",
+			"answer": 5
+		},
+		"count": 2
+	}, {
+		"_id": {
+			"customer_survey_id": "591a715babad96182f6204d4",
+			"questionText": "I am paid fairly for the work I do",
+			"answer": 4
+		},
+		"count": 1
+	}, {
+		"_id": {
+			"customer_survey_id": "591a715babad96182f6204d4",
+			"questionText": "My compensation was competitive with similar organizations",
+			"answer": 4
+		},
+		"count": 1
+	}, {
+		"_id": {
+			"customer_survey_id": "591a715babad96182f6204d4",
+			"questionText": "My compensation was competitive with similar organizations",
+			"answer": 5
+		},
+		"count": 1
+	}, {
+		"_id": {
+			"customer_survey_id": "591ab531411fb3350d970372",
+			"questionText": "My compensation meets the expectations I had when joining [company]",
+			"answer": 5
+		},
+		"count": 1
+	}]
+}

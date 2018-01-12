@@ -1,0 +1,100 @@
+
+{
+	"clientId": "10001",
+	"adminId": "1007",
+	"data": [{
+			"baseQuestionId": "590af44030ad4e0217746029",
+			"question": {
+				"text": "I was made to feel welcome as a new employee"
+			},
+			"category": {
+				"text": "Orientation",
+				"description": "Provide feedbacks regularly"
+			},
+			"plan": {
+				"planName": "",
+				"actionPlanCreator": "",
+				"itemScore": "",
+				"areaFocus": "",
+				"actionItem": [
+					"Hold focus groups with employees of less than one year tenure to find out what could have made them feel more comfortable as a new employee. Use your findings to take targeted action.",
+					"Institute a mentor program. Assign each new employee a mentor to help guide them and make them feel welcome."
+				],
+				"startDate": "",
+				"dueDate": "",
+				"planStatus": "",
+				"notes": ""
+			}
+		},{
+			"baseQuestionId": "590af44030ad4e0217746030",
+			"question": {
+				"text": "Orientation provided the information I needed to be successful"
+			},
+			"category": {
+				"text": "Orientation",
+				"description": "Provide feedbacks regularly"
+			},
+			"plan": {
+				"planName": "",
+				"actionPlanCreator": "",
+				"itemScore": "",
+				"areaFocus": "",
+				"actionItem": [
+					"Evaluate orientation to ensure it includes critical information/training to set new employees up for success.  Determine if there a disconnect between topics covered in orientation and the items new employees feel they need to know to be successful.",
+					"Hold focus groups with current employees to find out what in orientation did / did not help in their new positions.  Determine orientation strengths and areas of opportunity to take targeted action."
+				],
+				"startDate": "",
+				"dueDate": "",
+				"planStatus": "",
+				"notes": ""
+			}
+		},
+		{
+			"baseQuestionId": "590af44030ad4e021774602a",
+			"question": {
+				"text": "Employees were treated fairly regardless of their race, gender, age, etc."
+			},
+			"category": {
+				"text": "Culture & Climate",
+				"description": "Update team on progress"
+			},
+			"plan": {
+				"planName": "",
+				"actionPlanCreator": "",
+				"itemScore": "",
+				"areaFocus": "",
+				"actionItem": [
+					"Identify which demographic has scored this item low. Determine if this is a perception or a reality. If a perception only, outline a plan for communicating the processes and procedures that are in place to ensure fair treatment. If a reality, outline a plan for creating processes and procedures to ensure fair treatment including accountability triggers and then outline a communication plan.",
+					"Monitor compliance issue reports and other feedback for specific areas to take targeted action."
+				],
+				"startDate": "",
+				"dueDate": "",
+				"planStatus": "",
+				"notes": ""
+			}
+		},
+        {
+			"baseQuestionId": "590af44030ad4e0217746027",
+			"question": {
+				"text": "Interview successful employees to determine what they wish they would have learned more about or spent more time on during department orientation."
+			},
+			"category": {
+				"text": "Quality",
+				"description": "Identify procedures to provide quality results"
+			},
+			"plan": {
+				"planName": "",
+				"actionPlanCreator": "",
+				"itemScore": "",
+				"areaFocus": "",
+				"actionItem": [
+					"Create a checklist of department specific procedures that must be covered in orientation.  Have supervisors review the checklist at the beginning of orientation and periodically throughout the program.  Not only will this ensure your employees are well informed, it will help supervisors ensure all relevant information is being covered. "
+				],
+				"startDate": "",
+				"dueDate": "",
+				"planStatus": "",
+				"notes": ""
+			}
+		}
+	]
+}

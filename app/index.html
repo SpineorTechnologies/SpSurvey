@@ -1,0 +1,346 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Peopleelement</title>
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width">
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+<!-- build:css(.) styles/vendor.css -->
+<link rel="stylesheet" href="vendor/css/c3.min.css" />
+<link rel="stylesheet" href="bower_components/jquery-ui/themes/base/jquery-ui.css">
+
+<!-- bower:css -->
+<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+<link rel="stylesheet" href="bower_components/ng-inline-edit/dist/ng-inline-edit.css" />
+<link rel="stylesheet" href="bower_components/ng-table/dist/ng-table.min.css" />
+<link rel="stylesheet" href="bower_components/angularjs-datepicker/dist/angular-datepicker.css" />
+<link rel="stylesheet" href="bower_components/ng-tags-input/ng-tags-input.css" />
+<link rel="stylesheet" href="bower_components/slick-carousel/slick/slick.css" />
+<link rel="stylesheet" href="bower_components/angular-flash-alert/dist/angular-flash.css" />
+<link rel="stylesheet" href="bower_components/jQuery-QueryBuilder/dist/css/query-builder.default.css" />
+<link rel="stylesheet" href="bower_components/angular-gridster/dist/angular-gridster.css" />
+<link rel="stylesheet" href="bower_components/ui-cropper/compile/minified/ui-cropper.css" />
+<!-- endbower -->
+<link href="styles/css/bootstrap-material-design.min.css"
+	rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700"
+	rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
+<link href="styles/css/font-awesome.min.css" rel="stylesheet">
+<link href="styles/css/ripples.min.css" rel="stylesheet">
+<link href="styles/css/md-data-table-style.css" rel="stylesheet">
+<link href="styles/main.css" rel="stylesheet">
+<link href="styles/css/mainstyle.css" rel="stylesheet">
+<link href="vendor/angularMultipleSelect/multiple-select.min.css" rel="stylesheet">
+
+<!-- endbuild -->
+
+</head>
+<body ng-app="spApp" class="" ng-class="{login_bg: currentPage == '/'}" ng-cloak>
+	<!--[if lte IE 8]>
+    <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+	<!-- Add your site or application content here -->
+	<div ng-include="'views/header.html'"></div>
+
+	<!-- /Top menu -->
+	<div>
+		<ui-view></ui-view>
+	</div>
+	<!-- Logout Alert Modal -->
+	<div class="modal fade" ng-controller="loginController"
+		data-backdrop="static" id="sessionValidModel" tabindex="-1"
+		role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
+					<h4 class="modal-title">please logout the existing session</h4>
+				</div>
+				<div class="modal-body">
+					<h1></h1>
+
+					<query-builder group="filter.group"></query-builder>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal"
+						ng-click="cancel()">Cancel</button>
+					<button type="button" class="btn btn-primary" ng-click="logout()">Logout</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Logout Alert Modal -->
+
+	<!-- Forgot Password Modal -->
+	<div class="modal fade green_theme" id="forgotpwdmodal" data-backdrop="static"
+		ng-controller="loginController" tabindex="-1" role="dialog"
+		aria-labelledby="forgotpwdmodalLabel">
+		<form name='myForgotForm'  ng-submit="forgotPwdSubmit(myForgotForm.$valid)" novalidate autocomplete="off">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">
+							<i class="material-icons">close</i>
+						</button>
+						<h4 class="modal-title">Forgot Password</h4>
+					</div>
+					<div class="modal-body">
+
+						<span>Please enter your registered email.</span> <span
+							class="text-danger" style="display: none" id="forgotPwdError">Email ID is not found in the system </span> <input type="email"
+							class="form-control input_brdr" ng-model="forgotPwdEmail"
+							name="input" placeholder="Email" ng-keyup="forgotCheckEmpty=false" required>
+							<span class="error text-danger" ng-show="forgotCheckEmpty">
+								Required!</span>
+								 <span class="error text-danger"
+								ng-show="myForgotForm.input.$error.email"> Please
+							enter a valid email!</span>
+
+					</div>
+					<div class="modal-footer">
+						<button type="submit" ng-disabled="forgotSubmit"  class="md-button md-primary login_button_green"
+							>Submit</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+	<!-- /Forgot Password Modal  -->
+	<!-- Reset Expired Model start-->
+
+	<div class="modal fade" id="resetlinkExpiredmodal" data-backdrop="static"
+	 ng-controller="resetPassWordController" tabindex="-1" role="dialog"
+		aria-labelledby="resetlinkExpiredmodalLabel">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<!-- <button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">
+						<i class="material-icons">close</i>
+					</button> -->
+					<h4 class="modal-title">Reset Link Expired/User is inactive</h4>
+				</div>
+				<div class="modal-body">
+
+					<span>The link provided is expired please get new link by forgotpassword or user may be inactive</span>
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="md-button md-primary"
+						ng-click="resetExpireSubmit()">OK</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Reset Expired Model end-->
+	<!-- Loaader start-->
+	<div class="loader" loading>
+		<div class="spinner"></div>
+	</div>
+	
+	<!-- Loaader end-->
+
+	<!-- build:js(.) scripts/vendor.js -->
+	<!-- bower:js -->
+	<script src="bower_components/jquery/dist/jquery.js"></script>
+	<script src="bower_components/angular/angular.js"></script>
+	<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+	<script src="bower_components/angular-animate/angular-animate.js"></script>
+	<script src="bower_components/angular-cookies/angular-cookies.js"></script>
+	<script src="bower_components/angular-resource/angular-resource.js"></script>
+	<script src="bower_components/angular-route/angular-route.js"></script>
+	<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+	<script src="bower_components/angular-touch/angular-touch.js"></script>
+	<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+	<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+	<script src="bower_components/ngstorage/ngStorage.js"></script>
+	<script src="bower_components/jquery-ui/jquery-ui.js"></script>
+	<script src="bower_components/angular-dragdrop/src/angular-dragdrop.js"></script>
+	<script src="bower_components/checklist-model/checklist-model.js"></script>
+	<script src="bower_components/ng-inline-edit/dist/ng-inline-edit.js"></script>
+	<script src="bower_components/ng-file-upload/ng-file-upload.js"></script>
+	<script src="bower_components/dragtable/jquery.dragtable.js"></script>
+	<script src="bower_components/angular-ui-sortable/sortable.js"></script>
+	<script src="bower_components/ng-table/dist/ng-table.min.js"></script>
+	<script src="bower_components/angularjs-datepicker/dist/angular-datepicker.js"></script>
+	<script src="bower_components/angular-md5/angular-md5.js"></script>
+	<script src="bower_components/ng-tags-input/ng-tags-input.js"></script>
+	<script src="bower_components/ng-idle/angular-idle.js"></script>
+	<script src="bower_components/slick-carousel/slick/slick.js"></script>
+	<script src="bower_components/angular-slick-carousel/dist/angular-slick.js"></script>
+	<script src="bower_components/angular-flash-alert/dist/angular-flash.js"></script>
+	<script src="bower_components/angular-jq-querybuilder/dist/AngularJqueryQueryBuilderDirective.js"></script>
+	<script src="bower_components/file-saver/FileSaver.js"></script>
+	<script src="bower_components/js-xlsx/dist/xlsx.core.min.js"></script>
+	<script src="bower_components/moment/moment.js"></script>
+	<script src="bower_components/jquery-extendext/jQuery.extendext.js"></script>
+	<script src="bower_components/doT/doT.js"></script>
+	<script src="bower_components/jQuery-QueryBuilder/dist/js/query-builder.js"></script>
+	<script src="bower_components/angular-mocks/angular-mocks.js"></script>
+	<script src="bower_components/ng-contextmenu/dist/ng-contextmenu.js"></script>
+	<script src="bower_components/bootstrap-contextmenu/bootstrap-contextmenu.js"></script>
+	<script src="bower_components/angular-acl/angular-acl.js"></script>
+	<script src="bower_components/javascript-detect-element-resize/detect-element-resize.js"></script>
+	<script src="bower_components/angular-gridster/src/angular-gridster.js"></script>
+	<script src="bower_components/angular-fixed-table-header/src/fixed-table-header.js"></script>
+	<script src="bower_components/mathjs/dist/math.min.js"></script>
+	<script src="bower_components/jquery.floatThead/dist/jquery.floatThead.js"></script>
+	<script src="bower_components/jquery.floatThead/dist/jquery.floatThead.min.js"></script>
+	<script src="bower_components/tiny-angular-wordcloud/dist/tangCloud.js"></script>
+	<script src="bower_components/ui-cropper/compile/minified/ui-cropper.js"></script>
+	<script src="bower_components/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
+	<!-- endbower -->
+	<!-- endbuild -->
+	<!-- build:js({.tmp,app}) scripts/scripts.js -->
+	<script src="vendor/angularMultipleSelect/multiple-select.min.js"></script>
+
+	<script src="vendor/js/material.min.js"></script>
+	<script src="vendor/js/d3.js"></script>
+	<script src="vendor/js/c3.js"></script>
+	<script src="vendor/js/ripples.min.js"></script>
+	<script src="vendor/js/d3.layout.cloud.js"></script>
+	<script src="vendor/js/tangCloud.js"></script>
+	<script src="vendor/js/underscore-min.js"></script>
+	<script src="vendor/js/svg_todataurl.js"></script>
+	<script src="scripts/app.js"></script>
+	<script src="scripts/route.js"></script>
+	<script src="scripts/envconfig.js"></script>
+	<script src="scripts/saml/samlLogin.service.js"></script>
+	<script src="scripts/saml/samlLogin.controller.js"></script>
+	
+	<script src="scripts/login/login.service.js"></script>
+	 <script src="scripts/dashboard/gauge.service.js"></script> 
+	<script src="scripts/dashboard/dashboard.service.js"></script>
+	<script src="scripts/yesno/yesno.services.js"></script>
+	<script src="scripts/participants/partipants.route.js"></script>
+	<script src="scripts/editClient/editClient.service.js"></script>
+	<script src="scripts/participants/participants.services.js"></script>
+	<script src="scripts/participants/colResizable.js"></script>
+	<script src="scripts/participants/participants.controller.js"></script>
+	<script src="scripts/mySurvey/mySurvey.controller.js"></script>
+	<script src="scripts/spcaller/spcaller.controller.js"></script>
+	<script src="scripts/buildSurvey/buildSurvey.controller.js"></script>
+	<script src="scripts/buildSurvey/distribute.controller.js"></script>
+	<script src="scripts/login/login.controller.js"></script>
+	<script src="scripts/resetpassword/resetPassword.controller.js"></script>
+	<script src="scripts/addclient/addClient.controller.js"></script>
+	<script src="scripts/editClient/editClient.controller.js"></script>
+	<script src="scripts/myProfile/myProfile.controller.js"></script>
+<!-- 	<script src="scripts/analysis/analysis.controller.js"></script> -->
+	<script src="scripts/takeSurvey/takesurvey.controller.js"></script>
+	<script src="scripts/dashboard/dashboard.controller.js"></script>
+	<script src="scripts/yesno/yesno.controller.js"></script>
+	<!--<script src="scripts/spcaller/caller.controller.js"></script>-->
+
+	<!-- ui grid -->
+	<link rel="styleSheet" href="bower_components/angular-ui-grid/ui-grid.min.css"/>
+	<link href="styles/css/uigrid_custom.css" rel="stylesheet">
+	<script src="bower_components/angular-ui-grid/ui-grid.min.js"></script>
+	<!-- ui grid - end -->
+
+	<script type="text/javascript">
+		window.onload = function() {
+			// if (document.cookie.indexOf("_instance=true") === -1) {
+			// 	//document.cookie = "_instance=true";
+			// 	// Set the onunload function
+			// 	window.onunload = function() {
+			// 		document.cookie = "_instance=true;expires=Thu, 01-Jan-1970 00:00:01 GMT";
+			// 	};
+			// 	// Load the application
+			// } else {
+			// 	alert(" Security Alerts.You Are Opening Multiple Window. This window will now close.");
+			// 	var win = window.open("about:blank", "_self");
+			// 	win.close();
+			// 	// Notify the user
+			// }
+		};
+	</script>
+	<script>
+		$.material.init();
+		 $(window).onbeforeunload = function() {
+			  //console.log('onbeforeunload');
+			 // $localStorage.$reset();
+			  return '';
+			};
+
+		$(document).ready(function(){
+
+
+			$('[data-toggle="tooltip"]').tooltip();
+		});
+
+		// Collapse and expand - left panel
+
+		$( "#collapse_btn" ).click(function() {
+			$(".build_survey_lft").css("width", "0px");
+			$("#expand_btn").css("display", "block");
+			$(".build_survey_rgt").css("width", "100%");
+		});
+		$( "#expand_btn" ).click(function() {
+			$(".build_survey_lft").css("width", "20%");
+			$(".build_survey_rgt").css("width", "80%");
+			$("#expand_btn").css("display", "none");
+		});
+		$( "#DesignTab" ).click(function() {
+			$(".build_survey_lft").css("width", "20%");
+			$(".build_survey_rgt").css("width", "80%");
+			$("#expand_btn").css("display", "none");
+		});
+		$( "#MessageTab" ).click(function() {
+			$(".build_survey_lft").css("width", "0px");
+			$("#expand_btn").css("display", "none");
+			$(".build_survey_rgt").css("width", "100%");
+		});
+		$( "#DistributeTab" ).click(function() {
+			$(".build_survey_lft").css("width", "0px");
+			$("#expand_btn").css("display", "none");
+			$(".build_survey_rgt").css("width", "100%");
+		});
+
+
+    </script>
+	<!-- endbuild -->
+
+	<style type="text/css">
+.loader {
+	position: fixed;
+	background: #fff;
+	top: 0;
+	right: 0;
+	left: 0;
+	bottom: 0;
+	opacity: 0.9;
+	display: none;
+	z-index: 999999;
+}
+
+.spinner {
+	/*margin: 50px;*/
+	height: 40px;
+	width: 40px;
+	animation: rotate 0.8s infinite linear;
+	border: 8px solid #3498db;
+	border-right-color: transparent;
+	border-radius: 50%;
+	position: absolute;
+	top: 0;
+	right: 0;
+	left: 0;
+	bottom: 0;
+	margin: auto;
+}
+
+@keyframes rotate {
+		  0%    { transform: rotate(0deg); }
+		  100%  { transform: rotate(360deg); }
+		}
+			</style>
+</body>
+</html>

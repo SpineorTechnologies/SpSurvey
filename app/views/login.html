@@ -1,0 +1,38 @@
+<div class="login_block green_theme" ng-controller="loginController"
+	ng-if="currentPage == '/'">
+
+	<figure class="text-center">
+		<img src="images/sp_logo_large.png" alt="" class="login_logo" />
+	</figure>
+	<form name="myForm" ng-submit="signin()" novalidate>
+		<span class="text-danger" style="display:none"  id="loginError">Please enter a valid email and password</span> 
+		<span class="text-danger" id="SamlloginError"></span> 
+		<div class="form-group ">
+
+			<input type="email" class="form-control input_brdr"
+				ng-model="userName" name="input" placeholder="Username" required>
+
+		</div>
+		<div class="form-group">
+			<input type="password" class="form-control input_brdr"
+				ng-model="passWord" placeholder="Password" required>
+		</div>
+		<button class="md-button md-primary btn-block login_button_green" type="submit"
+			>Login</button>
+		<button class="md-button btn-block" type="button" data-toggle="modal" ng-click="onForgotPwdClickHandler()" data-target="#forgotpwdmodal">Forgot
+			Password</button>
+	</form>
+
+	
+</div>
+<script>
+	var samlErr=localStorage.getItem("sso_display_error");
+	if(samlErr!=undefined && samlErr!=null && samlErr!=""){
+		$("#SamlloginError").text(samlErr);
+		$("#SamlloginError").show();
+		localStorage.removeItem("sso_display_error")
+	}else{
+		$("#SamlloginError").hide();
+	}
+	
+</script>

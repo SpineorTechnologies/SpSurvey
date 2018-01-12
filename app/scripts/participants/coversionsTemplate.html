@@ -1,0 +1,130 @@
+<div class="modal fade" id="conversions" tabindex="-1" role="dialog" aria-labelledby="conversionsLabel" >
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="material-icons">close</i></button>
+        <h4 class="modal-title">Conversions</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-6">
+            <!-- <div class="select_dropdown">
+                 <select id="" class="form-control">
+                   <option>Exit Reasons</option>
+                   <option>2</option>
+                   <option>3</option>
+                   <option>4</option>
+                   <option>5</option>
+                 </select>-->
+
+            <select ng-model="selectedDemographics" ng-options="demographicsArray.field for demographicsArray in demographicsArray" class="form-control"></select>
+
+          </div>
+        </div>
+        <div class="col-md-4 col-md-offset-2">
+          <div class="panel-action-items text-right">
+            <button class="md-button md-icon-button"><i class="fa fa-upload panel_icons"></i></button> <button class="md-button md-icon-button "><i class="fa fa-download panel_icons"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="table_block ">
+            <div class="mdtTableContainer table-container">
+              <table width="100%" border="0" cellspacing="0" cellpadding="0" class="conversion_table">
+                <thead>
+                <tr>
+                  <th>From <i class="fa fa-sort"></i></th>
+                  <th>To <i class="fa fa-sort"></i></th>
+                  <th>Type <i class="fa fa-sort"></i></th>
+                  <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td><input class="form-control" type="text" value="Marriage, Relocation"/></td>
+                  <td><input class="form-control" type="text" value="No Fault"/></td>
+                  <td>
+                    <div class="select_dropdown">
+                      <select id="" class="form-control">
+                        <option>Map</option>
+                        <option>Format</option>
+                        <option>Range</option>
+                      </select>
+                    </div>
+                  </td>
+                  <td class="text-center"><button class="md-button md-icon-button txt_accent"><i class="fa fa-trash-o"></i></button></td>
+                </tr>
+                <!--                <tr>
+                                  <td><input class="form-control" type="text" value="mm/dd/yy"/></td>
+                                  <td><input class="form-control" type="text" value="Month Year"/></td>
+                                  <td>
+                                    <div class="select_dropdown">
+                                      <select id="" class="form-control">
+                                        <option>Map</option>
+                                        <option>Format</option>
+                                        <option>Range</option>
+                                      </select>
+                                    </div>
+                                  </td>
+                                  <td class="text-center"><button class="md-button md-icon-button txt_accent"><i class="fa fa-trash-o"></i></button></td>
+                                </tr>
+                                <tr>
+                                  <td><input class="form-control" type="text" value="1 to 2"/></td>
+                                  <td><input class="form-control" type="text" value="1 year - less than 2 years"/></td>
+                                  <td>
+                                    <div class="select_dropdown">
+                                      <select id="" class="form-control">
+                                        <option>Map</option>
+                                        <option>Format</option>
+                                        <option>Range</option>
+                                      </select>
+                                    </div>
+                                  </td>
+                                  <td class="text-center"><button class="md-button md-icon-button txt_accent"><i class="fa fa-trash-o"></i></button></td>
+                                </tr>-->
+                </tbody>
+              </table>
+            </div>
+            <!--      <div grid-data grid-options="gridOptions" grid-actions="gridActions">
+                    &lt;!&ndash; sample table layout goes below, but remember that you can you any mark-up here. &ndash;&gt;
+                    <table class="table">
+                      <thead>
+                      <tr>
+                        <th sortable="code" class="sortable">
+                          Order #
+                        </th>
+                        <th sortable="placed" class="sortable">
+                          Date Placed
+                        </th>
+                        <th sortable="purchaseOrderNumber" class="sortable">
+                          Purchase Order #
+                        </th>
+                        <th sortable='total.value' class="sortable">
+                          Total
+                        </th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr grid-item>
+                        <td ng-bind="item.code"></td>
+                        <td ng-bind="item.placed | date:'MM/dd/yyyy'"></td>
+                        <td ng-bind="item.purchaseOrderNumber"></td>
+                        <td ng-bind="item.total.formattedValue"></td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>-->
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <a class="link pull-left txt_accent"> <i class="fa fa-plus-circle"></i> Add a Conversion </a>
+      <button type="button" class="md-button md-primary"> Save changes </button>
+    </div>
+  </div>
+</div>
+
+<!-- /Conversion Modal -->

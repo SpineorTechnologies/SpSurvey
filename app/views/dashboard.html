@@ -1,0 +1,1187 @@
+<style>
+.word-cloud {
+    position: relative;
+}
+
+.tangcloud {
+    height: 100%;
+    width: 100%;
+}
+
+/*.tangcloud span a{
+    line-height: 100%;
+}
+*/
+.tangcloud-item-1{
+    font-size: 20px;
+}
+
+.tangcloud-item-2{
+    font-size: 24px
+}
+
+.tangcloud-item-3 {
+    font-size: 28px
+}
+
+.tangcloud-item-4 {
+    font-size: 32px;
+}
+
+.tangcloud-item-5 {
+    font-size: 36px;
+}
+
+.tangcloud-item-6 {
+    font-size: 40px;  
+}
+
+.tangcloud-item-7 {
+    font-size: 44px;
+}
+
+.tangcloud-item-8 {
+    font-size: 48px;	
+}
+
+.tangcloud-item-9 {
+    font-size: 52px;
+}
+
+.tangcloud-item-10 {
+    font-size: 56px;   
+}
+.color1{color: #00ffbf;}
+.color2{color: #E37B0A;}
+.color3{color: #0000ff;}
+.color4{color: #ff00bf;}
+.color5{color: #009fab;}
+.color6{color: #40ff00;}
+.color7{color: #ffa02d;}
+.color8{color: #ffbf81;}
+.color9{color: #73bfc7;}
+.color10{color: #00efc1;}
+.tangcloud-item-hidden {
+    visibility: hidden;
+}
+
+.chart-gauge {
+    width: 100%;
+    height: 100%;
+}
+
+.chart-filled {
+    fill: #ffa12d;
+}
+
+.chart-empty {
+    fill: #eaeaea;
+}
+
+.needle,
+.needle-center {
+    fill: #3e3e40;
+}
+
+svg {
+    font: 10px sans-serif;
+}
+
+.line {
+    stroke: #00a0aa;
+    fill: none;
+    stroke-width: 3;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: #dddddd;
+    shape-rendering: crispEdges;
+}
+
+.axis text {
+    font-size: 10px;
+    font-family: sans-serif;
+}
+
+.text-label {
+    font-size: 10px;
+    font-family: sans-serif;
+}
+
+div.tooltip {
+    position: absolute;
+    text-align: center;
+    width: 60px;
+    height: 30px;
+    padding: 2px;
+    font: 12px sans-serif;
+    background: lightsteelblue;
+    border: 0px;
+    border-radius: 8px;
+    pointer-events: none;
+}
+
+.grid .tick {
+    stroke: lightgrey;
+    stroke-opacity: 0.7;
+    shape-rendering: crispEdges;
+}
+
+.grid path {
+    stroke-width: 0;
+}
+
+#regression_chart {
+    width: 100%;
+    height: 80%;
+}
+.table-layout_sorting{
+	 display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+            -webkit-box-align: center;
+                -ms-flex-align: center;
+                    align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+}
+
+/*new dashboard color styles-start*/
+.content_block{background-color: #eaeae5;}
+.background_grey_header{background-color:#c7dfd9!important;}
+.background_grey_header i{color: #5c9741!important;}
+#dashboard_block a:hover{color: #5c9741}
+#dashboard_block .txt_green{ color:#5c9741;}
+body{ background-color: #eaeae5!important;}
+
+
+
+
+
+/*new dashboard color styles-end*/
+
+</style>
+<flash-message name="flash-fixed"></flash-message> 
+<section class="content_block" id="dashboard_block">
+	<div class="container-fluid">
+		<div class="row no-padding" ng-show="ap_display=='dashboard'">
+			<div class="col-md-6 no-padding" ng-show="dla_display=='true'">
+				<p><a  data-toggle="modal" data-target="#dlaDialog"><span style="color: black;">You are viewing results for </span><span class="txt_green">{{dla_displayText}}</span></a></p>
+			</div>
+			<!-- Word Cloud Start -->
+				<div class="modal fade" id="dlaDialog" tabindex="-1" role="dialog" aria-labelledby="dlaDialog">
+				<div class="modal-dialog modal-lg" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title">DLA</h4>
+					</div>
+					<div class="modal-body">
+						{{dla_displayText}}
+					</div>
+					</div>
+				</div>
+				</div>
+			<!-- Word Cloud End -->
+			<div class="col-md-6 pull-right">
+				<div class="title_block_actions clearfix pull-right">
+					<a class="txt_green" data-toggle="modal" data-target="#FilterDashboard" ng-click="openSettings()"> {{selectedSurveyTypes}}<span style="color:#ccc;"> | </span> {{selectedSurveyDates}} <button class="md-icon-button md-button txt_green" type="button">
+						<i class="fa fa-cog panel_icons" ></i></button>
+					</a>
+					<!-- <button class="md-icon-button md-button txt_green" type="button"><i class="fa fa-heart-o panel_icons"></i></button> -->
+					<button class="md-icon-button md-button txt_green" type="button" ng-click="pdfDownload()"><i class="fa fa-download panel_icons"></i></button>
+					<button class="md-icon-button md-button txt_green dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" type="button"><i class="fa fa-ellipsis-v panel_icons"></i></button>	
+                        <ul class="dropdown-menu dropdown-menu-right" ng-show="removedWidgets.length>0" style="margin-right: 15px;">
+                        	<li  ng-repeat="item in removedWidgets" ng-click="addWidget(item)"  style="cursor: hand;cursor: pointer;padding: 5px;">
+								{{item.title}}                   
+                      		</li>
+                    </ul> 				
+				</div>
+			</div>
+		</div>
+		<div class="row clearfix">
+			<div class="col-md-12">
+				<div gridster="gridsterOptions" ng-show="ap_display=='dashboard'">
+					<ul>
+						<li gridster-item="widget" ng-repeat="widget in widgetItems">
+							<div class="panel panel-default h-100 dashboard_panel">
+								<div class="panel-heading">
+									<h3 class="panel-title">{{widget.title}}</h3>
+									<div class="panel-action-items">
+										<div class="title_block_actions pull-right" ng-show="widget.id=='container3' || widget.id=='container10'">
+											<button class="md-icon-button md-button txt_green" type="button" style="display: none;" ><i class="fa fa-cog panel_icons"></i></button>
+											<button class="md-icon-button md-button txt_green" type="button" style="display: none;"><i class="fa fa-heart-o panel_icons" ></i></button>
+											<button class="md-icon-button md-button txt_green" type="button" ng-click="removeWidget(widget)"><i class="material-icons">close</i></button>
+										</div>
+										<div class="title_block_actions pull-right" ng-show="widget.id=='container7'">
+											<button class="md-icon-button md-button txt_green" type="button" style="display: none;"><i class="fa fa-cog panel_icons"></i></button>
+											<button class="md-icon-button md-button txt_green" type="button" style="display: none;"><i class="fa fa-download panel_icons"></i></button>
+											<button class="md-icon-button md-button txt_green" type="button" ng-click="removeWidget(widget)"><i class="material-icons">close</i></button>
+										</div>
+										<div class="title_block_actions pull-right" ng-show="widget.id!='container3' && widget.id!='container7' && widget.id!='container10'">
+											<button class="md-icon-button md-button txt_green" type="button" ng-click="removeWidget(widget)"><i class="material-icons">close</i></button>
+										</div>
+									</div>
+									
+									</div>								
+								<!--=============Action Planning Widget==============-->
+								<div class="panel-body" ng-if="widget.id=='container1'" style="overflow-y: auto;">
+									<div class="col-md-6">
+										<div class="action_left">
+											<ul class="cat-list clearfix">
+												<li class="list-unstyled" ng-repeat="apDataItem in apOrderedData |limitTo :catLimit">
+													<h2 class="cat-title">&nbsp;{{apDataItem.question.category[default_language_key][0]}}</h2>
+													<!-- <h4 class="cat-description">{{apDataItem.question.category.category_description[default_language_key]}}</h4> -->
+													 <p class="cat-description"> {{apDataItem.question.question[default_language_key][0]}} </p>
+												</li> 
+											</ul>
+											<p><a class="txt_green" ng-click="toggleAP('showMyplan')" ng-show="diplayApData=='true'">Click to view best practices and generate your action plan  <i class="fa fa-angle-right"></i></a></p>	
+										</div>
+										<h1 class="txt_green participant_rate" style="font-size: 3vw;margin-left: 25%" ng-show="diplayApData=='false'">No data found!</h1>
+									</div>
+
+									<div class="col-md-6 action_right" >
+										<div id="barchart" style=" margin-top: 5%; width: 100%; display: block;" ></div>
+									</div>
+								</div>
+
+								<!-- =============Overall Widget============== -->
+								<div ng-show="widget.id=='container2' && overallPctFavDataFound==true" class="panel-body participant_widget" >
+									<h1 class="participant_rate">{{overAllPctFav}}%</h1>
+										<p class="" style="font-size: 19px;">Percent Favorability</p>
+										<p class="participant_text" style="padding-bottom:15%;">{{overAllAvg}} Mean</p>
+										<p class="" style="font-size: 24px;">{{overAllPoints}} pts vs Company</p>
+										<!-- <h1 class="white_font participant_rate">0%</h1>
+										<p class="" style="font-size: 19px;">Percent Favorability</p> -->
+										
+										
+								</div>
+								<div ng-show="widget.id=='container2' && overallPctFavDataFound==false" class="panel-body participant_widget" >
+									<h1 class=" participant_rate" style="font-size: 3vw;">No data found!</h1>
+								</div>
+
+								<!-- =============High Level Summary Widget============== -->
+								<div ng-show="widget.id=='container3'" class="panel-body" style="overflow-y: auto;">
+								   <table template-header="templateheader.html"  ng-table-dynamic="tableParams with columns"   width="100%" border="0" cellspacing="0" cellpadding="0" class="table"  id="summary-table">
+                                      <tr ng-repeat="row in $data| limitTo : 10" title="Click to view all data" style="cursor: zoom-in" data-toggle="modal" data-target="#zoomSummary">
+                                        <td ng-repeat="col in $columns track by $index" ng-class="{'demographicsCol':col.field=='summary_demographics'}" ng-style="col.field=='company_delta'?{'width':'200px'}:''" style="position: relative;">
+											<span ng-hide="col.field=='company_delta'">{{row[col.field]}}</span>
+											<div ng-show="col.field=='company_delta'" style="position: absolute;width: 2px;background: #dadada;top: 0;bottom: 0;margin: auto;left: 0;right: 0;"></div>
+											<span ng-show="col.field=='company_delta' && row[col.field]>0"  ng-init="hlsDelta=false;HLSDelta($index,row[col.field]);" class="col-md-6" style="float: right;padding-left: 0px;">
+												<div style="width:100%;float:left;position:relative;">
+														<div id="HLSDelta{{$index}}" ng-init="hlsDelta=true"
+															class="hlsBarPositive"
+															ng-style="{'width' : ((row[col.field])+2) + '%' }"
+															style="float: left;"></div>
+													<span style="margin: 5px 0px 0px 5px;position:absolute;">{{row[col.field]}}</span>	
+												</div>
+												
+											</span>
+											<span ng-show="col.field=='company_delta' && row[col.field]<0"  ng-init="hlsDelta=false;HLSDelta($index,row[col.field]);" class="col-md-6" style="float: left;padding-right: 0px;">
+												<div style="width: 100%; float: right; position: relative;">
+														<div id="HLSDelta{{$index}}" ng-init="hlsDelta=true"
+															class="hlsBarNegative"
+															ng-style="{'width' : (((row[col.field])-2)*-1) + '%' }"
+															style="float: right"></div>
+														<span
+															style="margin: 5px 5px 0px 0px; position: absolute;">{{row[col.field]}}</span>
+													</div>
+											</span>
+                                        </td>
+                                      </tr>
+                                    </table>
+									 <script type="text/ng-template" id="templateheader.html">
+										<tr class="background_grey_header"> 
+										<th ng-repeat="column in columns" class="header" ng-class="{'demographicsCol':column.field=='summary_demographics' || column.field=='company_delta'}" >
+											<span ng-show="column.field!='summary_demographics'">{{column.title}}</span>
+											<select class="selectclass" style="border: 0px;background-color:#c7dfd9" ng-show="column.field=='summary_demographics'" ng-options="option.title for option in dataHLSOptions.availableOptions track by option.title"  ng-model="dataHLSOptions.selectedOption"  ng-change="selectHLSView(dataHLSOptions.selectedOption)">
+											</select>
+											<select class="selectclass" style="border: 0px;background-color:#c7dfd9" ng-show="column.field=='summary_demographics' && dataHLSOptions.selectedOption.field=='demographics' && dataHLSDemographicOptions.availableOptions.length>0" ng-options="option.title for option in dataHLSDemographicOptions.availableOptions track by option.field"  ng-model="dataHLSDemographicOptions.selectedOption"
+												ng-change="viewByDemographics(dataHLSDemographicOptions.selectedOption)">
+											</select>
+											<!--<select ng-show="column.field=='summary_demographics' && dataHLSOptions.selectedOption.field=='category'" ng-options="option.title for option in dataHLSCategory.availableOptions track by option.field"  ng-model="dataHLSCategory.selectedOption"
+												ng-change="viewByCategory(dataHLSCategory.selectedOption)">
+											</select>-->
+										</th>
+										</tr>
+									</script> 
+								</div>
+
+								<!-- =============Highest abd Lowest Rated Widget============== -->
+								<div ng-show="widget.id=='container4'" class="panel-body" style="overflow-y: auto;">
+									 <table width="100%">
+									  <tr ng-repeat="highAsc in highlowDataAsc|limitTo:5">
+											<td style='padding:2px 0px' width="100%" ng-init="rateAscShow=false;animateAsc($index,highAsc.pctFav);">
+												<!-- <div id="highlowDataAsc{{$index}}" ng-show="rateAscShow" class="barAsc" style='white-space:nowrap;padding:1px 3px;float:left;color:#ffffff;text-align:left;' ng-style="{'width' : (highAsc.displayPct-9) + '%' }" title="{{highAsc.question}}  ({{highAsc.avg}})">{{highAsc.question}}&nbsp;&nbsp;&nbsp;({{highAsc.avg}})</div> -->
+											
+	
+													<div id="highlowDataAsc{{$index}}" style="float: left;text-align: left;padding-left: 4px;" ng-show="rateAscShow" class="barAsc" ng-style="{'width' : (highAsc.displayPct-9) + '%' }" title="{{highAsc.question}}  ({{highAsc.avg}})">{{highAsc.question}}&nbsp;&nbsp;&nbsp;({{highAsc.avg}})</div>
+											
+												<span class="numberhighScoreAsc" ng-init="rateAscShow=true">{{highAsc.pctFav}}%</span>
+											          
+											</td>
+										</tr>
+										
+										<tr ng-repeat="highAsc in highlowDataDesc|limitTo:5">
+											<td style='padding:2px 0px' width="100%" ng-init="rateAscShow=false;animateAsc($index,highAsc.pctFav);">
+												<!-- <div title="{{highAsc.question}} ({{highAsc.avg}})" class="barDesc" id="highlowDataAsc{{$index}}" ng-show="rateAscShow" class="barAsc" style='white-space:nowrap;padding:1px 3px;float:left;color:#ffffff;text-align:left;' ng-style="{'width' : (highAsc.displayPct-9) + '%' }" >{{highAsc.question}}&nbsp;&nbsp;&nbsp;({{highAsc.avg}})</div> -->
+												
+													<div style="float: left;text-align: left;padding-left: 4px;" title="{{highAsc.question}} ({{highAsc.avg}})" class="barDesc" id="highlowDataAsc{{$index}}" ng-show="rateAscShow" class="barAsc" ng-style="{'width' : (highAsc.displayPct-9) + '%' }" >{{highAsc.question}}&nbsp;&nbsp;&nbsp;({{highAsc.avg}})</div>
+							
+												<span class="numberhighScoreDesc" ng-init="rateAscShow=true">{{highAsc.pctFav}}%</span>
+											     
+											          
+											</td>
+										</tr>
+										 
+										<!--  <tr ng-repeat="highAsc in highlowDataAsc|limitTo:5">
+											<td style='padding:2px 0px' width="100%" ng-init="rateAscShow=false;animateAsc($index,highAsc.pctFav);maxValue=(100-highlowDataAsc[0].pctFav) ">
+												<div id="highlowDataAsc{{$index}}" ng-show="rateAscShow" class="barAsc" style='white-space:nowrap;padding:1px 3px;float:left;color:#ffffff;text-align:left;' ng-style="{'width' : (highAsc.pctFav-25) + '%' }" >{{highAsc.question}}&nbsp;&nbsp;&nbsp;({{highAsc.avg}})</div>
+												<div id="highlowDataAsc{{$index}}" ng-show="rateAscShow" class="barAsc" style='white-space:nowrap;padding:1px 3px;float:left;color:#ffffff;text-align:left;cursor: pointer;cursor: hand;' title='{{highAsc.question}}' ng-style="{'width' : (highAsc.pctFav) '%' }" >{{highAsc.question}}</div>
+												<span class="numberhighScoreAsc" ng-init="rateAscShow=true">{{highAsc.pctFav}}%</span>
+											     <div id="highlowDataAsc" class="bar">{{highAsc.question}}&nbsp;&nbsp;&nbsp;({{highAsc.avg}})</div>
+											          <button onclick="move()">Click Me</button>
+											</td>
+										</tr>
+
+										<tr ng-repeat="highAsc in highlowDataDesc|limitTo:5" style='padding-top:100px'>
+											<td style='padding:2px 0px' width="100%" ng-init="rateDescShow=false;animateDesc($index,highAsc.pctFav);minMaxVal=(100-highlowDataDesc[4].pctFav) ">
+												<div class="barDesc" id="highlowDataDesc{{$index}}" ng-show="rateDescShow" style='white-space:nowrap;padding:1px 3px;float:left;color:#ffffff;text-align:left;'  ng-style="{'width' : (highAsc.pctFav-25) + '%' }" >{{highAsc.question}}&nbsp;&nbsp;&nbsp;({{highAsc.avg}})</div>
+												<div class="barDesc" id="highlowDataDesc{{$index}}" ng-show="rateDescShow" style='white-space:nowrap;padding:1px 3px;float:left;color:#ffffff;text-align:left;cursor: pointer;cursor: hand;' title='{{highAsc.question}}'   ng-style="{'width' : (highAsc.pctFav) '%' }">{{highAsc.question}}</div>
+												<span class="numberhighScoreDesc" ng-init="rateDescShow=true">{{highAsc.pctFav}}%</span>
+												<div class="bar" id="highlowDataDesc">{{highAsc.question}}&nbsp;&nbsp;&nbsp;({{highAsc.avg}})</div>
+											    <button onclick="move()">Click Me</button>
+											</td>
+										</tr> -->
+									 </table>
+								</div>
+
+								<!-- =============Participation Rates Widget============== -->
+								<div ng-show="widget.id=='container5'" class="panel-body participant_widget">
+										<h1 class=" participant_rate">{{participantRatePct}}%</h1>
+										<p class="participant_text" style="padding-bottom:15%;">Team Response Rate</p>
+										<p class=" participant_text">{{participantRatesCompletedParticipants}} out of {{participantRatesTotalParticipants}}</p>
+										<!--<p class="participant_text">Click here to view participation rates by demographics</p>-->
+
+								</div>
+
+								<!-- =============Top Alerts Widget============== -->
+								<!-- <div ng-show="widget.id=='container6'" class="panel-body">
+
+								</div> -->
+
+								<!-- =============Open Ended Comments Widget============== -->
+										<div ng-if="widget.id=='container7'" class="panel-body word-cloud">
+									<div class="row">
+										<div ng-if="wcQuestions[0].questionText" class="col-md-12" ng-init="questionName=wordcloudSelectedQuestion!=undefined?wordcloudSelectedQuestion:wcQuestions[0].questionText">
+											<div class="form-group" style="margin-top:0px !important">
+												<select class="form-control"  ng-model="questionName" name="questionName" id="questionName" ng-change="getWordCloudDatas(questionName);">
+													<!-- <option value="" Select Question </option> -->
+													<option value="{{item.questionText}}" ng-selected="item.questionText==wcQuestions[0].questionText" ng-repeat="item in wcQuestions">{{item.questionText}}</option>
+												</select>
+											</div>
+									</div>
+									</div>
+									<div class="row" style="height:90%;">
+										<div class="col-md-12 h-100" style="overflow:auto;">
+										<!-- <tang-cloud words="words" on-click="highlightWord(word, size)"></tang-cloud> -->
+										<div class="worldcloud_data" id="worldcloud_data" style="height: 100%;"></div>
+									</div>
+									</div>
+								</div>
+
+								<!-- =============Historical Trending Widget============== -->
+								<div ng-if="widget.id=='container8'" class="panel-body">
+									<!--<div class="regression_chart" id="regression_chart"></div>-->
+								</div>
+
+								<!-- =============Level Of Readiness for Change Widget============== -->
+								<div ng-if="widget.id=='container9'" class="panel-body">
+									<!--<div class="chart-gauge"></div>-->
+
+								</div>
+								
+								 
+								<!-- =============Hotspot Widget============== -->
+								<div ng-if="widget.id=='container10'" class="panel-body" style="overflow-y: auto;">
+									<div>
+										<div class="pull-left">
+											<label style="float: left;">View by</label>
+											<select style="border:0;margin-left: 0px;float: left;"
+									     ng-model="hotspotRg" name="hotspotRg" id="hotspotRg" ng-change="handleHotspotRgOnchange(hotspotRg);">
+										  <option value="">Select Demographic</option>
+										    <option value="{{item.field}}" ng-selected="item.field==hotspotRg" ng-repeat="item in hotspotRgs">{{item.title}}</option> 
+										</select>
+										</div>
+										<ul class="pull-right percentFav" style="margin: 10px 0;">
+										<li><i class="fa fa-caret-up" aria-hidden="true"></i> Delta</li>
+										<li class="active">% Score</li>
+									</ul>
+									</div>
+									<table id='hotspotTable' border='0'>
+										 
+									</table>
+									<div>									   
+										<table style="width: 50%;height: 20px;margin: 10px auto;border-collapse: separate;border-spacing: 3px;">
+											<tr style="height: 20px;width: 100%;">
+												<td ng-repeat="item in hotspotLegendColors" ng-style="{'background-color':item.color}" style="width: 50px;">
+													
+												</td>
+											</tr>
+											<tr style="height: 20px;width: 100%;">
+												<td ng-repeat="item in hotspotLegendColors"  style="width: 50px;" ng-class="{'alignCenter':item.value=='Median','alignRight':item.value=='Maximum'}">
+													{{item.value}}
+												</td>
+											</tr>
+										</table>
+										<style>
+											.alignCenter{text-align: center;}
+											.alignRight{text-align: right;}
+										</style>
+
+									</div>					
+								</div>
+
+							</div>
+						</li>
+					</ul>
+				</div>
+				<!-- Action Planning Start -->
+				<!-- Show Planning Start -->
+				<div  ng-show="ap_display=='myplan'">
+					<div class="col-md-12">
+						<button class="md-accent md-button pull-left" ng-click="toggleAP('showDashboard')"> &nbsp; View Dashboard</button>
+						<button class="md-accent md-button pull-right" ng-click="toggleAP('planDashboard')"> &nbsp; View Plans</button>
+					</div>
+					<div class="col-md-6">
+						<div class="panel panel-default h-100 dashboard_panel">
+							<div class="panel-heading">
+								<h3 class="panel-title">Opportunity Areas</h3>
+							</div>
+							<div class="panel-body">
+								<p>Here are some areas to consider focusing on in order of potential impact to your group and the Company. This is based on an algorithm that considers multiple variables including bottom quartile scores, low favorability, negative delta to Company benchmark, decreases over time, and key drivers when available. Depending on the data set available, key drivers are run against outcomes such as exit impact factors, intention to stay, and engagement.</p>							
+								<p class="text-right">Add to Plan</p>
+								<ul class="clearfix list-unstyled add_to_ques">
+									<li ng-repeat="apDataItem in apOrderedData|limitTo :questionLimit">
+										<p>{{$index+1}}. &nbsp;&nbsp; {{apDataItem.question.question[default_language_key][0]}}</p>
+										<!--<a ng-class="{'txt_green':showRecommendation!=apDataItem.question.baseQuestionId,'txt_gray':showRecommendation==apDataItem.question.baseQuestionId}"  ng-click="getRecommendation(apDataItem.formatQuestionText)"><i class="fa fa-plus-circle  pull-right"></i></a>-->
+										<a ng-class="{'txt_accent':showRecommendation==apDataItem.formatQuestionText,'txt_green':!checkPlanExists[apDataItem.formatQuestionText],
+										'txt_gray':showRecommendation!=apDataItem.formatQuestionText && checkPlanExists[apDataItem.formatQuestionText]}"  ng-click="getRecommendation(apDataItem.formatQuestionText)"><i class="fa fa-plus-circle  pull-right"></i></a>
+									</li>
+								</ul>
+								<p class="text-right txt_green" ng-show="questionLimit==3" ng-click="showQuestions()"><a class="text-right txt_green"  >View More &nbsp; <i class="fa fa-arrow-right" aria-hidden="true"></i></a>								</p>
+								<p class="text-right txt_green" ng-show="questionLimit==10" ng-click="showQuestions()"> <a class="text-right txt_green" >View Less &nbsp; <i class="fa fa-arrow-left" aria-hidden="true"></i></a>								</p>
+							</div>
+						</div>
+					</div>  
+					<div class="col-md-6 ">
+						<div class="panel panel-default h-100 dashboard_panel">
+							<div class="panel-heading  ">
+								<h3 class="panel-title">Suggested Actions</h3>
+								<div class="panel-action-items">
+									<button class="md-icon-button md-button txt_green" type="button"><i class="fa fa-book" style="color: #fff"></i></button>
+									<button class="md-icon-button md-button txt_green" type="button"><i class="fa fa-question" style="color: #fff"></i></button>
+									<!--<button class="md-icon-button md-button txt_green" type="button" style="color: #fff"><i class="fa fa-download panel_icons" style="color: #fff"></i></button>-->
+								</div>
+							</div>
+							<div class="panel-body">
+								<div class="my_plan_block">
+									<div class="my_plan_ques">
+										<p> {{$index+1}}. {{recommendQues[showRecommendation]}} </p>
+										<!--<div class="my_plan_actions">
+											<a class=" md-button md-icon"><i class="fa fa-pencil-square-o"></i></a>
+											<a class="md-button md-icon"><i class="fa fa-close"></i></a>
+										</div>-->
+									</div>
+									<ul class="my_plan_sugges_list list-unstyled">
+										<li ng-show="(key.indexOf(showRecommendation)!=-1)" ng-repeat="(key, value) in recommendations track by $index">
+											<a class="txt_gray plu-icon"><i class="fa fa-plus-circle"></i></a>
+											<textarea ng-model='recommendations[key]' ng-class="{'focus':focus===true}" ng-focus="focus=true" ng-blur="focus=false"></textarea>
+											<a class="txt_gray plu-close-icon" ng-click="deleteRecommendation(key)"><i class="fa fa-close"></i></a>
+											<!--<p class="text-danger" ng-if="!recommendations[key]">Actions cannot be empty</p>-->
+											<p class="text-danger" ng-if="!recommendations[key]">{{ActionEmptyErrMsg}}</p>	
+										</li>
+									</ul>
+								</div>
+								<p><a ng-click='addAnAction();' ><i  class="fa fa-plus-circle txt_green pull-left"></i><span class="txt_green"> &nbsp; Add an Action</span></a> 
+								<p class="text-danger" ng-if="actionFoundArr.length<=0">{{ActionEmptyErrMsg}}</p>	
+								 <button class="md-accent md-button pull-right" ng-click="toggleAP('showManagePlan')"> <i  class="fa fa-plus-circle" style="padding-top: 10px;"></i> &nbsp; Add a Plan</button></p>
+							</div>
+						</div>							
+					</div>
+				</div> 
+				<!-- Show Planning End --> 
+				<div  ng-show="ap_display=='planDashboard'" >
+					<div class="col-md-12">
+						<button class="md-accent md-button pull-left" ng-click="toggleAP('showDashboard')"> &nbsp; My Dashboard</button>
+					</div>
+					<div class="col-md-12">
+						<div class="panel panel-default h-100 dashboard_panel">
+							<div class="panel-heading">
+								<h3 class="panel-title">Manage Plans</h3>
+							</div>
+							<div class="panel-body">
+								<div class="my_plan_block">
+									<div class="table_block">
+                                    		<div class="mdtTableContainer table-container" style="height: 100%;">
+												<table template-header="MyPlanHeader.html" template-pagination="MyPlanPagination.html" ng-table-dynamic="myPlansTableParams with myPlanColumns" show-filter="true"  width="100%" border="0" cellspacing="0" cellpadding="0" class="survey_list_table">
+													<tr ng-repeat="row in $data track by $index" ng-if="row.planName">
+														<td ng-repeat="col in $columns track by $index">
+															 <span  ng-if="col.field=='planName'"><a href="" ng-click="gotoEditPlan(row)">{{row[col.field]}}</a></span>
+															 <span  ng-if="col.field!='planName'">{{row[col.field]}}</span>
+														</td>
+													</tr>
+												</table>
+                                  			</div>    
+                               			 </div>								
+								</div>	
+							</div>
+<script type="text/ng-template" id="MyPlanHeader.html">
+ <tr> 
+   <th ng-repeat="column in myPlanColumns" class="header background_grey_header">
+       {{column.title}} <i  class="fa fa-sort"  ng-click="params.sorting(column.field, params.isSortBy(column.field, 'asc') ? 'desc' : 'asc')"
+        ng-class="{'fa fa-sort':!(params.isSortBy(column.field, 'asc') || params.isSortBy(column.field, 'desc')),'fa fa-sort-asc':params.isSortBy(column.field, 'asc'),'fa fa-sort-desc':params.isSortBy(column.field, 'desc') }"></i>
+  </th>
+</tr>
+<tr ng-show="show_filter" class="ng-table-filters"> 
+    <th data-title-text="{{$column.titleAlt(this) || $column.title(this)}}" 
+        ng-repeat="$column in $columns"
+        ng-if="$column.show(this)" 
+        class="filter"> 
+        <div ng-repeat="(name, filter) in $column.filter(this)">
+        <input type="text" name="{{name}}" placeholder="Search" ng-disabled="$filterRow.disabled" ng-model="params.filter()[name]" class="input-filter form-control table_search" autocomplete="off"/>
+        <div>
+   </th> 
+</tr>
+</script> 
+<script type="text/ng-template" id="MyPlanPagination.html">
+ <div class="ng-cloak ng-table-pager ng-table_paging_block" ng-if="params.data.length"> 
+    <div ng-if="params.settings().counts.length" class="ng-table-counts btn-group pull-right">
+        <button ng-repeat="count in params.settings().counts" type="button" ng-class="{'active':params.count()==count}" ng-click="params.count(count)" class="btn btn-default"> <span ng-bind="count"></span>
+        </button>
+    </div> 
+    <p class="pull-left">Displaying 
+      <span class="txt_green">{{ ((params.page()-1) * params.count()) + index +1}}</span>
+      <span> to </span>
+      <span class="txt_green" ng-if="(((params.page()-1) * params.count()) + params.count())<=params.total()">{{ ((params.page()-1) * params.count()) + params.count() }}  </span>
+      <span class="txt_green" ng-if="(((params.page()-1) * params.count()) + params.count())>params.total()">{{ params.total() }}  </span>  out of 
+      <span class="txt_green">{{params.total()}}</span> rows
+    </p>
+    <ul class="pagination ng-table-pagination pull-right">
+        <li ng-class="{'disabled': !page.active && !page.current, 'active': page.current}" ng-repeat="page in pages" ng-switch="page.type"> 
+          <a ng-switch-when="prev" ng-click="params.page(page.number)" href="">&laquo;</a>
+          <a ng-switch-when="first" ng-click="params.page(page.number)" href=""><span  ng-bind="page.number"></span></a> 
+          <a ng-switch-when="page" ng-click="params.page(page.number)" href=""><span ng-bind="page.number"></span></a>
+          <a ng-switch-when="more" ng-click="params.page(page.number)" href="">&#8230;</a>
+          <a ng-switch-when="last" ng-click="params.page(page.number)" href=""><span ng-bind="page.number"></span></a> 
+          <a ng-switch-when="next" ng-click="params.page(page.number)" href="">&raquo;</a>
+        </li>
+    </ul> 
+</div>
+</script>
+						</div>							
+					</div>
+				</div> 
+				<!-- Show Planning End --> 
+
+<!-- Manage Planning Start -->     
+<div class="row" ng-show="ap_display=='manageplan'">
+	<div class="col-md-12"><button class="md-accent md-button myplan-planbtn pull-right" ng-click="toggleAP('showMyplan')">MY PLANS</button></div>					
+	<div class="col-md-12">
+		<div class="panel panel-default h-100 dashboard_panel myplan">
+			<div class="panel-heading">
+				<h3 class="panel-title"> Manage my Plan </h3>
+			</div>
+			<div class="panel-body">
+				<form name="myPlanForm">
+					<div class="col-md-6">
+						<div class="form-group is-empty myplan_formgroup">
+							<label  class="col-md-4 control-label">Plan Name *</label>
+							<div class="col-md-8">
+								<input type="text" name="planName" class="form-control ip_box" ng-model="planName[showRecommendation]" required/>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group is-empty myplan_formgroup">
+							<label  class="col-md-4 control-label">Item Score</label>
+							<div class="col-md-3">
+								<input type="text" class="form-control ip_box"  value="{{itemScore[showRecommendation] |number:1}}%" ng-readonly="true"/>
+							</div>
+						</div>				
+					</div>
+					<div class="col-md-6">
+						<div class="form-group is-empty myplan_formgroup">
+							<label  class="col-md-4 control-label">Survey Name</label>
+							<div class="col-md-8">
+								<input type="text" name="planSurveyName" class="form-control ip_box" ng-readonly="true" ng-model="planSurveyName[showRecommendation]"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group is-empty myplan_formgroup">
+							<label  class="col-md-4 control-label">Action Plan Creator</label>
+							<div class="col-md-8">
+								<input type="text" class="form-control ip_box" ng-model="actionPlanCreator[showRecommendation]"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group is-empty myplan_formgroup">
+							<label  class="col-md-4 control-label">Area of Focus</label>
+							<div class="col-md-8">												
+								<textarea class="form-control ip_box" ng-readonly="true" ng-model="recommendQues[showRecommendation]"></textarea>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-12">
+						<div class="form-group is-empty myplan_formgroup">
+							<label  class="col-md-2 control-label">Action Item</label>
+							<div class="col-md-10 action_item_block" >
+								<div class="my_plan_block">
+									<ul class="my_plan_sugges_list list-unstyled">
+										<li ng-show="(key.indexOf(showRecommendation)!=-1)" ng-repeat="(key, value) in recommendations track by $index">
+											<a class="txt_gray plu-icon"><i class="fa fa-plus-circle"></i></a>
+											<textarea ng-model='recommendations[key]' ng-class="{'focus':focus===true}" ng-focus="focus=true" ng-blur="focus=false"></textarea>
+											<a class="txt_gray plu-close-icon" ng-click="deleteRecommendation(key)"><i class="fa fa-close"></i></a>
+											<p class="text-danger" ng-if="!recommendations[key]">{{ActionEmptyErrMsg}}</p>
+										</li>
+									</ul>
+								</div>
+								<p><a ng-click='addAnAction();' class="pull-right"><i  class="fa fa-plus-circle txt_green pull-left"></i> &nbsp; Add an Action</a></p>
+							</div>								
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group is-empty myplan_formgroup">
+							<label  class="col-md-4 control-label">Start Date *</label>
+							<div class="col-md-8">
+								<div id="dashboardStartDate">
+									<div class="input-group">
+										<datepicker date-format="MM/dd/yyyy">
+											<input id="plan_start_date" required aria-describedby="basic-addon1" class="form-control ip_box" ng-pattern="datePattern"  name="plan_start_date" type="text" ng-model="plan_start_date[showRecommendation]" ng-change="validateDateRangesForAP()">
+										</datepicker>
+										<span class="input-group-addon" id="basic-addon1">
+											<a href="" ng-blur="removeStartDate()" ng-focus="showStartDate()"><i class="fa fa-calendar txt_gray" aria-hidden="true"></i></a>
+										</span>
+									</div>				
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">					
+						<div class="form-group is-empty myplan_formgroup">
+							<label  class="col-md-4 control-label">Due Date *</label>				
+							<div class="col-md-8">					
+								<div id="dashboardDueDate">
+									<div class="input-group">
+										<datepicker date-format="MM/dd/yyyy">
+											<input id="due_date" aria-describedby="basic-addon1" class="form-control ip_box" ng-pattern="datePattern"  name="due_date" type="text" ng-model="due_date[showRecommendation]" ng-change="validateDateRangesForAP()" required/>	
+										</datepicker>
+										<span class="input-group-addon" id="basic-addon2"><a href="" ng-blur="removeStartDate()" ng-focus="showStartDate()">
+											<a href="" ng-blur="removeDueDate()" ng-focus="showDueDate()">
+												<i class="fa fa-calendar txt_gray" aria-hidden="true"></i>
+											</a>
+										</span>
+									</div>																				
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-12">
+						<div class="form-group is-empty myplan_formgroup">
+							<label  class="col-md-2 control-label">Plan Status *</label>
+							<div class="col-md-4 plan_notes">
+								<select  class="form-control ip_box" ng-model="planStatus[showRecommendation]" required>
+      								<option ng-repeat="option in apPlanStatusArr">{{option}}</option>
+    							</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-12">
+						<div class="form-group is-empty myplan_formgroup">
+							<label  class="col-md-2 control-label">Notes</label>
+							<div class="col-md-10 plan_notes">
+								<textarea  class="form-control ip_box" rows="4" cols="50" ng-model="planNotes[showRecommendation]"></textarea>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-12" style="padding: 30px;">
+						<a class="txt_green"> &nbsp;Filters applied&nbsp;:&nbsp; {{selectedSurveyTypesForPlan[showRecommendation]}}
+							<span style="color:#ccc;" ng-if="selectedSurveyTypesForPlan[showRecommendation].length>0 && selectedSurveyDatesForPlan[showRecommendation].length>0"> | 
+							</span> 
+							{{selectedSurveyDatesForPlan[showRecommendation]}} 
+							<span style="color:#ccc;" ng-if="checkObjectLen(selectedSurveyDatesForPlan[showRecommendation],selectedDemographicsForPlan[showRecommendation])"> | </span>
+							<span ng-repeat="(key, value) in selectedDemographicsForPlan[showRecommendation] track by $index">
+								<span class="txt_accent">{{value.rgName}}:</span><span ng-repeat="item in value.rgItemArray">{{item}}<span ng-if="!$last">,</span></span>
+								<span ng-if="!$last">;</span>
+							</span>	  
+						</a>
+					</div>
+					<div class="col-md-12"><button type="submit" class="md-accent md-button myplan-planbtn pull-left" ng-click="savePlan(myPlanForm.$valid)">SAVE</button></div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Manage Planning End --> 
+<!-- Action Planning End -->
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- Filter Start-->
+<div class="modal fade" id="FilterDashboard" tabindex="-1" role="dialog" aria-labelledby="FilterDashboardLabel"  >
+	<!--<div class="modal-dialog filter_dashboard" ng-style="{height: filterDlgHgt +'px'}" >-->
+        <div class="modal-dialog filter_dashboard" style="height: auto;" >
+		<div class="modal-content filter_dashboard_content">
+			<div class="modal-body dashboard-filter-body" style="height: 100%;">
+                <div class="modal-header dashboard-filter-header" >
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="material-icons">close</i></button>
+				<h4 class="modal-title">Select survey and data filters to change your dashboard</h4>
+			</div>
+				<!--<h5 class="filter_dashboard_header">Multiple selections can be applied when data is available</h5>
+				<div class="col-md-4 filter_groups" ng-style="{height: fh +'px'}" >-->
+            <table width='100%'>
+               <tr>
+                  <td style='vertical-align: top;width:30%;background-color: #ecf8f8;'>
+                    <div>
+					<div class="filter_groups_title">
+						<h5>SURVEY NAMES</h5>
+					</div>
+					<div class="filter_groups_body">
+						<ul class="list-unstyled">
+							<li class="acc_block_list" ng-repeat="customerSurvey in customerSurveys"> 
+								<span this.style.width="{{customerSurvey.surveyName[default_language_key].length+15}}px">
+									<input type="checkbox"   ng-model='surveyTypesModel[customerSurvey.customer_survey_id]' ng-click='reloadDemographics("survey")'/> &nbsp; {{customerSurvey.surveyName[default_language_key]}}
+								<!--{{productTypes[customerSurvey.customer_survey_id]}}-->
+								</span>  
+							</li>
+						</ul>
+					</div>
+				</div>
+                </td>
+                <td style='vertical-align: top;width:30%;background-color:rgb(199, 234, 234)'>
+				<div>
+					<div class="filter_groups_title">
+						<h5>DATES</h5>
+					</div>
+					<div class="filter_groups_body">
+						<form name="myForm">
+							<div class="form-group">
+								<label class="">Start Date</label>
+								<datepicker date-format="MM/dd/yyyy">
+									<input name="start_date" type="text"  ng-model="start_date" placeholder="mm/dd/yyyy" ng-pattern="datePattern" ng-change='reloadDemographics("date")'  class="form-control" required>
+								</datepicker>
+							</div>
+							<p ng-show="myForm.start_date.$invalid && !myForm.start_date.$pristine && !myForm.start_date.$error.pattern" class="help-block text-danger">Start Date is required.</p>
+                            <p ng-show="myForm.start_date.$error.pattern" class="help-block text-danger">Date Format should be mm/dd/yyyy</p>
+							<div class="form-group">
+								<label class="">End Date</label>
+								<datepicker date-format="MM/dd/yyyy">
+									<input name="end_date" type="text"  ng-model="end_date"  placeholder="mm/dd/yyyy" ng-pattern="datePattern" ng-change='reloadDemographics("date")'  class="form-control" required>
+								</datepicker>
+							</div>
+								<p ng-if="showSurveyDateRange" class="help-block text-danger">Invalid date range!</p>
+                                <p ng-show="myForm.end_date.$invalid && !myForm.end_date.$pristine && !myForm.end_date.$error.pattern" class="help-block text-danger">End Date is required.</p>
+                                <p ng-show="myForm.end_date.$error.pattern" class="help-block text-danger">Date Format should be mm/dd/yyyy</p>
+						</form>
+					</div>
+				</div>
+                </td>
+                <td style='vertical-align: top;width:40%;background-color: #ecf8f8;'>
+				<div  >
+					<div class="filter_groups_title">
+						<h5>DEMOGRAPHICS</h5>
+					</div>
+					<div class="filter_groups_body demo">
+						<ul class="list-unstyled demographics_list" >
+							<span class="pull-right">
+							<button type="button" class="btn btn-primary" style="font-size: 12px;background:rgb(199, 234, 234);" ng-click="clearFilters()">Clear All</button>
+							</span>
+							<li class="acc_block_list" ng-repeat="(key,value) in demographics">   
+								<div class="acc_block" ng-click="toggleDemographics(key)"><i ng-show="!demographicsItemsDisplay[key]" class="fa fa-plus-circle txt_green"></i><i ng-show="demographicsItemsDisplay[key]" class="fa fa-minus-circle txt_green"></i> &nbsp; {{value.displayName}} &nbsp;({{value.respondentCount}})</div>
+								<div class="acc_block_extend"  ng-show="demographicsItemsDisplay[key]">
+									<ul class="list-unstyled">
+										<li style='padding-left:8px' ng-repeat="(key2,value2) in value.demographicItems" > 
+											<span this.style.width="{{key2.length+15}}px">
+											<input  type="checkbox" value="{{key2}}" ng-click='saveRgiItemSelected()' ng-model="demographicsModel[value.demographic+'\t'+key2+'\t'+$index]" />&nbsp; {{key2}} &nbsp; ({{value2}}) 
+											</span>
+										</li>
+									</ul>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+                </td></tr></table>
+				<div class="modal-footer"> 					
+					<button type="button" class="btn btn-primary" ng-click="loadDataSet()" data-dismiss="modal" ng-disabled="(showSurveyDateRange || !start_date || !end_date )">Apply</button>
+				</div>
+			</div>
+		</div>
+	</div> 
+</div> 
+<!-- Filter End -->
+<!-- Word Cloud Start -->
+<div class="modal fade" id="word_cloud" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      	<div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" ng-bind-html="selectedWord+' '+'('+selictedSize+')'">{{selectedWord}} ({{selictedSize}})</h4>
+      </div>
+      <div class="modal-body">
+        <p ng-repeat="(key, value) in wordshilighed" style="border-bottom: 1px solid #eee;padding-bottom: 10px;" ng-bind-html="value.answer | highlight:selectedWord"></p>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Word Cloud End -->
+<!-- zoom Start for high level summary-->
+<div class="modal fade" id="zoomSummary" tabindex="-1" role="dialog" aria-labelledby="zoomSummaryLabel"  >
+    <!--<div class="modal-dialog filter_dashboard" ng-style="{height: filterDlgHgt +'px'}" >-->
+        <div class="modal-dialog filter_dashboard" style="height: auto;" >
+        <div class="modal-content filter_dashboard_content">
+            <div class="modal-body dashboard-filter-body" style="height: 100%;">
+                <div class="modal-header dashboard-filter-header" >
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="material-icons">close</i></button>
+                <h4 class="modal-title">High level summary</h4>
+            </div>
+                   <div class="panel-body" style="overflow-y: auto;">
+ <table  template-header="templateheader1.html"  ng-table-dynamic="tableParams with columns"   width="100%" border="0" cellspacing="0" cellpadding="0" class="table" id="summary-table">
+                                      <tr ng-repeat="row in $data | orderBy:sort.column:sort.descending">
+                                        <td ng-repeat="col in $columns track by $index" ng-class="{'demographicsCol':col.field=='summary_demographics'}" ng-style="col.field=='company_delta'?{'width':'200px'}:''" style="position: relative;">
+											<span ng-hide="col.field=='company_delta'">{{row[col.field]}}</span>
+											<div ng-show="col.field=='company_delta'" style="position: absolute;width: 2px;background: #dadada;top: 0;bottom: 0;margin: auto;left: 0;right: 0;"></div>
+											<span ng-show="col.field=='company_delta' && row[col.field]>0"  ng-init="hlsDelta=false;HLSDelta($index,row[col.field]);" class="col-md-6" style="float: right;padding-left: 0px;">
+												<div style="width:100%;float:left;position:relative;">
+														<div id="HLSDelta{{$index}}" ng-init="hlsDelta=true"
+															class="hlsBarPositive"
+															ng-style="{'width' : ((row[col.field])+2) + '%' }"
+															style="float: left;"></div>
+													<span style="margin: 5px 0px 0px 5px;position:absolute;">{{row[col.field]}}</span>	
+												</div>
+												
+											</span>
+											<span ng-show="col.field=='company_delta' && row[col.field]<0"  ng-init="hlsDelta=false;HLSDelta($index,row[col.field]);" class="col-md-6" style="float: left;padding-right: 0px;">
+												<div style="width: 100%; float: right; position: relative;">
+														<div id="HLSDelta{{$index}}" ng-init="hlsDelta=true"
+															class="hlsBarNegative"
+															ng-style="{'width' : (((row[col.field])-2)*-1) + '%' }"
+															style="float: right"></div>
+														<span
+															style="margin: 5px 5px 0px 0px; position: absolute;">{{row[col.field]}}</span>
+													</div>
+											</span>
+                                        </td>
+                                      </tr>
+                                    </table>
+									  <script type="text/ng-template" id="templateheader1.html">
+										<tr > 
+										<th class="background_grey_header" ng-repeat="column in columns" class="header" ng-class="{'demographicsCol':column.field=='summary_demographics' || column.field=='company_delta'}" >
+
+											<div class="table-layout_sorting">
+												<span ng-show="column.field!='summary_demographics'">{{column.title}}</span>
+											<span  ng-click="changeSorting(column.field)" ng-show="column.field!='summary_demographics' && column.field!='company_delta' " style="padding-left: 10px; curser:pointer">
+												<!--<i ng-hide="sort.column==column.field && sort.descending!=true" style="display: block;" class='fa fa-caret-up uparrow' aria-hidden='true'></i><i ng-hide="sort.column==column.field && sort.descending!=false" style="display: block;" class='fa fa-caret-down downarrow'  aria-hidden='true'></i>-->
+												</span>
+											</div>
+											<select class="selectclass" style="border: 0px;background-color:#c7dfd9;" ng-show="column.field=='summary_demographics'" ng-options="option.title for option in dataHLSOptions.availableOptions track by option.title"  ng-model="dataHLSOptions.selectedOption"  ng-change="selectHLSView(dataHLSOptions.selectedOption)">
+											</select>
+											
+											<select class="selectclass" style="border: 0px;" ng-show="column.field=='summary_demographics' && dataHLSOptions.selectedOption.field=='demographics' && dataHLSDemographicOptions.availableOptions.length>0" ng-options="option.title for option in dataHLSDemographicOptions.availableOptions track by option.field"  ng-model="dataHLSDemographicOptions.selectedOption"
+												ng-change="viewByDemographics(dataHLSDemographicOptions.selectedOption)">
+											</select>
+										</th>
+										</tr>
+									</script> 
+								</div>
+            </div>
+        </div>
+    </div> 
+</div> 
+<!-- Zoom End for high level summary-->
+<div class="modal fade" id="hotsport_zoom" tabindex="-1" role="dialog">
+
+  <div class="modal-dialog" style="width: 96%" role="document">
+
+    <div class="modal-content">
+
+      <div class="modal-header">
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+        <h4 class="modal-title">Hotspot</h4>
+
+ 
+
+      </div>
+
+      <div class="modal-body">
+
+		<div style="overflow: auto;">
+        	<table id='zoomedHotspotTable' class="hotspotTable" border='0' style="width: 100%">
+
+
+         	</table>
+			 <div>									   
+										<table style="width: 50%;height: 20px;margin: 10px auto;border-collapse: separate;border-spacing: 3px;">
+											<tr style="height: 20px;width: 100%;">
+												<td ng-repeat="item in hotspotLegendColors" ng-style="{'background-color':item.color}" style="width: 50px;">
+													
+												</td>
+											</tr>
+											<tr style="height: 20px;width: 100%;">
+												<td ng-repeat="item in hotspotLegendColors"  style="width: 50px;" ng-class="{'alignCenter':item.value=='Median','alignRight':item.value=='Maximum'}">
+													{{item.value}}
+												</td>
+											</tr>
+										</table>
+										<style>
+											.alignCenter{text-align: center;}
+											.alignRight{text-align: right;}
+										</style>
+
+									</div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<style>
+
+	.form-control.ip_box{ border: 1px solid #ddd; background-image: none!important; padding-left:10px; }
+	.ap_action{background-image: none!important; padding-left:10px;color: #555;; font-size:16px!important;font-family: 'Roboto', sans-serif;}
+	.myplan_formgroup > .control-label{ color: #333; font-size:16px!important; }
+	.action_item_block{border: 1px solid #ddd;margin-left: 10px;padding: 10px;width: 81.3%;}
+	.plan_notes{margin: -5px;}
+		#plan_start_date{margin-bottom: 0px!important;}
+		#due_date{margin-bottom: 0px!important;}
+	.input-group-addon{background-color:#eee!important;}
+	.form-group.has-error label.control-label {color: #000000;}
+								
+	.filter_dashboard{min-width: 50%;height: 60%;width:89%;}
+	.dashboard_panel > .panel-body  { height:calc( 100% - 50px); }
+	.dashboard_panel > .panel-heading  {background-color:#453c51!important;color: #ffffff!important;}
+	.dashboard_panel > .participant_widget{text-align: center;color: #453c51!important;}
+	.white_font{color: #fff;}
+	.participant_text{font-size: 1.5vw;}
+	.participant_rate{font-size: 5vw;padding-top: 10%;}
+	.filter_dashboard_content{height: 100%;}
+	.filter_dashboard_header{color: #c0c0c0;font-weight: 100;}
+	.filter_groups{padding-right: 1px;padding-left: 1px;background-color: #ecf8f8;}
+	.filter_groups_title{background: #00a0ac;padding: 1px;}
+	.filter_groups_title > h5{text-align: center;color: #fff;}
+	.modal-body{height: 85%;}
+	.filter_groups_body{ height: 50%; padding: 15px }
+	.action_left{ padding-left: 40px; }
+	.action_right{ height: 100%;}
+
+	.cat-list{ padding: 0; margin-bottom: 30px; }
+	.cat-list > li{ padding-left: 45px; position: relative;}
+	.cat-list > li::before{ position: absolute; width: 35px; height: 35px; background-color: #5c9741; color: #fff; line-height: 35px; text-align: center; font-size: 14px; border-radius: 50%; font-family:'FontAwesome';	content:'\f0f3'; left: 0;}
+	.cat-title{ font-weight: 400; font-size: 24px; margin-bottom: 0; }
+	.cat-description { padding-left: 10px; color: #909090; font-weight: 300;	 }
+
+	.add_to_ques > li{ border: 1px solid #eee; padding: 10px; margin-bottom:6px; position:relative; padding-right: 30px; }
+	.add_to_ques > li > a{ position:absolute; right: 10px; top: 20px; font-size: 16px; }
+	.add_to_ques > li > a:hover{ color: #5c9741;   }
+
+.dashboard_panel .bg_green{ background-color:#5c9741!important; color: #fff;}
+
+.my_plan_block > .my_plan_ques{ padding-right: 35px; position: relative; }
+.my_plan_block > .my_plan_ques > .my_plan_actions { position: absolute; right: 10px; top: 10px; }
+.my_plan_block > .my_plan_sugges_list{ padding-top: 15px; width: 100%;}
+.my_plan_block > .my_plan_sugges_list > li{ padding: 0 35px; position: relative; width: 100%; margin-bottom: 10px; }
+.my_plan_block > .my_plan_sugges_list > li > textarea{ border:0; width: 100%; margin: 0; min-height: 70px!important;}
+.my_plan_block > .my_plan_sugges_list > li > .plu-icon{ position: absolute; left: 10px; font-size: 16px; top:0;  }
+.my_plan_block > .my_plan_sugges_list > li > .plu-close-icon{ position: absolute; right: 10px; font-size: 16px; top:0; }
+
+
+	.show-plan-left,.show-plan-right{width: 47%;margin: 15px;min-height: 500px;}
+	.questions_list_dashboard{ font-size: 16px;}
+	.general_questions{margin-bottom: 15px;}
+	.questions_list{padding-top: 15px;background-color: #f8f8f8;margin-top: 10px;font-size: 16px;}
+	.myplan{}
+	.myplan > h2{border-bottom: 1px solid #c0c0c0;padding-bottom: 10px;margin-bottom: 30px;margin-left: 30px;}
+	.myplan-savebtn{margin-left: 23%;width: 150px;height: 50px;}
+	.myplan-planbtn{ margin: 0;}
+	.input-right{padding-left: 7px;margin-bottom: 20px;}
+	/*.input-right >input,textarea{width: 95%;min-height: 100px;border: 1px solid #c0c0c0;margin-left: 5%;font-size: 14px;font-family: 'Roboto', sans-serif;font-weight: 400;color: rgba(0,0,0,0.87);}*/
+	.input-right >.action_item{width: 95%;min-height: 100px;margin-left: 5%;border: 1px solid #c0c0c0;font-size: 14px;font-family: 'Roboto', sans-serif;font-weight: 400;color: rgba(0,0,0,0.87);}
+	 textarea {resize: none;}
+	.input{width: 100%;border: 1px solid #c0c0c0;padding-left: 10px;}
+	.input-rgt{margin-bottom: 20px;}
+	.input-rgt >input{min-height: 50px;border: 1px solid #c0c0c0;font-family: 'Roboto', sans-serif;font-weight: 400;font-size: 14px;color: rgba(0,0,0,0.87);}
+	.label-left{margin-top: 10px;font-family: 'Roboto', sans-serif;font-weight: 400;font-size: 15px;color: rgba(0,0,0,0.87);}
+	#dashboardStartDate ._720kb-datepicker-calendar._720kb-datepicker-open, ._720kb-datepicker-calendar._720kb-datepicker-forced-to-open {width:325px;}
+	#dashboardDueDate ._720kb-datepicker-calendar._720kb-datepicker-open, ._720kb-datepicker-calendar._720kb-datepicker-forced-to-open {width:325px;}
+	#dashboardStartDate >datepicker >input{font-family: 'Roboto', sans-serif;font-weight: 400;font-size: 14px;color: rgba(0,0,0,0.87);}
+	#dashboardDueDate >datepicker>input{font-family: 'Roboto', sans-serif;font-weight: 400;font-size: 14px;color: rgba(0,0,0,0.87);}
+	.c3 .c3-axis-x path, .c3 .c3-axis-x line {stroke: #fff;}
+	.tick line {display: none;}
+	.barAsc {width: 10%;height: 30px;background:none repeat scroll 0% 0% #68c8c6;text-align: center; /* To center it horizontally (if you want) */line-height: 30px; /* To center it vertically */color: white; }
+	.hlsBarPositive {width: 10%;height: 25px;background:none repeat scroll 0% 0% #68c8c6;text-align: center; /* To center it horizontally (if you want) */line-height: 30px; /* To center it vertically */color: white; }
+	.hlsBarNegative {width: 10%;height: 25px;background:none repeat scroll 0% 0% #E37B0A;text-align: center; /* To center it horizontally (if you want) */line-height: 30px; /* To center it vertically */color: white; }
+	.barDesc {width: 10%;height: 30px;background-color: #E37B0A;text-align: center; /* To center it horizontally (if you want) */line-height: 30px; /* To center it vertically */color: white; }
+	.numberhighScoreAsc {font-size: 12px;font-weight: bold;position: relative;background: none repeat scroll 0px 0px #68c8c6;border-radius: 60px;top: 5px;padding:5px;margin-left: 10px;color: #FFF;}
+	.numberhighScoreDesc {font-size: 12px;font-weight: bold;position: relative;background: none repeat scroll 0px 0px #E37B0A;border-radius: 60px;top: 5px;padding:5px;margin-left: 10px;color: #FFF;}
+	.focus{border: 1px solid #c0c0c0!important;}
+	#summary-table th {font-family: Roboto,Helvetica,Arial,sans-serif;font-size: 16px;font-weight: 400;padding: 5px;}
+	#summary-table td {text-align: center;font-family: Roboto,Helvetica,Arial,sans-serif;font-size: 14px;font-weight: 400;}
+	.ng-table-pager{display: none;}
+	.demographicsCol{text-align: left!important;font-weight: 400!important;padding-left: 10px!important;}
+	.selectclass > option{background: #ffffff!important;}
+	.date-error{margin-left: 44%;}
+	.txt_gray{color: #c0c0c0;}
+	#barchart .tick text tspan{
+		background: #ffffff!important;
+		font-size: 14px;
+	}
+	/*#barchart svg g path.domain{ stroke: #453c51; }
+	#barchart .c3-chart-texts .c3-texts-value .c3-text{color:#453c51!important;font-size: 14px;font-weight: 600;}
+	#barchart .tick text tspan {color:#453c51!important;font-size: 14px;font-weight: 600}*/
+
+
+	#barchart svg g text{color:#453c51;font-size: 14px;font-weight: 600;}
+
+
+	.highlighted { background: yellow; }
+	 @media screen and (min-width: 992px){
+		#word_cloud .modal-lg { width: 95%;		}
+	 } 
+	 
+.tangcloud span{ cursor: pointer; line-height: 100%; }
+.hotspot_header{
+	/*background-color: #5c9741;*/
+	color: #ffffff;}
+/*.hotspot_table{width: 50%;margin: 0 auto;}
+.hotspot_alignCenter{text-align: center;}*/
+.hotspot_header > td {}
+.hs_displayview> td{/*padding: 20px!important;*/}
+#hotspotTable th{
+	font-weight: 400;
+}
+#hotspotTable, #zoomedHotspotTable{
+	width: 100%;
+}
+#hotspotTable td, #zoomedHotspotTable td{
+	padding: 6px 11px !important;
+	color: #222220;
+	border:1px solid #ddd;
+	display: table-cell;
+    /*width: 65px;*/
+    text-align: center;	
+}
+	#hotspotTable{				
+	border: 1px solid #ddd;				
+}
+#hotspotTable td:first-child, #zoomedHotspotTable td:first-child{
+	padding: 15px;
+	color: #909090;
+	border:0;
+	text-align: left;
+}
+	#hotspotTable tr td:nth-child(2), #zoomedHotspotTable tr td:nth-child(2){				
+	border:0;				
+	border-right: 2px solid #ddd!important;				
+}				
+#hotspotTable tr:nth-child(2) td, #hotspotTable tr:nth-child(3) td, #zoomedHotspotTable tr:nth-child(2) td, #zoomedHotspotTable tr:nth-child(3) td{				
+	border-left: 0;				
+	border-right: 0;				
+}
+#hsviweby{
+	background-color: #c7dfd9;color: #453c51;
+	height: 38px;
+    padding: 7px 0;
+    font-size: 16px;
+    line-height: 1.42857143;
+    width: 100%;
+	border:0!important;
+}
+#hotspotRg{
+	background-color: transparent;
+	color: #BDBDBD;
+	font-size: 16px;
+}
+#hotspotTable tr:first-child td:first-child, #zoomedHotspotTable tr:first-child td:first-child{
+	padding: 0!important;
+}
+#hotspotTable tr:first-child td, #zoomedHotspotTable tr:first-child td{
+	/*border-top: 2px solid #fff;*/
+	background-color: #c7dfd9;color: #453c51;				
+	border:0!important; 	
+	text-transform: capitalize;
+	
+}
+#hotspotTable tbody, #zoomedHotspotTable tbody{
+	border-left: 2px solid #dedede;
+	border-right: 2px solid #dedede;
+	border-bottom: 2px solid #dedede;
+}
+#questionName{
+	font-size: 14px;
+	} 
+.hotspot_header:nth-child(2) span{
+	text-align: left!important;
+}
+.overaall{
+	background-color: transparent!important;
+	border:0!important;
+	border-right: 2px solid #ddd!important;
+	}
+.percentFav li{
+	background-color: #eeeeee;
+	color: #8e8e8e;
+	float: left;
+	list-style-type: none;
+	padding:5px;
+	cursor: pointer;
+}
+.percentFav li.active{
+	background-color: #ffa12d;
+	color: #fff;
+}
+#zoomedHotspotTable{
+	table-layout: fixed;
+}
+#zoomedHotspotTable td{
+	width: 80px;
+}
+#hotspotTable tr:nth-child(2) td, #zoomedHotspotTable tr:nth-child(2) td{
+	background-color: #d3d3d3;
+	color:#909090;
+}
+ table#zoomedHotspotTable tr:nth-child(1) td{
+ 	padding: 6px 4px !important;
+ }
+ #zoomedHotspotTable tr:nth-child(1) td:nth-child(2) span{
+ 	display: none!important;
+ }
+/*.colorclass_1{
+	background-color: #eeece0;
+}
+.colorclass_2{
+	background-color: #ffa12d;
+}
+.colorclass_3{
+	background-color: #80cfd6;
+}
+.colorclass_4{
+	background-color: #00a0ac;
+}
+.colorclass_5{
+	background-color: #ffd196;
+}*/
+</style>
+

@@ -1,0 +1,316 @@
+<style>
+ body{ background-color: #eaeae5!important;}
+ #yesNoDashboard .panel-heading  {background-color:#453c51!important;color: #ffffff!important;}
+ #yesNoDashboard a:hover{color: #5c9741}
+ #yesNoDashboard .txt_green{ color:#5c9741;}
+ #FilterDashboard i{color: #00a0ac!important}
+.filter_dashboard{min-width: 50%;height: 60%;width:89%;}
+.dashboard_panel > .panel-body  { height:calc( 100% - 50px); }
+.white_font{color: #fff;}
+.grape_font{color:#453c51;}
+.eiScore{font-size: 30px;font-weight: 500;}
+.participant_text{font-size: 1.5vw;}
+.participant_rate{font-size: 5vw;padding-top: 10%;}
+.filter_dashboard_content{height: 100%;}
+.filter_dashboard_header{color: #c0c0c0;font-weight: 100;}
+.filter_groups{padding-right: 1px;padding-left: 1px;background-color: #ecf8f8;}
+.filter_groups_title{background: #00a0ac!important;padding: 1px;}
+.filter_groups_title > h5{text-align: center;color: #fff;}
+.modal-body{height: 85%;}
+.filter_groups_body{ height: 50%; padding: 15px }
+#eiChart svg g path.domain {fill: none;stroke: #000!important;}
+#eiChart svg g line{fill: none;stroke: #000!important;display: block!important}
+#eiChart svg g text{font-size: 10px;font-weight: 100;}
+#eiChart svg{background: #fff}
+.panelhead{background-color: #453c51;color: #fff;font-weight: bold;padding-top: 10px;padding-bottom: 10px;}
+.analysis_body_row{padding-top: 10px;padding-bottom: 10px}
+.analysis_body_row:nth-child(even){background-color: #e2eeeb;}
+#eiChart .c3-line{stroke-width: 3px;}
+.gridAnalysis .c3-texts .c3-text {
+  transform: translate(-32px, 0)!important;
+  fill: #000!important;
+}
+#stackedBarchart .c3-texts .c3-text{
+    transform: translate(-32px, 0)!important;
+  fill: #000!important;
+}
+</style>
+<section class="content_block" id="yesNoDashboard">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+            </div>
+        <div class="col-md-6 pull-right">
+            <div class="title_block_actions clearfix pull-right">
+                <a class="txt_green" data-toggle="modal" data-target="#FilterDashboard" ng-click="openSettings()"> {{selectedSurveyTypes}}<span style="color:#ccc;"> | </span> {{selectedSurveyDates}} <button class="md-icon-button md-button txt_green" type="button">
+                    <i class="fa fa-cog panel_icons"></i></button>
+                </a>
+                <!-- <button class="md-icon-button md-button txt_green" type="button"><i class="fa fa-heart-o panel_icons"></i></button> -->
+                <button class="md-icon-button md-button txt_green" type="button"><i class="fa fa-download panel_icons"></i></button>
+                <button class="md-icon-button md-button txt_green dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" type="button"><i class="fa fa-ellipsis-v panel_icons"></i></button>	
+                <ul class="dropdown-menu dropdown-menu-right" ng-show="removedWidgets.length>0" style="margin-right: 15px;">
+                    <li  ng-repeat="item in removedWidgets" ng-click="addWidget(item)"  style="cursor: hand;cursor: pointer;padding: 5px;">
+						{{item.title}}                   
+                    </li>
+                </ul> 					
+            </div>
+        </div>
+        </div>
+    </div>
+    <!-- Filter Start-->
+    <div class="modal fade" id="FilterDashboard" tabindex="-1" role="dialog" aria-labelledby="FilterDashboardLabel">
+        <div class="modal-dialog filter_dashboard" style="height: auto;" >
+            <div class="modal-content filter_dashboard_content">
+                <div class="modal-body dashboard-filter-body" style="height: 100%;">
+                    <div class="modal-header dashboard-filter-header" >
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="material-icons">close</i></button>
+                        <h4 class="modal-title">Select survey and data filters to change your dashboard</h4>
+                    </div>
+                    <table width='100%'>
+                        <tr>
+                            <td style='vertical-align: top;width:30%;background-color: #ecf8f8;'>
+                              <div>
+                                <div class="filter_groups_title">
+                                    <h5>SURVEY NAMES</h5>
+                                </div>
+                                <div class="filter_groups_body">
+                                    <ul class="list-unstyled">
+                                        <li class="acc_block_list" ng-repeat="customerSurvey in customerSurveys">
+                                            <span this.style.width="{{customerSurvey.surveyName[default_language_key].length+15}}px">
+                                                <input type="checkbox" value="customerSurvey.customer_survey_id" ng-disabled="true" ng-model='surveyTypesModel[customerSurvey.customer_survey_id]'/> &nbsp; {{customerSurvey.surveyName[default_language_key]}}
+                                            <!--{{productTypes[customerSurvey.customer_survey_id]}}-->
+                                            </span>  
+                                        </li>
+                                    </ul>
+                                </div>
+                              </div>
+                          </td>
+                          <td style='vertical-align: top;width:30%;background-color:rgb(199, 234, 234)'>
+                          <div>
+                              <div class="filter_groups_title">
+                                  <h5>DATES</h5>
+                              </div>
+                              <div class="filter_groups_body">
+                                  <form name="myForm">
+                                      <div class="form-group">
+                                          <label class="">Start Date</label>
+                                              <input name="start_date" type="text" ng-readonly="true" ng-model="start_date" placeholder="mm/dd/yyyy"  class="form-control">
+                                      </div>
+                                      <div class="form-group">
+                                          <label class="">End Date</label>
+                                              <input name="end_date" type="text" ng-readonly="true" ng-model="end_date"  placeholder="mm/dd/yyyy" class="form-control">
+                                      </div>
+                                  </form>
+                              </div>
+                          </div>
+                          </td>
+                          <td style='vertical-align: top;width:40%;background-color: #ecf8f8;'>
+                            <div>
+                                <div class="filter_groups_title">
+                                    <h5>DEMOGRAPHICS</h5>
+                                </div>
+                                <div class="filter_groups_body demo">
+                                    <ul class="list-unstyled demographics_list" >
+                                        <li class="acc_block_list" ng-repeat="(key,value) in demographics">
+                                            <div class="acc_block" ng-click="toggleDemographics(key)"><i ng-show="!demographicsItemsDisplay[key]" class="fa fa-plus-circle txt_green"></i><i ng-show="demographicsItemsDisplay[key]" class="fa fa-minus-circle txt_green"></i> &nbsp; {{value.displayName}}     &nbsp;({{value.respondentCount}})</div>
+                                            <div class="acc_block_extend"  ng-show="demographicsItemsDisplay[key]">
+                                                <ul class="list-unstyled">
+                                                    <li style='padding-left:8px' ng-repeat="(key2,value2) in value.demographicItems" > 
+                                                        <span this.style.width="{{key2.length+15}}px">
+                                                        <input  type="checkbox" value="key2" ng-disabled="true" ng-model="demographicsModel[value.demographic+'\t'+key2+'\t'+$index]" />&nbsp; {{key2}} &nbsp; ({{value2}}) 
+                                                        </span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                     </ul>
+                                </div>
+                             </div>
+                          </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div> 
+    </div> 
+    <!-- Filter End -->
+    <div gridster="gridsterOptions">
+        <ul>
+            <li gridster-item="widget" ng-repeat="widget in widgetItems">
+                <div class="panel panel-default h-100 dashboard_panel">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">{{widget.title}}</h3>
+                            <div class="panel-action-items">
+                                <div class="title_block_actions pull-right">
+                                    <button class="md-icon-button md-button txt_green" type="button" ng-click="removeWidget(widget)"><i class="material-icons">close</i></button>
+                                </div>
+                            </div>
+                    </div>
+                    <!--=============Engagement Index Line Chart Start==============-->
+                    <div class="panel-body" ng-if="widget.id=='container1'">
+                        <div ng-if="!noDataFound">
+                            <h1 class="grape_font eiScore">{{overallPercent}}%
+                                <span class="grape_font eiScore">Engagement</span>
+                            </h1>
+                          <div id="eiChart" style="width: 100%; display: block;height: 260px;margin-bottom: 40px" ></div>
+                        </div>
+                        <div ng-if="noDataFound">
+                           <h1 class="grape_font participant_rate" style="font-size: 3vw;text-align: center;">No data found!</h1>
+                        </div>
+                    </div>
+					<!--=============Engagement Index Line Chart End==============-->
+					<!--=============Engagement Index By Demographics Start==============-->
+                     <div ng-if="widget.id=='container2'" class="panel-body">            
+                         <div class="pull-left" style="width: 100%">
+                            <label style="float: left;">View by</label>
+                            <select style="border:0;margin-left: 0px;float: left;" ng-model="engagementRg" name="engagementRg" id="engagementRg" ng-change="handleEngagementRg(engagementRg)">
+                                <option value="" selected disabled>Select Demographic</option>
+                                <option value="{{item.field}}" ng-repeat="item in engagementRgs | orderBy:'displayName'">{{item.displayName}}</option> 
+                            </select>
+                        </div>
+                        <div style="overflow-y: auto;width: 100%;height: 95%;">
+                            <div style="display: table;width: 100%;overflow: auto;" id="stackedBarchart"></div>
+                        </div>
+                    </div>
+					<!--=============Engagement Index By Demographics End==============-->
+					<!--=============Yes/No Question Analysis View All Start==============-->
+                    <div class="panel-body" ng-if="widget.id=='container3'">
+                        <!-- <div class="container-fluid" style="overflow: auto;height: 100%;" ng-if="yesNoAnalysis.length>0">
+                            <div class="panelhead row">
+                                <div class="col-md-8">Question</div>
+                                <div class="col-md-2">%Yes</div>
+                                <div class="col-md-2">%No</div>
+                            </div>
+                            <div style="margin-bottom: 10px;">
+                                <div class="row analysis_body_row" ng-repeat="(key, value) in yesNoAnalysis">
+                                    <div class="col-md-8">{{$index+1}}) {{value.questionText}} <span>({{value.count}})</span></div>
+                                    <div class="col-md-2">{{value.Yes==null?"0":value.Yes}}</div>
+                                    <div class="col-md-2">{{value.No==null?'0':value.No}}</div>
+                                </div>
+                            </div>
+                        </div> -->
+                        <div style="width: 100%;float: left;margin-bottom: 10px" ng-if="(yesnoRg=='' || yesnoRg==null) && yesNoAnalysis.length>0">
+                            <div class="pull-right" style="margin-right: 34px;">
+                                <ul class="list-inline">
+                                    <li style="background-color: #8ebfb2;color: #fff">Yes</li>
+                                    <li style="background-color: #c7dfd9;color: #fff">No</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div ng-if="(yesnoRg=='' || yesnoRg==null) && yesNoAnalysis.length>0" style="overflow: auto;display: inline-block;height: 91%;width: 100%;">
+                             <div class="container-fluid" style="overflow: auto;height: 100%;">
+                                <div class="panelhead row" style="margin-bottom: 10px;">
+                                    <div class="col-md-8">Question</div>
+                                    <div class="col-md-2">%Yes</div>
+                                    <div class="col-md-2">%No</div>
+                                </div>
+                                <div class="analysis_body">
+                                    <div class="row" ng-repeat="(key, value) in yesNoAnalysis" style="margin-bottom: 10px;">
+                                        <div class="col-md-8">{{value.questionText}} <span>({{value.count}})</span></div>
+                                        <div class="col-md-4">
+                                            <div class="text-center" style="float: left;background-color: #8ebfb2;padding-top:5px;padding-bottom:5px;color: #fff" ng-hide="value.Yes==0||value.Yes==null" ng-style="{'width':+value.Yes+'%'}">{{value.Yes}}%</div> <div class="text-center" style="float: left;background-color: #c7dfd9;padding-top:5px;padding-bottom:5px;color: #fff" ng-hide="value.No==0||value.No==null" ng-style="{'width':+value.No+'%'}">{{value.No}}%</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div ng-if="yesNoAnalysis.length==0">
+                            <h1 class="text-center">No data found!</h1>                            
+                        </div>
+                    </div>
+					<!--=============Yes/No Question Analysis View All End==============-->
+					<!--=============Yes/No Demographic Start==============-->
+                    <div class="panel-body" ng-show="widget.id=='container4'">
+                        <div style="width: 100%;float: left;">
+                            <div style="float: left;">
+                                <label style="float: left;">View by</label>
+                                <select style="border:0;margin-left: 0px;float: left;" ng-model="yesnoRg" name="yesnoRg" id="yesnoRg" ng-change="handleYesnoRg(yesnoRg);">
+                                    <option value=""  selected="selected">Select Demographic</option>
+                                    <option value="{{item.field}}" ng-repeat="item in demographicItemrg | orderBy:'displayName'">{{item.displayName}}</option>
+                                </select>
+                            </div>
+                            <div class="pull-right" style="margin-right: 34px;">
+                                <ul class="list-inline">
+                                    <li style="background-color: #8ebfb2;color: #fff">Yes</li>
+                                    <li style="background-color: #c7dfd9;color: #fff">No</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div ng-if="(yesnoRg=='' || yesnoRg==null) && yesNoAnalysis.length>0" style="overflow: auto;display: inline-block;height: 91%;width: 100%;">
+                             <div class="container-fluid" style="overflow: auto;height: 100%;">
+                                <div class="panelhead row" style="margin-bottom: 10px;">
+                                    <div class="col-md-8">Question</div>
+                                    <div class="col-md-2">%Yes</div>
+                                    <div class="col-md-2">%No</div>
+                                </div>
+                                <div class="analysis_body">
+                                    <div class="row" ng-repeat="(key, value) in yesNoAnalysis" style="margin-bottom: 10px;">
+                                        <div class="col-md-8">{{value.questionText}} <span>(N={{value.count}})</span></div>
+                                        <div class="col-md-4">
+                                            <div class="text-center" style="float: left;background-color: #8ebfb2;padding-top:5px;padding-bottom:5px;color: #fff" ng-hide="value.Yes==0||value.Yes==null" ng-style="{'width':+value.Yes+'%'}">{{value.Yes}}%</div> <div class="text-center" style="float: left;background-color: #c7dfd9;padding-top:5px;padding-bottom:5px;color: #fff" ng-hide="value.No==0||value.No==null" ng-style="{'width':+value.No+'%'}">{{value.No}}%</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="overflow: auto;display: inline-block;height: 88%;width: 100%;" ng-hide="yesnoRg=='' || YesNoRgs.length==0 || yesnoRg==null || yesnoRg==undefined">
+                            <div class="container-fluid" ng-repeat="(key, value) in YesNoRgs">
+                                <div class="row" style="margin-bottom: 10px;">
+                                    <div class="col-md-6" style="padding-top:5px;padding-bottom:5px;">{{value.questionText}} (N={{value.count}})</div>
+                                    <div class="col-md-6 text-center">
+                                        <div ng-hide="value.Yes==0||value.Yes==null" ng-style="{'width':+value.Yes+'%'}" style="float: left;background-color: #8ebfb2;padding-top:5px;padding-bottom:5px;color: #fff">{{value.Yes}}%</div><div ng-hide="value.No==0||value.No==null" style="float: left;background-color: #c7dfd9;padding-top:5px;padding-bottom:5px;color: #fff" ng-style="{'width':+value.No+'%'}">{{value.No}}%</div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        
+                                    </div>
+                                    <div class="col-md-6">
+                                        <ul style="list-style-type: none;padding:0 ">
+                                            <li class="row" ng-repeat="(k, val) in value.reportGrpItems| orderBy:'rptItrm'" style="margin-bottom: 10px;">
+                                                <div class="col-md-6 text-right" style="padding-top:5px;padding-bottom:5px;">{{val.rptItrm}} ({{val.grandTot}})</div>
+                                                <div class="col-md-6 text-center" style="padding-left: 0">
+                                                    <div ng-hide="val.Yes==0||val.Yes==null" ng-style="{'width':+val.Yes+'%'}" style="float: left;background-color: #8ebfb2;padding-top:5px;padding-bottom:5px;color: #fff">{{val.Yes}}%</div><div ng-hide="val.No==0 || val.No==null" style="float: left;background-color: #c7dfd9;padding-top:5px;padding-bottom:5px;color: #fff;" ng-style="{'width':+val.No+'%'}">{{val.No}}%</div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>                          
+                        </div>
+
+                        <div ng-if="yesNoAnalysis.length==0 || YesNoRgs.length==0">
+                            <h1 class="text-center">No data found!</h1>                            
+                        </div>
+                    </div>
+                    <!--=============Yes/No Demographic End==============-->
+                    <!--=============Grid(Matrix) Question Analysis Start==============-->
+					<div class="panel-body" ng-if="widget.id=='container5'">
+                        <div style="width: 100%;height: 100%;overflow-y: auto;" ng-if="gridAnalysis.length>0">
+                            <div class="gridAnalysis" ng-repeat="(key, value) in gridAnalysis" style="width: 97%;margin: 0 auto;">
+                                <div><p>{{value.questionText}} <!-- ({{value.quesionCount}}) --></p></div>
+                                <!-- <ul style="list-style-type: none;">
+                                    <li class="row" ng-repeat="(k, subques) in value.subQuestion">
+                                        <div class="col-md-6">{{subques.subQuestionText}} ({{subques.count}})</div>
+                                        <div class="col-md-6">
+                                            <div ng-repeat="(ansKey, answerChoice) in subques.ansChoice"  style="float: left;" ng-style="{'width':+answerChoice+'%'}">{{answerChoice}}%</div>
+                                        </div>
+                                    </li>
+                                </ul> -->
+                                <div id="griChart{{$index}}" ng-init="generateGraph(value.subQuestion,value.choices,  'griChart'+$index)" style="width: 100%"></div>
+                            </div>
+                        </div>
+                        <div ng-if="gridAnalysis.length==0">
+                            <h1 class="text-center">No data found!</h1>                            
+                        </div>
+                    </div>
+                    <!--=============Grid(Matrix) Question Analysis End==============-->
+                </div>
+            </li>
+        </ul>
+    </div>
+</section>
+
+          
+      
+      

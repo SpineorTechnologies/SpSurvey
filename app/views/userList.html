@@ -1,0 +1,83 @@
+<style>
+.ui-grid-header-cell {
+    position: relative;
+    box-sizing: border-box;
+    background-color: #ecf8f8;
+    border-right: 1px solid;
+    border-color: #ecf8f8;
+    display: table-cell;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    width: 0;
+}
+</style>
+
+<div ng-controller="UserlistCtrl">
+  <button id="button_add" class="btn" ng-click="add()">Add</button>
+  <button id="button_remove" class="btn" ng-click="remove()">Remove Last</button>
+
+  <div >
+    <div id="grid1"
+         ui-grid="gridOptions" class="grid"
+         ui-grid-edit
+         ui-grid-pagination
+         ui-grid-resize-columns
+    ></div>
+  </div>
+  <!--
+<div id="contextMenu" class="dropdown clearfix" >
+  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu" style="display:block;position:static;margin-bottom:5px;">
+    <li><a tabindex="-1" href="#" ng-click="insertNewItem()">Add Row</a></li>
+    <li><a tabindex="-1" href="#" ng-click="">Delete Row</a></li>
+    <li><a tabindex="-1" href="#"></a></li>
+    
+    <li class="divider"></li>
+    <li><a tabindex="-1" href="#" ng-click="tabs.length == 1 || removeTab(tabToRemove)" ng-class="{'disabled' : tabs.length == 1}">Delete Tab</a></li>
+  
+  </ul>
+  -->
+   <script type="text/ng-template" id="uiSelect">
+     <!--  <ui-select-wrap>
+        &nbsp;
+        <ui-select multiple ng-model="MODEL_COL_FIELD" theme="select2" ng-disabled="disabled" append-to-body="true">
+          <ui-select-match placeholder="Choose...">{{ $item }}</ui-select-match>
+          <ui-select-choices repeat="item in col.colDef.editDropdownOptionsArray | filter: $select.search">
+            <span>{{ item }}</span>
+          </ui-select-choices>
+        </ui-select>
+      </ui-select-wrap> -->
+<!-- Note the missing multiple attribute! -->
+ <!--  <ui-select ng-model="ctrl.person.selected" theme="bootstrap" search-enabled="" ng-disabled="false"  title="Choose a person">
+   
+    <ui-select-choices repeat="item in col.colDef.editDropdownOptionsArray">
+      {{item}}
+    </ui-select-choices>
+  </ui-select>
+
+ -->
+   <select  class='hidden' multiple="multiple" >
+                    <option>Authorized</option>
+                    <option>Pending</option>
+                    <option>Sent</option>
+                    <option>Funded</option>
+                    <option>Returned</option>
+                    <option>Invalid</option>
+                    <option>Chargeback</option>
+                    <option>Refund</option>
+                    <option>Void</option>
+                    <option>Errors</option>
+                </select>
+
+    </script>
+    
+</div>
+</div>
+
+<script type="text/javascript">
+   $(document).ready(function() {
+        $('select').multiselect({includeSelectAllOption: false});
+
+        });
+</script>

@@ -1,0 +1,249 @@
+[
+{
+    "_id" : "586e10ffb78c59c3484a2308",
+    "customer_id" : "5853852de1b425c6b915c8e8",
+    "lastname" : "ram",
+    "firstname" : "ali",
+    "username" : "one",
+    "password" : "one",
+    "email" : "ramali@intellectyx.com",
+    "phone" : "3033033030",
+    "status" : "active",
+    "access" : [ 
+        "Design", 
+        "Audience", 
+        "Report", 
+        "Analyze", 
+        "Action Planning", 
+        "Compliance"
+    ],
+    "preferred_language" : "en"
+}
+,
+{
+    "_id" : "586e10ffb78c59c3484a2309",
+    "customer_id" : "5853852de1b425c6b915c8e8",
+    "lastname" : "yasapl",
+    "firstname" : "kumar",
+    "username" : "yasapl",
+    "password" : "two",
+    "email" : "yasapl@intellectyx.com",
+    "phone" : "3033033030",
+    "status" : "active",
+    "access" : [ 
+        "Design"
+    ],
+    "preferred_language" : "en"
+}
+,
+{
+    "_id" : "586e10ffb78c59c3484a2309",
+    "customer_id" : "5853852de1b425c6b915c8e8",
+    "lastname" : "lname2",
+    "firstname" : "fname2",
+    "username" : "two",
+    "password" : "two",
+    "email" : "support@intellectyx.com",
+    "phone" : "3033033030",
+    "status" : "active",
+    "access" : [ 
+        "Design"
+    ],
+    "preferred_language" : "en"
+},
+{
+    "_id" : "586e10ffb78c59c3484a2309",
+    "customer_id" : "5853852de1b425c6b915c8e8",
+    "lastname" : "lname2",
+    "firstname" : "fname2",
+    "username" : "two",
+    "password" : "two",
+    "email" : "support@intellectyx.com",
+    "phone" : "3033033030",
+    "status" : "active",
+    "access" : [ 
+        "Design"
+    ],
+    "preferred_language" : "en"
+},
+{
+    "_id" : "586e10ffb78c59c3484a2309",
+    "customer_id" : "5853852de1b425c6b915c8e8",
+    "lastname" : "lname2",
+    "firstname" : "fname2",
+    "username" : "two",
+    "password" : "two",
+    "email" : "support@intellectyx.com",
+    "phone" : "3033033030",
+    "status" : "active",
+    "access" : [ 
+        "Design"
+    ],
+    "preferred_language" : "en"
+},
+{
+    "_id" : "586e10ffb78c59c3484a2309",
+    "customer_id" : "5853852de1b425c6b915c8e8",
+    "lastname" : "lname2",
+    "firstname" : "fname2",
+    "username" : "two",
+    "password" : "two",
+    "email" : "support@intellectyx.com",
+    "phone" : "3033033030",
+    "status" : "active",
+    "access" : [ 
+        "Design"
+    ],
+    "preferred_language" : "en"
+},
+{
+    "_id" : "586e10ffb78c59c3484a2309",
+    "customer_id" : "5853852de1b425c6b915c8e8",
+    "lastname" : "lname2",
+    "firstname" : "fname2",
+    "username" : "two",
+    "password" : "two",
+    "email" : "support@intellectyx.com",
+    "phone" : "3033033030",
+    "status" : "active",
+    "access" : [ 
+        "Design"
+    ],
+    "preferred_language" : "en"
+},
+{
+    "_id" : "586e10ffb78c59c3484a2309",
+    "customer_id" : "5853852de1b425c6b915c8e8",
+    "lastname" : "lname2",
+    "firstname" : "fname2",
+    "username" : "two",
+    "password" : "two",
+    "email" : "support@intellectyx.com",
+    "phone" : "3033033030",
+    "status" : "active",
+    "access" : [ 
+        "Design"
+    ],
+    "preferred_language" : "en"
+},
+{
+    "_id" : "586e10ffb78c59c3484a2309",
+    "customer_id" : "5853852de1b425c6b915c8e8",
+    "lastname" : "lname2",
+    "firstname" : "fname2",
+    "username" : "two",
+    "password" : "two",
+    "email" : "support@intellectyx.com",
+    "phone" : "3033033030",
+    "status" : "active",
+    "access" : [ 
+        "Design"
+    ],
+    "preferred_language" : "en"
+},
+{
+    "_id" : "586e10ffb78c59c3484a2309",
+    "customer_id" : "5853852de1b425c6b915c8e8",
+    "lastname" : "lname2",
+    "firstname" : "fname2",
+    "username" : "two",
+    "password" : "two",
+    "email" : "support@intellectyx.com",
+    "phone" : "3033033030",
+    "status" : "active",
+    "access" : [ 
+        "Design"
+    ],
+    "preferred_language" : "en"
+},
+{
+    "_id" : "586e10ffb78c59c3484a2309",
+    "customer_id" : "5853852de1b425c6b915c8e8",
+    "lastname" : "lname2",
+    "firstname" : "fname2",
+    "username" : "two",
+    "password" : "two",
+    "email" : "support@intellectyx.com",
+    "phone" : "3033033030",
+    "status" : "active",
+    "access" : [ 
+        "Design"
+    ],
+    "preferred_language" : "en"
+},
+{
+    "_id" : "586e10ffb78c59c3484a2309",
+    "customer_id" : "5853852de1b425c6b915c8e8",
+    "lastname" : "lname2",
+    "firstname" : "fname2",
+    "username" : "two",
+    "password" : "two",
+    "email" : "support@intellectyx.com",
+    "phone" : "3033033030",
+    "status" : "active",
+    "access" : [ 
+        "Design"
+    ],
+    "preferred_language" : "en"
+},
+{
+    "_id" : "586e10ffb78c59c3484a2309",
+    "customer_id" : "5853852de1b425c6b915c8e8",
+    "lastname" : "lname2",
+    "firstname" : "fname2",
+    "username" : "two",
+    "password" : "two",
+    "email" : "support@intellectyx.com",
+    "phone" : "3033033030",
+    "status" : "active",
+    "access" : [ 
+        "Design"
+    ],
+    "preferred_language" : "en"
+},
+{
+    "_id" : "586e10ffb78c59c3484a2309",
+    "customer_id" : "5853852de1b425c6b915c8e8",
+    "lastname" : "lname2",
+    "firstname" : "fname2",
+    "username" : "two",
+    "password" : "two",
+    "email" : "support@intellectyx.com",
+    "phone" : "3033033030",
+    "status" : "active",
+    "access" : [ 
+        "Design"
+    ],
+    "preferred_language" : "en"
+},
+{
+    "_id" : "586e10ffb78c59c3484a2309",
+    "customer_id" : "5853852de1b425c6b915c8e8",
+    "lastname" : "lname2",
+    "firstname" : "fname2",
+    "username" : "two",
+    "password" : "two",
+    "email" : "support@intellectyx.com",
+    "phone" : "3033033030",
+    "status" : "active",
+    "access" : [ 
+        "Design"
+    ],
+    "preferred_language" : "en"
+},
+{
+    "_id" : "586e10ffb78c59c3484a2309",
+    "customer_id" : "5853852de1b425c6b915c8e8",
+    "lastname" : "lname2",
+    "firstname" : "fname2",
+    "username" : "two",
+    "password" : "two",
+    "email" : "support@intellectyx.com",
+    "phone" : "3033033030",
+    "status" : "active",
+    "access" : [ 
+        "Design"
+    ],
+    "preferred_language" : "en"
+}
+]

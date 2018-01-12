@@ -1,0 +1,162 @@
+    <!--  Content -->
+    <flash-message name="flash-fixed"></flash-message> 
+    <form name="userForm"  novalidate ng-init="submitted">
+    	<section class="content_block">
+        	<div class="mysurvey_block">
+            	<div class="container ">
+                	<div class="row">
+                    	<div class=" col-sm-12">
+                        	<div class="panel panel-default">
+                            	<div class="panel-heading">
+                                	<h3 class="panel-title">Add Client</h3>
+                                </div>
+                              <div class="panel-body myprofile_block">
+                                <div class="col-md-6">
+                                    <div class="form-group clearfix">
+                                      <label for="clientName" class="col-md-4 control-label">Client Name *</label>                                
+                                      <div class="col-md-8">
+                                        <input type="text" class="form-control" id="clientName" name="name"  ng-model="clientName"  ng-change="flashClear()"placeholder="Client Name" required>
+                                        <p ng-show="submitted && userForm.name.$error.required" class="text-danger" style="position:absolute">Client name is required.</p>
+                                      </div>
+                                    </div> 
+                                    <div class="form-group clearfix">
+                                      <label for="inputEmail" class="col-md-4 control-label">Client Admin Email *</label>                                
+                                      <div class="col-md-8">
+                                        <input type="email" class="form-control" name="email" id="inputEmail" ng-pattern="emailFormat" ng-model="clientEmailId" ng-change="flashClear()" placeholder="Email ID" required capitalize>
+                                         <p ng-show="submitted && userForm.email.$error.required" class="text-danger" style="position:absolute">Email is required.</p>
+                                      </div>
+                                    </div>
+                                    <div class="form-group clearfix">
+                                      <label for="colorpicker" class="col-md-4 control-label">Take Survey Color</label>                                
+                                      <div class="col-md-8">
+                                       <label class="control-label">Primary Color</label>
+                                        <ul name= "selectPrimaryColor" class="color_picker_list list-inline clearfix" id="selectPrimaryColor"> 
+                                        	<li class=" color-1" value="#334d5c"><a ></a></li>
+                                            <li class="active color-2" value="#0daebb"><a></a></li>
+                                            <li class="color-3" value="#efc94c"><a></a></li>
+                                            <li class="color-4" value="#e27a3f"><a></a></li>
+                                            <li class="color-5" value="#df4949"><a></a></li>
+                                            <li class="color-6" value="#45b29d"><a></a></li>
+                                        </ul>
+                                       <label class="control-label">Accent Color</label>
+                                        <ul name="selectAccentColor" class="color_picker_list list-inline clearfix" id="selectAccentColor"> 
+                                        	<li class="color-1" value="#334d5c"><a ></a></li>
+                                            <li class="color-2" value="#0daebb"><a></a></li>
+                                            <li class="color-3" value="#efc94c"><a></a></li>
+                                            <li class="color-4" value="#e27a3f"><a></a></li>
+                                            <li class="color-5" value="#df4949"><a></a></li>
+                                            <li class="active color-6" value="#45b29d"><a></a></li>
+                                        </ul>
+                                      </div>
+                                    </div>
+                                    <div class="form-group clearfix ">
+	                                      <label for="inputEmail"   class="col-md-4 control-label">SMS Consent</label>
+	                                      <div class="col-md-8">                                
+	                                     <div class="togglebutton">
+	                            			<label><input type="checkbox" ng-click="toggle = !toggle">
+	                            			<span class="toggle"></span>{{toggleText}}
+	                            			</label>
+	                            		</div>
+	                            	</div>	
+                                    </div>
+                                    <div class="form-group clearfix">
+                                      <label for="threshold" class="col-md-4 control-label">Report Threshold *</label>                                
+                                      <div class="col-md-8">
+                                        <input type="number" min="0" max="99" name="threshold" class="form-control" ng-model="threshold" id="threshold" placeholder="threshold" required>
+                                        <p ng-show="submitted && userForm.threshold.$error.required" class="text-danger" style="position:absolute">Threshold value is required.</p>
+                                      </div>
+                                    </div>
+                                    <button class=" md-button md-primary" ng-click="clientInsert(userForm.$valid)" type="submit">Submit</button>    
+                                                                 
+                                    
+                                    <style>
+										.color_picker_list{ margin-top:10px; }
+										.color_picker_list > li > a { width:30px; height:30px; background-color:#eee; display:block; border-radius:50%; cursor:pointer; border:2px solid #fff; }
+										.color_picker_list > li.active > a{ background-color:#eee; border:3px solid #333; }
+										.color_picker_list > li.color_settings > a{ width:40px; height:40px; line-height:40px; text-align:center; background-color:#eee; }
+										.color_picker_list > li.color-1 > a{ background-color:#334d5c;}
+										.color_picker_list > li.color-2 > a{ background-color:#0daebb;}
+										.color_picker_list > li.color-3 > a{ background-color:#efc94c;}
+										.color_picker_list > li.color-4 > a{ background-color:#e27a3f;}
+										.color_picker_list > li.color-5 > a{ background-color:#df4949;}
+										.color_picker_list > li.color-6 > a{ background-color:#45b29d;}
+										.client_logo{ margin:20px 0 0 0; padding:40px 20px; border:1px solid #ddd; text-align:center;}
+										.client_logo img{text-align:center; margin:0 auto;}									
+									
+									</style>                         
+                                </div>
+                                <div class="col-md-6">
+                                 <div class="form-group clearfix">
+                                      <label for="clientIndustry" class="col-md-4 control-label">Client Industry *</label>                                
+                                      <div class="col-md-8">
+                                     
+                                        <input type="text" name="clientIndustry" class="form-control" id="clientIndustry"  ng-model="selectedIndustryType" uib-typeahead="industryType.industryType for industryType in industryType | filter:$viewValue | limitTo:8" required>
+                                        <p ng-show="submitted && userForm.clientIndustry.$error.required" class="text-danger" style="position:absolute">Client Industry is required.</p>
+                                      </div>
+                                    </div>
+                                     <div class="form-group clearfix">
+                                      <label for="clientAddress" class="col-md-4 control-label">Client Address</label>                                
+                                      <div class="col-md-8">
+                                        <input type="text" class="form-control" id="clientAddress" ng-model="clientAddress" placeholder="Client Address">
+                                      </div>
+                                    </div>
+                                    <div class="form-group clearfix">
+                                      <label for="clientAddress" class="col-md-3 control-label">Client Logo</label>                                
+                                      <div class="col-md-9" ng-show="!cropShow">
+                                         <figure class="">
+                                        	<img data-ng-src="{{editClientimg}}" alt="" id="clientLogo" width="150" class="img-responsive"/>                                        
+                                        </figure>
+                                      </div>
+                                      <div class="col-md-9">
+                                          <div class="cropArea" ng-show="cropShow">
+                                        	<ui-cropper result-image-size='{w: 250,h: 100}' allow-crop-resize-on-corners="true" image="myImage" result-image="myCroppedImage" area-type="rectangle" result-image-format="image/jpeg" result-image-quality="1.0"></ui-cropper>
+                                    </div> 
+                                          <label for="image" class="custom-file-upload" ng-show="cropShow">
+                                          <i class="fa fa-cloud-upload"></i> Update Logo
+                                          </label>
+                                          <label for="image" class="custom-file-upload" ng-show="!cropShow">
+                                          <i class="fa fa-cloud-upload"></i> Add Logo
+                                          </label>
+                                          <input id="image" name="image" type="file"/>
+
+                                </div>                              
+                              </div>
+                                    <!--<div class="form-group clearfix">
+                                      <label for="clientAddress" class="col-md-3 control-label">Add Logo</label>                                
+                                      <div class="col-md-9">
+                                        <label for="image" class="custom-file-upload">
+                                          <i class="fa fa-cloud-upload"></i> Add Logo
+                                        </label>
+                                          <input id="image" name="image" type="file"/>
+                        	</div>
+                                    </div>-->
+                                </div>                              
+                              </div>
+                        	</div>
+                        </div>                    
+                    </div>
+                </div>
+            </div>        
+        </section>
+       </form>
+    <!--  /Content -->
+<style type="text/css">
+  .cropArea {
+      background: #E4E4E4;
+      overflow: hidden;
+      width:400px;
+      height:350px;
+    }
+    input[type="file"] {
+    display: none;
+    }
+    .custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    background: #00a0ac;
+    color: #fff !important;
+
+    }
+</style>

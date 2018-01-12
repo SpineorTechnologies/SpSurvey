@@ -1,0 +1,17 @@
+{
+    "analysisData": {
+        "demographicsData": ["Questions", "Categories", "Tenure Groupings", "Generation", "Gender"],
+        "filterData": {
+            "Questions": ["My work gives me a sense of personal accomplishment", "The mission, vision, and values were well communicated", "The company provided me with opportunities to grow professionally"],
+            "Categories": ["Orientation/onboard", "Job Satisfaction", "Total Compensation / Benefits"],
+            "Tenure Groupings": ["Tenure Item1", "Tenure Item2", "Tenure Item3", "Tenure Item4", "Tenure Item5", "Tenure Item6", "Tenure Item7", "Tenure Item8", "Tenure Item9", "Tenure Item10"],
+            "Generation": ["Generation Item1", "Generation Item2", "Generation Item3", "Generation Item4", "Generation Item5", "Generation Item6", "Generation Item7", "Generation Item8", "Generation Item9", "Generation Item10", "Generation Item11", "Generation Item12", "Generation Item13", "Generation Item14"],
+            "Gender": ["Female", "Male"]
+        },
+        "completedStartDate": "2017-03-09T08:59:43.303Z",
+        "completedEndDate": "2017-06-09T08:59:43.303Z",
+        "surveys": ["Customer Survey1", "Customer Survey2", "Customer Survey3", "Customer Survey4", "Customer Survey5", "Customer Survey6"],
+        "aggregates": ["Average Index", "Count", "Percentage"],
+        "surveyType": ["OA", "STOP", "Engagement"]
+    }
+}

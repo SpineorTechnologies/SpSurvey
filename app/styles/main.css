@@ -1,0 +1,519 @@
+/*Participants Start ********/
+.btn.single-button {
+  background: #FFFFFF;
+  border-radius: 0;
+  border-color: #DDDDDD;
+  padding-left: 15px;
+  padding-right: 15px;
+
+}
+.errortext {
+    line-height: 40px;
+    padding: 0 10px;
+    color: #7d0303;
+    background-color: #fdd9d7;
+    margin: 0 0 0 12px;
+}
+.copytext {
+    margin: 9px 0 0 7px;
+    cursor: copy;
+}
+.truncate {
+  /*
+  width: 250px;
+  */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+b.truncate {
+  display: inline-block;
+  max-width: 105px;
+  min-width: 105px;
+  font-weight: 300 !important;
+  text-transform: capitalize !important;
+  font-size: 13px;
+  color: #212121;
+  float: center;
+}
+.flash-toast {
+    position: fixed;
+    top: 12%;
+    left: 48%;
+}
+
+.flash-toast span {
+    padding: 12px 20px;
+    border: 1px solid #ddd;
+    border-radius: 10%;
+    background: #ddd;
+    opacity: 1;
+}
+.selectedAccessLabel {
+  padding: 5px 0 5px 10px;
+  width: 100%;
+  font-size: 14px;
+  line-height: 5px;
+  color: #212121;
+}
+
+.selectedAccessInput {
+  margin-right: 20px;
+  padding-right: 10px;
+}
+#pagination > li.active a{
+  background-color: #00a0ac;
+  color: #FFFFFF!important;
+}
+#pagination > li a {
+  color: #000000;
+}
+#pagination > li {
+  padding: 0;
+  margin: 0;
+  float: left;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  margin-right: 5px;
+  text-align: center;
+  line-height: 25px;
+  cursor: pointer;
+}
+.ng-inline-edit__input {
+  padding: 0 3px;
+  min-height: 30px;
+}
+
+.ng-inline-edit__text {
+ /* padding: 2px 3px;*/
+  font-weight: normal;
+}
+
+.ng-inline-edit__text:hover {
+  background: #FFFFFF;
+  border-radius: 4px;
+}
+
+.ng-inline-edit__text--placeholder {
+  color: #999;
+  font-weight: normal;
+  font-style: italic;
+}
+#participantsTab .participants_block.h-100{
+  padding: 0 !important;
+}
+#participantsTab .btn-group.dropdown{
+  margin-top: -16px!important;
+  padding: 0 !important;
+
+}
+#participantsTab .ng-inline-edit__input{
+  padding: 0;
+}
+@media screen and (max-height: 768px){
+  .mdtTableContainer {
+
+    height: 395px;
+  }
+}
+  .mdtTableContainer tr td{
+text-align: center;
+  }/*
+.mdtTableContainer > table > thead > tr > th > i {
+  !* text-align: right; *!
+  float: right;
+  margin: 20px 20px 0 0;
+  min-width: 20px;
+  min-height: 20px;
+}*/
+.mdtTableContainer tr td {
+  text-align:inherit;
+padding: 0 5px;
+}/*
+.mdtTableContainer > table > thead > tr > th > span {
+  !* text-align: right; *!
+  float: left;
+}*/
+/*#Participants END */
+/*
+ * dragtable
+ *
+ * @Version 2.0.15
+ *
+ * default css
+ *
+ */
+/*##### the dragtable stuff #####*/
+.dragtable-sortable {
+  list-style-type: none; margin: 0; padding: 0; -moz-user-select: none;
+}
+.dragtable-sortable li {
+  margin: 0; padding: 0; float: left; font-size: 1em; background: white;
+}
+
+.dragtable-sortable th, .dragtable-sortable td{
+  border-left: 0px;
+}
+
+.dragtable-sortable li:first-child th, .dragtable-sortable li:first-child td {
+  border-left: 1px solid #CCC;
+}
+
+.ui-sortable-helper {
+  opacity: 0.7;filter: alpha(opacity=70);
+}
+.ui-sortable-placeholder {
+  -moz-box-shadow: 4px 5px 4px #C6C6C6 inset;
+  -webkit-box-shadow: 4px 5px 4px #C6C6C6 inset;
+  box-shadow: 4px 5px 4px #C6C6C6 inset;
+  border-bottom: 1px solid #CCCCCC;
+  border-top: 1px solid #CCCCCC;
+  visibility: visible !important;
+  background: #EFEFEF !important;
+  visibility: visible !important;
+}
+.ui-sortable-placeholder * {
+  opacity: 0.0; visibility: hidden;
+}
+.form-controlModel{
+  display: block;
+  width: 100%;
+  height: 34px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+  -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+  -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+
+.thminwidth{
+  min-width: 160px;
+}
+.switchmarginl38 {
+  /*
+  margin-left: 38px;
+  */
+  margin-left: 8px;
+
+}
+.dropdownContDiv{
+  position: absolute;
+  margin-top: -16px;
+
+
+}
+#myModal .form-group .checkbox label, .form-group .radio label, .form-group label {
+  font-size: 12px;
+
+}
+
+#myModal .modal-body,#myModal .modal-content{
+  margin: auto;
+}
+#myModa Form{
+  margin: auto;
+}
+@media screen and (min-width: 768px) {
+  .modal-dialog {
+    width: 400px; /* New width for default modal */
+  }
+  .modal-sm {
+    width: 300px; /* New width for small modal */
+  }
+}
+@media screen and (min-width: 992px) {
+  .modal-lg {
+    width: 700px; /* New width for large modal */
+  }
+}
+#myModal Form .form-group{
+  margin-top: 0px;
+}
+#myModal .form-group{
+  margin-top: 0px;
+
+}
+th.active:first-child{
+
+}
+.mdtTableContainer td input:first-child {
+ /*width:135px*/
+}
+.mdtTableContainer td input.table_search:first-child {
+  width:100%;
+}
+
+#queryModal .group{
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 5px;
+  border: solid 1px #666;
+}
+
+#queryModal .group-conditions{
+  margin-left: 20px;
+}
+
+#queryModal .alert-group{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-color: rgb(192, 152, 83);
+  border-color: rgb(251, 238, 213);
+  border-color: rgb(220, 200, 150);
+}
+
+#queryModal .condition, .group{
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+#queryModal .condition, .group{
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+#participantsTab .right{
+  float: right;
+}
+#participantsTab .left{
+  float: left;
+}
+#participantsTab .btn-group-vertical.open>.dropdown-toggle.btn, .btn-group-vertical.open>.dropdown-toggle.btn.btn-default, .btn-group.open>.dropdown-toggle.btn, .btn-group.open>.dropdown-toggle.btn.btn-default{
+  background: none;
+}
+#participantsTab .dropdown:not([data-animation]).open .dropdown-menu, .dropup.open .dropdown-menu, .bootstrap-select.open .dropdown-menu, .btn-group.open .dropdown-menu {
+  /*background-color: #EEE;*/
+}
+#participantsTab .dropdown-menu li{
+  margin-bottom: 5px;
+}
+#participantsTab th#settings{
+  word-break: break-all;
+  word-wrap: break-word;
+}
+#participantsTab .md-button.txt_green.settingsbot{
+  margin-top: 0;
+  margin-bottom:0;
+
+
+}
+.user_list_table > tbody > tr > td > .togglebutton{
+  text-align: left;
+
+}
+@media screen and (max-height: 768px){
+  #participantsTab   .mdtTableContainer {
+
+    /*height: 390px;*/
+    height: 100%;
+  }
+}
+.switchmarginl38 {
+  margin-left: 38px;
+  /* margin-left: 8px; */
+}
+#participantsTab .form-group{
+  margin:0;
+
+}
+user_list_table > tbody > tr > td > .ng-scope .togglebutton{ text-align:center; min-width:80px; padding-left:5px!important }
+.user_list_table > tbody > tr > td > .ng-scope .togglebutton label  { font-size:13px;  }
+.user_list_table > tbody > tr > td > .ng-scope .togglebutton label .toggle::after{ width:16px; height:16px; }
+.user_list_table > tbody > tr > td > .ng-scope .togglebutton label .toggle, .user_list_table > tbody > tr > td > .togglebutton label input[type="checkbox"][disabled] + .toggle{ height:12px; }
+.user_list_table > tbody > tr > td > .ng-scope .togglebutton label input[type="checkbox"]:checked + .toggle::after{background-color:#ffa12d; }
+.user_list_table > tbody > tr > td > .ng-scope .togglebutton label input[type="checkbox"]:checked + .toggle{ background-color: rgba(255, 161, 45, 0.5);}
+.switchmarginl38 {
+  margin-left: 38px;
+  /* margin-left: 8px; */
+}
+#participantsTab .form-group{
+  margin:0;
+
+}
+#participantsTabAlert .alert.alert-warning {
+  color: #8a6d3b!important;
+  background-color: #fcf8e3;
+  border-color: #faebcc;
+  text-align: center;
+
+}
+#participantsTabAlert .alert.alert-info {
+  color: #31708f;
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+  text-align: center;
+}
+#participantsTabAlert .alert.alert-success{
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #d6e9c;
+  text-align: center;
+
+}
+#participantsTabAlert .alert.alert-danger {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+  text-align: center;
+}
+#participantsTabAlert{
+  position: absolute;
+  width:80%;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  text-align: center;
+  top:10%;
+
+}
+/*TEST*/
+
+table.clone thead tr:last-child th {
+ background-color: #ecf8f8;
+border-bottom: 1px solid #bde6e9;
+color:#414040;
+line-height: 56px;
+}
+
+table.clone thead tr:last-child th i {
+  color: #bde6e9;
+    text-align: right;
+    float: none;
+    margin: 0;
+    width: 20px;
+    height: 20px;
+}
+
+table.clone thead > tr > th:nth-last-child(1){
+background-color: #bde6e9;
+color: #00a0ac;
+width: 30px;
+padding: 0;
+text-align: center;
+}
+table.clone thead > tr > th:nth-last-child(1) i {
+    color: #00a0ac;
+    float: none;
+    text-align: center;
+    font-size: 14px;
+    line-height: 56px;
+} 
+ 
+.row.user-update label {
+    color: #000;
+    font-size: 15px;
+    width: 100px;
+}
+.user-update .write{
+  display: none;
+  margin-bottom: 10px;
+}
+.user-update .active .write{
+  display: inline-block;
+}
+.user-update .readonly {
+    display: inline-block;
+}
+.user-update .active .readonly {
+    display: none;
+}
+.user-update .btn,.user-update .btn:hover{
+    color: #fff !important;
+    background-color: #337ab7!important;
+    border-color: #2e6da4;
+    margin: 0 0 0px 10px;
+    font-size: 12px;
+    padding: 5px 10px;
+}
+#history{
+  z-index: 9999;
+}
+.text-label {
+    vertical-align: top;
+}
+.submit-form {
+    
+    width: 100%;
+    float: left;
+    margin: 15px 0;
+}
+
+.submit-form button {
+    width: 109px;
+    line-height: 20px;
+}
+.form-datepicker {
+    width: 183px;
+    float: none;
+    margin: 10px auto;
+    padding: 3px 0;
+}
+.timepicker-orient-top.open {
+    display: block;
+}
+.timepicker-orient-top input {
+    width: 50px;
+    text-align: center;
+    margin: 0;
+}
+.timepicker-orient-top td{
+  text-align: center;
+}
+.glyphicon-time{
+  cursor: pointer;
+}
+.modal-button-next .btn:hover,.modal-button-next .btn:focus, .status-btn .btn:hover,.status-btn .btn:focus{
+  background: #035861!important;
+}
+.modal-button-next .btn {
+  margin-top: 50px;
+  background: #2b8892;
+  color: #fff!important;
+  padding: 10px 20px;
+}
+.status-btn .btn {
+    margin: 10px 3px 2px;
+    background: #6a9498!important;
+    color: #fff;
+}
+.status-btn .btn.active{
+  background: #035861!important;
+}
+#assignedStatus {
+    z-index: 99999;
+}
+.history-area {
+    margin-top: 40px;
+    float: left;
+    width: 100%;
+}
+.history-msg{
+  text-align: center;
+}
+.statusarea {
+    display: inline;
+    width: auto;
+    margin-left: -10px;
+}
+.user_list_table input[id^=firstname],.user_list_table input[id^=lastname] {
+    text-transform: capitalize;
+}
+.username{
+  text-transform: capitalize;
+}
+.history-detail td{
+  word-break: break-all;
+}
+#callerDetail{
+  overflow-y: scroll!important;
+  overflow-x: hidden;
+}

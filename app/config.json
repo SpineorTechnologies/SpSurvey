@@ -1,0 +1,15 @@
+{
+  "client": {
+    "ip": "localhost",
+    "port": "9000",
+    "host": "localhost",
+    "serverUrl": "http://localhost:3010/",
+    "clientUrl": "http://localhost:9000/"
+  },
+  "server": {
+    "ip": "localhost",
+    "port": "3010",
+    "host": "localhost",
+    "url": "http://localhost:3010/"
+  }
+}

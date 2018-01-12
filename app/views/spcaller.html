@@ -1,0 +1,360 @@
+<style>
+.highlight {
+  background-color: #EEEEEE !important;
+}
+.textCenterAlign{
+text-align:center;
+}
+.ui-grid-cell-focus{
+	background-color: transparent !important;
+}
+#history th{
+  background-color: #ecf8f8;
+}
+.ui-grid-render-container-body .ui-grid-viewport{
+	
+}
+.scSpcallerGrid.grid.ui-grid{
+	height:444px!important;
+}
+.md-button.md-small {
+  width: 25px;
+  height: 25px;
+  line-height: 25px;
+  min-height: 25px;
+  vertical-align: top;
+  font-size: 15px;
+  padding: 0 0;
+  margin: 0;
+}
+
+</style>
+
+<flash-message   name="flash-fixed-submit" id="spcallerMessage"></flash-message>
+
+<section class="content_block build_survey_cnt" id="participantsTab">
+
+  <div class="participants_block h-100">
+    <div class="container-fluid h-100">
+      <div class="row h-100">
+        <div class="col-md-12 h-100">
+          <div class="panel panel-default h-100">
+            <div class="panel-heading no-brdr">
+              <div class="title_block pull-left" layout="row">
+                <h4 class="md-headline pull-left" style="margin-top:0;">Caller Queue</h4>
+              </div>
+             <!--  <div class="status-btn text-right">
+                <button type="button" title="Open, Do Not Call, Busy, Left Message" class="btn" ng-class="{'active': activeClients}" ng-click="filterData('active')">Active</button>
+                <button type="button" title="Completed, Refused, Max Attempts, Unreachable, Assigned" class="btn" ng-class="{'active': !activeClients}" ng-click="filterData('completed')">Completed</button>
+              </div> -->
+              <div class="panel-action-items">
+                <div class="title_block_actions pull-right">
+                  <!-- <button class="md-icon-button md-button txt_green" data-target="#downloadOptions" data-toggle="modal"><i class="fa fa-download panel_icons"></i></button> -->
+                </div>
+              </div>
+            </div>
+            <div class="row" ng-if="error">
+                <div class="errortext">
+                  {{error}}
+                </div>
+            </div>
+    
+            <div class="panel-body">
+              <div ui-grid="ui.spcallerGridOptions" ui-grid-edit ui-grid-cellNav=""  
+                   ui-grid-pinning="" ui-grid-resize-columns  class="scSpcallerGrid grid"></div>
+
+              <!-- <div class="table_paging_block clearfix" style="height: 30px;">
+                <p ng-if="total != 0" class="pull-left">
+                  Displaying <span class="txt_green"> {{ui.dataPage.recCurrentIndex()}}</span> to
+                  <span class="txt_green">{{ui.dataPage.recLastIndex()}} </span> out of <span class="txt_green">{{ui.dataPage.totalRecords}}</span>                  rows <span class="txt_green">
+
+                  <select ng-model="ui.dataPage.recordsPerpage" ng-options="x for x in ui.limitPageArray" ng-change="actions.onNoOfRecordsChange(recordsPerpage)"></select>
+                  </span> Records per page
+                </p>
+
+                <p ng-if="total == 0" class="pull-left">
+                  <span class="txt_green"> No Records Found !</span>
+                </p>
+
+                <ul id="pagination" class="pull-right" uib-pagination direction-links="true" boundary-links="true" items-per-page="ui.dataPage.recordsPerpage"
+                  total-items="ui.dataPage.totalRecords" max-size="5" boundary-link-numbers="true" previous-text="&lsaquo;"
+                  next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;" ng-model="ui.dataPage.currentPage" ng-change="actions.onPageChanged()"></ul>
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="flash-toast" ng-if="toast">
+  <span>{{toast}}</span>
+</div>
+
+
+<div id="assignedStatus" class="modal fade" role="dialog">
+  <div class="modal-dialog" style="width: 95%;">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Assigned Detail</h4>
+      </div>
+      <div class="modal-body">
+          <p class="errortext ng-binding">{{error}}</p>
+         <div class="form-inline" >
+          <div class="row user-update">
+            <div class="col-sm-8 col-sm-offset-4">
+              <div class="">
+                <label for="exampleInputName2" class="text-label">Notes</label>
+                <textarea type="text" name="" ng-model="assignedNotes"></textarea>
+              </div>
+              <div class="">
+                <label for="exampleInputName2">Date</label>
+                <input type="text" class="datepicker form-datepicker" name="" ng-model="assignedDate">
+              </div>
+              <div class="input-group bootstrap-timepicker timepicker">
+                  <input id="timepicker" type="text" class="form-control input-small" ng-model="assignedTime">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+              </div>
+            </div> 
+            <br>
+             <div class="text-center submit-form">
+                 <button ng-click="assignCall()" type="submit" class="btn btn-default">Submit</button> 
+              </div>
+            </div> 
+            <br><br>
+          </div>
+        </div>  
+    
+        <div ng-if="assignedClient.length==0">
+          <p>No Data Found</p>
+        </div>
+      </div>
+    </div>
+  
+  </div>
+</div>
+
+
+
+<!-- select the specific user -->
+<div id="callerDetail" class="modal fade" role="dialog">
+  <div class="modal-dialog" style="width: 95%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Caller Detail</h4>
+      </div>
+      <div class="modal-body modal-button">
+        <div class="row">
+            <!-- <div class="col-sm-1 modal-button-next"><button ng-click="userDetailCarousal('prev')" class="btn btn-primary ">Prev</button></div> -->
+            <div class="form-inline col-sm-11" >
+              <p class="errortext ng-binding">{{error}}</p>
+
+              <div class="row user-update" ng-if="permission">
+                <div class="col-sm-6">
+                <div class="username">
+                  <label>First Name</label>
+                  {{callerDetailData.firstname}}
+                </div>
+                <div class="username">
+                  <label>Last Name</label>
+                  {{callerDetailData.lastname}}
+                </div>
+                <div class="editable phone-area">
+                  <label for="exampleInputName2">Phone </label>
+                  <div class="readonly">
+                    {{callerDetailData.phone}} 
+                    <i class="fa fa-pencil-square" aria-hidden="true" ng-click="editField('phone-area')"></i>
+                  </div>
+                  <div class="write">
+                    <input type="text" ng-model="userphone">
+                    <button type="submit" class="btn btn-default" ng-click="saveEmailPhone(callerDetailData,'phone',userphone)">Submit</button>
+                  </div>
+                </div>
+                <div class="editable altphone-area">
+                  <label for="exampleInputName2">Alt Phone </label>
+                  <div class="readonly">
+                    {{callerDetailData.alt_phone}}
+                    <i class="fa fa-pencil-square" aria-hidden="true" ng-click="editField('altphone-area')"></i>
+                  </div>
+                  <div class="write">
+                    <input type="text"  ng-model="useraltphone">
+                    <button type="submit" class="btn btn-default" ng-click="saveEmailPhone(callerDetailData,'alt_phone',useraltphone)">Submit</button>
+                  </div>
+                </div>
+                <div class="editable email-area">
+                  <label for="exampleInputEmail2">Email</label>
+                  <div class="readonly">
+                    {{callerDetailData.email}}
+                    <i class="fa fa-pencil-square" aria-hidden="true" ng-click="editField('email-area')"></i>
+                  </div>
+                  <div class="write">
+                    <input type="text"  ng-model="useremail">
+                    <button type="submit" class="btn btn-default" ng-click="saveEmailPhone(callerDetailData,'email',useremail)">Submit</button>
+                  </div>
+                </div>
+                <div class="">
+                  <label>State</label>
+                  {{callerDetailData.state}}
+                </div>
+                <div class="">
+                  <label for="exampleInputEmail2">Language</label>
+                  {{callerDetailData.language | stringArrayFilter}}
+                </div>
+              </div>
+              <div class="col-sm-6">
+               <!-- <div class="editable notes-area">
+                  <label for="exampleInputEmail2">Owner</label>
+                    <input type="text"  ng-model="userowner">
+                    <button type="submit" class="btn btn-default" ng-click="saveOwner(callerDetailData,userowner)">Submit</button>
+                </div> -->
+               <div class="">
+                <label for="exampleInputEmail2">Survey</label>
+               {{callerDetailData.survey_name}}
+              </div>
+              <div>
+                <label for="exampleInputEmail2">Status</label>
+                <div class="dropdown statusarea">
+                  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">{{statusName}}
+                  <span class="caret"></span></button>
+                  <ul class="dropdown-menu">
+                    <li><a ng-click="changeStatus(callerDetailData,'Assigned')"  data-value="Assigned">Assigned</a></li>
+                    <li><a ng-click="changeStatus(callerDetailData,'Busy')"  data-value="Busy" >Busy</a></li>
+                    <li><a ng-click="changeStatus(callerDetailData,'Completed')"  data-value="Completed" >Completed</a></li>
+                    <li><a ng-click="changeStatus(callerDetailData,'Left Message')"  data-value="Left Message">Left Message</a></li>
+                    <li><a ng-click="changeStatus(callerDetailData,'Max Attempts')"  data-value="Max Attempts" >Max Attempts</a></li>  
+                    <li><a ng-click="changeStatus(callerDetailData,'Open')"  data-value="Open"  >Open</a></li>
+                    <li><a ng-click="changeStatus(callerDetailData,'Refused')"  data-value="Refused"  >Refused</a></li>
+                    <li><a ng-click="changeStatus(callerDetailData,'Unreachable')"  data-value="Unreachable"  >Unreachable</a></li>
+                    <li><a ng-click="changeStatus(callerDetailData,'Do Not Call')"  data-value="Do Not Call">Do Not Call</a></li>
+                  </ul>
+                </div>
+              </div>  
+               <!-- <div class="">
+                <label for="exampleInputEmail2">Status</label>
+                
+                <select ng-change="changeStatus(callerDetailData,statusName,'{{callerDetailData.callstatus}}')" ng-model="statusName" ng-disabled="callerDetailData.pctComplete > 99">
+                  <option value="">Select</option>
+                  <option  ng-selected="callerDetailData.callstatus == 'Assigned'"  value="Assigned">Assigned</option>
+                  <option  ng-selected="callerDetailData.callstatus == 'Busy'"  value="Busy">Busy</option>
+                  <option  ng-selected="callerDetailData.callstatus == 'Completed'" value="Completed">Completed</option>
+                  <option  ng-selected="callerDetailData.callstatus == 'Left Message'" value="Left Message">Left Message</option>
+                  <option  ng-selected="callerDetailData.callstatus == 'Max Attempts'" value="Max Attempts">Max Attempts</option>
+                  <option  ng-selected="callerDetailData.callstatus == 'Open'" value="Open">Open</option>
+                  <option ng-selected="callerDetailData.callstatus == 'Refused'"  value="Refused">Refused</option>
+                  <option ng-selected="callerDetailData.callstatus == 'Unreachable'"  value="Unreachable">Unreachable</option>
+                  <option ng-selected="callerDetailData.callstatus == 'Do Not Call'"  value="Do Not Call">Do Not Call</option>
+                </select>
+
+              </div> -->
+               <div class="">
+                <label for="exampleInputEmail2">Caller</label>
+                {{callerDetailData.caller_name}}
+              </div>
+               <div class="">
+                <label for="exampleInputEmail2">Attempts</label>
+                <span ng-if="callerDetailData.attempt">{{callerDetailData.attempt}}</span>
+                <span ng-if="!callerDetailData.attempt">0</span>
+              </div>
+               <div class="">
+                <label for="exampleInputEmail2">Last Called</label>
+               {{callerDetailData.last_call_timestamp}}
+              </div>
+               
+              <div class="editable notes-area">
+                  <label for="exampleInputEmail2">Notes</label>
+                    <input type="text" id="userNotes"  ng-model="usernotes"  ng-disabled="disableNotes">
+                    <button type="submit" class="btn btn-default" ng-disabled="disableNotes" ng-click="saveNotes(callerDetailData,usernotes)">Submit Notes</button>
+                </div>
+            </div>
+            <div class="col-sm-12">
+              <div class="ui-grid-cell-contents">
+                <label >Actions</label>
+                  <!-- <button type="button" title="History" class="md-button md-icon-button md-small txt_green" ng-click="history(callerDetailData)"><i class="fa fa-history" aria-hidden="true"></i></button> -->
+                 <button type="button" title="Send Survey" class="md-button md-icon-button md-small txt_green" ng-click="sendSurvey(callerDetailData)"><i class="fa fa-send" aria-hidden="true"></i></button>
+                 <a ng-click="openSurveyWindow(callerDetailData.actionItems.takeSurveyUrl,callerDetailData,currentRowId)" target="_blank"><button type="button" title="Take Survey" class="md-button md-icon-button md-small txt_green"><i class="fa fa-sticky-note" aria-hidden="true"></i></button></a>
+                 <input type="checkbox" title="Red Flag" style="margin: 3px 5px 0;vertical-align: middle;width: 14px;height: 16px;" ng-model="callerDetailData.isActive" ng-true-value="true" ng-false-value="false" ng-change="updatedFlag(callerDetailData)">
+                 
+              </div>
+            </div>  
+            </div>
+          </div>
+          <div class="col-sm-1 modal-button-next">
+            <button class="btn btn-primary" ng-click="userDetailCarousal('next')">Next</button>
+          </div>
+
+          <!-- history data -->
+          <div class="history-area" ng-if="permission">
+          <div class="modal-header">
+            <h4 class="modal-title">Caller History</h4>
+          </div>
+            <table class="table table-bordered history-detail" ng-if="historyData.length>0" style="table-layout: fixed;">
+            <thead>
+                <tr>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Caller</th>
+                  <th>Survey Name</th>
+                  <th>Attempts</th>
+                  <th>Status</th>
+                  <th>Notes</th>
+                  <th>Assigned Date</th>
+                  <th>Assigned Time</th>
+                  <th>Duration</th>
+                  <th>Last Called</th>
+                  <th>Owner</th>
+                </tr> 
+            </thead>
+            <tbody>
+              <tr ng-repeat="(key, value) in historyData" style="text-transform: capitalize;">
+                  <td>{{value.firstname}}</td>
+                  <td>{{value.lastname}}</td>
+                  <td>{{value.caller_name}}</td>
+                  <td>{{value.survey_name}}</td>
+                  <td>{{value.attempt}}</td>
+                  <td>{{value.callstatus}}</td>
+                  <td>{{value.notes}}</td>
+                  <td>{{value.assigned_date}}</td>
+                  <td>{{value.assigned_time}}</td>
+                  <td>{{value.survey_time}}</td>                
+                  <td>{{convertDate(value.cdt)}}</td>
+                  <td>{{value.owner}}</td>                
+              </tr>
+            </tbody>
+          </table>
+          <div ng-if="historyData.length==0">
+            <p class="history-msg">No history Data Found for this client.</p>
+          </div>
+        </div>
+
+        </div>  
+      </div>
+    </div>
+  
+  </div>
+</div>
+
+
+
+  <script type="text/ng-template" id="notesPopup.html">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header" style="height: 50px;">
+          <button type="button" class="close" data-dismiss="modal" ng-click="$ctrl.actions.cancel()"  aria-hidden="true"><i class="material-icons">close</i></button>
+            <h4 class="modal-title">Notes</h4>
+          </div> 
+          <div class="modal-body">
+            <textarea class="form-control" id="message-text" ng-model="$ctrl.ui.data.notes"></textarea>
+          </div>
+          <div class="modal-footer">
+            <button type="button" ng-click="$ctrl.actions.saveNotes(event)" 
+              class="md-button md-primary btn-block">Save</button>
+            <button type="button" style="margin-bottom:0px"
+              class="md-button md-default btn-block" data-dismiss="modal" ng-click="$ctrl.actions.cancel()" >Cancel</button>
+          </div>
+        </div>
+      </div>
+  </script>

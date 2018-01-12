@@ -1,0 +1,546 @@
+[{
+	"question": {
+		"question": {
+			"en": ["I felt proud to work for Unity Health"],
+			"es": ["En general, el paquete de beneficios satisfizo mis necesidades"],
+			"zh-Hans": ["总的来说，收益包满足了我的需求"]
+		},
+		"category": {
+			"en": ["Benefits"],
+			"es": ["Beneficios"],
+			"zh-Hans": ["好处"],
+			"category_description": {
+				"en": "(Answer only if you received benefits from the organization)",
+				"es": "(Responda sólo si recibió beneficios de la organización)",
+				"zh-Hans": "（仅当您从组织获得福利时回答）"
+			}
+		},
+		"baseQuestionId": "5922af8066b53d84f9d29196",
+		"actionItems": {
+			"en": ["Have a manager or HR representative meet with your employees to fully explain their benefit package.", "Conduct a benefits specific survey to better understand the needs of the employee population. Be sure to communicate any changes that are made as a result."]
+		}
+	},
+	"avgIdx": 4.125,
+	"pctFav": 75,
+	"companyBenchmark": 72,
+	"companyDelta": 0.030,
+	"historicalDelta":-0.050
+}, {
+	"question": {
+		"question": {
+			"en": ["Employees were treated fairly regardless of their race, gender, age, etc."],
+			"es": ["En general, el paquete de beneficios satisface mis necesidades"],
+			"zh-Hans": ["总的来说，福利包满足我的需求"]
+		},
+		"category": {
+			"en": ["Benefits"],
+			"es": ["Beneficios"],
+			"zh-Hans": ["好处"],
+			"category_description": {
+				"en": "(Answer only if you received benefits from the organization)",
+				"es": "(Responda sólo si recibió beneficios de la organización)",
+				"zh-Hans": "（仅当您从组织获得福利时回答）"
+			}
+		},
+		"baseQuestionId": "5922af6e66b53d84f9d2909b"
+	},
+	"avgIdx": 3,
+	"pctFav": 38,
+	"companyBenchmark": 73,
+	"companyDelta": -0.352,
+	"historicalDelta":-0.452
+},{
+	"question": {
+		"question": {
+			"en": ["I felt valued as an employee"],
+			"es": ["En general, el paquete de beneficios satisfizo mis necesidades"],
+			"zh-Hans": ["总的来说，收益包满足了我的需求"]
+		},
+		"category": {
+			"en": ["Benefits"],
+			"es": ["Beneficios"],
+			"zh-Hans": ["好处"],
+			"category_description": {
+				"en": "(Answer only if you received benefits from the organization)",
+				"es": "(Responda sólo si recibió beneficios de la organización)",
+				"zh-Hans": "（仅当您从组织获得福利时回答）"
+			}
+		},
+		"baseQuestionId": "5922af8066b53d84f9d29196",
+		"actionItems": {
+			"en": ["Have a manager or HR representative meet with your employees to fully explain their benefit package.", "Conduct a benefits specific survey to better understand the needs of the employee population. Be sure to communicate any changes that are made as a result."]
+		}
+	},
+	"avgIdx": 2.375,
+	"pctFav": 38,
+	"companyBenchmark": 47,
+	"companyDelta": -0.097,
+	"historicalDelta":-0.225
+
+},{
+	"question": {
+		"question": {
+			"en": ["Teamwork was good in my department"],
+			"es": ["En general, el paquete de beneficios satisfizo mis necesidades"],
+			"zh-Hans": ["总的来说，收益包满足了我的需求"]
+		},
+		"category": {
+			"en": ["Benefits"],
+			"es": ["Beneficios"],
+			"zh-Hans": ["好处"],
+			"category_description": {
+				"en": "(Answer only if you received benefits from the organization)",
+				"es": "(Responda sólo si recibió beneficios de la organización)",
+				"zh-Hans": "（仅当您从组织获得福利时回答）"
+			}
+		},
+		"baseQuestionId": "5922af8066b53d84f9d29196",
+		"actionItems": {
+			"en": ["Have a manager or HR representative meet with your employees to fully explain their benefit package.", "Conduct a benefits specific survey to better understand the needs of the employee population. Be sure to communicate any changes that are made as a result."]
+		}
+	},
+	"avgIdx": 2.875,
+	"pctFav": 25,
+	"companyBenchmark": 47,
+	"companyDelta": -0.221,
+	"historicalDelta":-0.450
+
+},{
+	"question": {
+		"question": {
+			"en": ["Policies and procedures were effectively administered"],
+			"es": ["En general, el paquete de beneficios satisfizo mis necesidades"],
+			"zh-Hans": ["总的来说，收益包满足了我的需求"]
+		},
+		"category": {
+			"en": ["Benefits"],
+			"es": ["Beneficios"],
+			"zh-Hans": ["好处"],
+			"category_description": {
+				"en": "(Answer only if you received benefits from the organization)",
+				"es": "(Responda sólo si recibió beneficios de la organización)",
+				"zh-Hans": "（仅当您从组织获得福利时回答）"
+			}
+		},
+		"baseQuestionId": "5922af8066b53d84f9d29196",
+		"actionItems": {
+			"en": ["Have a manager or HR representative meet with your employees to fully explain their benefit package.", "Conduct a benefits specific survey to better understand the needs of the employee population. Be sure to communicate any changes that are made as a result."]
+		}
+	},
+	"avgIdx": 3.25,
+	"pctFav": 50,
+	"companyBenchmark": 57,
+	"companyDelta": -0.073,
+	"historicalDelta":-0.300
+
+},{
+	"question": {
+		"question": {
+			"en": ["I would recommend Unity Health as a good place to work"],
+			"es": ["En general, el paquete de beneficios satisfizo mis necesidades"],
+			"zh-Hans": ["总的来说，收益包满足了我的需求"]
+		},
+		"category": {
+			"en": ["Benefits"],
+			"es": ["Beneficios"],
+			"zh-Hans": ["好处"],
+			"category_description": {
+				"en": "(Answer only if you received benefits from the organization)",
+				"es": "(Responda sólo si recibió beneficios de la organización)",
+				"zh-Hans": "（仅当您从组织获得福利时回答）"
+			}
+		},
+		"baseQuestionId": "5922af8066b53d84f9d29196",
+		"actionItems": {
+			"en": ["Have a manager or HR representative meet with your employees to fully explain their benefit package.", "Conduct a benefits specific survey to better understand the needs of the employee population. Be sure to communicate any changes that are made as a result."]
+		}
+	},
+	"avgIdx": 3,
+	"pctFav": 38,
+	"companyBenchmark": 49,
+	"companyDelta": -0.119,
+	"historicalDelta":-0.425
+},{
+	"question": {
+		"question": {
+			"en": ["Overall, I was satisfied working at Unity Health"],
+			"es": ["En general, el paquete de beneficios satisfizo mis necesidades"],
+			"zh-Hans": ["总的来说，收益包满足了我的需求"]
+		},
+		"category": {
+			"en": ["Benefits"],
+			"es": ["Beneficios"],
+			"zh-Hans": ["好处"],
+			"category_description": {
+				"en": "(Answer only if you received benefits from the organization)",
+				"es": "(Responda sólo si recibió beneficios de la organización)",
+				"zh-Hans": "（仅当您从组织获得福利时回答）"
+			}
+		},
+		"baseQuestionId": "5922af8066b53d84f9d29196",
+		"actionItems": {
+			"en": ["Have a manager or HR representative meet with your employees to fully explain their benefit package.", "Conduct a benefits specific survey to better understand the needs of the employee population. Be sure to communicate any changes that are made as a result."]
+		}
+	},
+	"avgIdx": 3,
+	"pctFav": 50,
+	"companyBenchmark": 54,
+	"companyDelta": -0.040,
+	"historicalDelta":-0.300
+},{
+	"question": {
+		"question": {
+			"en": ["My work gave me a sense of personal accomplishment"],
+			"es": ["En general, el paquete de beneficios satisfizo mis necesidades"],
+			"zh-Hans": ["总的来说，收益包满足了我的需求"]
+		},
+		"category": {
+			"en": ["Benefits"],
+			"es": ["Beneficios"],
+			"zh-Hans": ["好处"],
+			"category_description": {
+				"en": "(Answer only if you received benefits from the organization)",
+				"es": "(Responda sólo si recibió beneficios de la organización)",
+				"zh-Hans": "（仅当您从组织获得福利时回答）"
+			}
+		},
+		"baseQuestionId": "5922af8066b53d84f9d29196",
+		"actionItems": {
+			"en": ["Have a manager or HR representative meet with your employees to fully explain their benefit package.", "Conduct a benefits specific survey to better understand the needs of the employee population. Be sure to communicate any changes that are made as a result."]
+		}
+	},
+	"avgIdx": 3.75,
+	"pctFav": 50,
+	"companyBenchmark": 69,
+	"companyDelta": -0.186,
+	"historicalDelta":-0.200
+},{
+	"question": {
+		"question": {
+			"en": ["I was motivated to go beyond what was normally expected of me to help Unity Health be successful"],
+			"es": ["En general, el paquete de beneficios satisfizo mis necesidades"],
+			"zh-Hans": ["总的来说，收益包满足了我的需求"]
+		},
+		"category": {
+			"en": ["Benefits"],
+			"es": ["Beneficios"],
+			"zh-Hans": ["好处"],
+			"category_description": {
+				"en": "(Answer only if you received benefits from the organization)",
+				"es": "(Responda sólo si recibió beneficios de la organización)",
+				"zh-Hans": "（仅当您从组织获得福利时回答）"
+			}
+		},
+		"baseQuestionId": "5922af8066b53d84f9d29196",
+		"actionItems": {
+			"en": ["Have a manager or HR representative meet with your employees to fully explain their benefit package.", "Conduct a benefits specific survey to better understand the needs of the employee population. Be sure to communicate any changes that are made as a result."]
+		}
+	},
+	"avgIdx": 3.75,
+	"pctFav": 63,
+	"companyBenchmark": 76,
+	"companyDelta": -0.140,
+	"historicalDelta":-0.075
+},{
+	"question": {
+		"question": {
+			"en": ["My job made good use of my skills and abilities"],
+			"es": ["En general, el paquete de beneficios satisfizo mis necesidades"],
+			"zh-Hans": ["总的来说，收益包满足了我的需求"]
+		},
+		"category": {
+			"en": ["Benefits"],
+			"es": ["Beneficios"],
+			"zh-Hans": ["好处"],
+			"category_description": {
+				"en": "(Answer only if you received benefits from the organization)",
+				"es": "(Responda sólo si recibió beneficios de la organización)",
+				"zh-Hans": "（仅当您从组织获得福利时回答）"
+			}
+		},
+		"baseQuestionId": "5922af8066b53d84f9d29196",
+		"actionItems": {
+			"en": ["Have a manager or HR representative meet with your employees to fully explain their benefit package.", "Conduct a benefits specific survey to better understand the needs of the employee population. Be sure to communicate any changes that are made as a result."]
+		}
+	},
+	"avgIdx": 3.25,
+	"pctFav": 50,
+	"companyBenchmark": 72,
+	"companyDelta": -0.218,
+	"historicalDelta":-0.300
+},{
+	"question": {
+		"question": {
+			"en": ["I had enough freedom in making decisions to do my job effectively"],
+			"es": ["En general, el paquete de beneficios satisfizo mis necesidades"],
+			"zh-Hans": ["总的来说，收益包满足了我的需求"]
+		},
+		"category": {
+			"en": ["Benefits"],
+			"es": ["Beneficios"],
+			"zh-Hans": ["好处"],
+			"category_description": {
+				"en": "(Answer only if you received benefits from the organization)",
+				"es": "(Responda sólo si recibió beneficios de la organización)",
+				"zh-Hans": "（仅当您从组织获得福利时回答）"
+			}
+		},
+		"baseQuestionId": "5922af8066b53d84f9d29196",
+		"actionItems": {
+			"en": ["Have a manager or HR representative meet with your employees to fully explain their benefit package.", "Conduct a benefits specific survey to better understand the needs of the employee population. Be sure to communicate any changes that are made as a result."]
+		}
+	},
+	"avgIdx": 3.25,
+	"pctFav": 50,
+	"companyBenchmark": 67,
+	"companyDelta": -0.175,
+	"historicalDelta":-0.200
+
+},{
+	"question": {
+		"question": {
+			"en": ["I was satisfied with the type of work I did"],
+			"es": ["En general, el paquete de beneficios satisfizo mis necesidades"],
+			"zh-Hans": ["总的来说，收益包满足了我的需求"]
+		},
+		"category": {
+			"en": ["Benefits"],
+			"es": ["Beneficios"],
+			"zh-Hans": ["好处"],
+			"category_description": {
+				"en": "(Answer only if you received benefits from the organization)",
+				"es": "(Responda sólo si recibió beneficios de la organización)",
+				"zh-Hans": "（仅当您从组织获得福利时回答）"
+			}
+		},
+		"baseQuestionId": "5922af8066b53d84f9d29196",
+		"actionItems": {
+			"en": ["Have a manager or HR representative meet with your employees to fully explain their benefit package.", "Conduct a benefits specific survey to better understand the needs of the employee population. Be sure to communicate any changes that are made as a result."]
+		}
+	},
+	"avgIdx": 4.25,
+	"pctFav": 75,
+	"companyBenchmark": 79,
+	"companyDelta": -0.036,
+	"historicalDelta":-0.150
+},{
+	"question": {
+		"question": {
+			"en": ["The physical demands of my job were reasonable"],
+			"es": ["En general, el paquete de beneficios satisfizo mis necesidades"],
+			"zh-Hans": ["总的来说，收益包满足了我的需求"]
+		},
+		"category": {
+			"en": ["Benefits"],
+			"es": ["Beneficios"],
+			"zh-Hans": ["好处"],
+			"category_description": {
+				"en": "(Answer only if you received benefits from the organization)",
+				"es": "(Responda sólo si recibió beneficios de la organización)",
+				"zh-Hans": "（仅当您从组织获得福利时回答）"
+			}
+		},
+		"baseQuestionId": "5922af8066b53d84f9d29196",
+		"actionItems": {
+			"en": ["Have a manager or HR representative meet with your employees to fully explain their benefit package.", "Conduct a benefits specific survey to better understand the needs of the employee population. Be sure to communicate any changes that are made as a result."]
+		}
+	},
+	"avgIdx": 4,
+	"pctFav": 88,
+	"companyBenchmark": 85,
+	"companyDelta": 0.028,
+	"historicalDelta":-0.025
+},{
+	"question": {
+		"question": {
+			"en": ["My director treated me with respect"],
+			"es": ["En general, el paquete de beneficios satisfizo mis necesidades"],
+			"zh-Hans": ["总的来说，收益包满足了我的需求"]
+		},
+		"category": {
+			"en": ["Benefits"],
+			"es": ["Beneficios"],
+			"zh-Hans": ["好处"],
+			"category_description": {
+				"en": "(Answer only if you received benefits from the organization)",
+				"es": "(Responda sólo si recibió beneficios de la organización)",
+				"zh-Hans": "（仅当您从组织获得福利时回答）"
+			}
+		},
+		"baseQuestionId": "5922af8066b53d84f9d29196",
+		"actionItems": {
+			"en": ["Have a manager or HR representative meet with your employees to fully explain their benefit package.", "Conduct a benefits specific survey to better understand the needs of the employee population. Be sure to communicate any changes that are made as a result."]
+		}
+	},
+	"avgIdx": 3.25,
+	"pctFav": 50,
+	"companyBenchmark": 77,
+	"companyDelta": -0.271,
+	"historicalDelta":-0.400
+
+},{
+	"question": {
+		"question": {
+			"en": ["My director clearly communicated expectations for my performance"],
+			"es": ["En general, el paquete de beneficios satisfizo mis necesidades"],
+			"zh-Hans": ["总的来说，收益包满足了我的需求"]
+		},
+		"category": {
+			"en": ["Benefits"],
+			"es": ["Beneficios"],
+			"zh-Hans": ["好处"],
+			"category_description": {
+				"en": "(Answer only if you received benefits from the organization)",
+				"es": "(Responda sólo si recibió beneficios de la organización)",
+				"zh-Hans": "（仅当您从组织获得福利时回答）"
+			}
+		},
+		"baseQuestionId": "5922af8066b53d84f9d29196",
+		"actionItems": {
+			"en": ["Have a manager or HR representative meet with your employees to fully explain their benefit package.", "Conduct a benefits specific survey to better understand the needs of the employee population. Be sure to communicate any changes that are made as a result."]
+		}
+	},
+	"avgIdx": 3.375,
+	"pctFav": 50,
+	"companyBenchmark": 69,
+	"companyDelta": -0.187,
+	"historicalDelta":-0.400
+
+},{
+	"question": {
+		"question": {
+			"en": ["My director gave me helpful feedback on my performance"],
+			"es": ["En general, el paquete de beneficios satisfizo mis necesidades"],
+			"zh-Hans": ["总的来说，收益包满足了我的需求"]
+		},
+		"category": {
+			"en": ["Benefits"],
+			"es": ["Beneficios"],
+			"zh-Hans": ["好处"],
+			"category_description": {
+				"en": "(Answer only if you received benefits from the organization)",
+				"es": "(Responda sólo si recibió beneficios de la organización)",
+				"zh-Hans": "（仅当您从组织获得福利时回答）"
+			}
+		},
+		"baseQuestionId": "5922af8066b53d84f9d29196",
+		"actionItems": {
+			"en": ["Have a manager or HR representative meet with your employees to fully explain their benefit package.", "Conduct a benefits specific survey to better understand the needs of the employee population. Be sure to communicate any changes that are made as a result."]
+		}
+	},
+	"avgIdx": 3,
+	"pctFav": 38,
+	"companyBenchmark": 68,
+	"companyDelta": -0.308,
+	"historicalDelta":-0.425
+
+
+},{
+	"question": {
+		"question": {
+			"en": ["My director provided recognition for good work"],
+			"es": ["En general, el paquete de beneficios satisfizo mis necesidades"],
+			"zh-Hans": ["总的来说，收益包满足了我的需求"]
+		},
+		"category": {
+			"en": ["Benefits"],
+			"es": ["Beneficios"],
+			"zh-Hans": ["好处"],
+			"category_description": {
+				"en": "(Answer only if you received benefits from the organization)",
+				"es": "(Responda sólo si recibió beneficios de la organización)",
+				"zh-Hans": "（仅当您从组织获得福利时回答）"
+			}
+		},
+		"baseQuestionId": "5922af8066b53d84f9d29196",
+		"actionItems": {
+			"en": ["Have a manager or HR representative meet with your employees to fully explain their benefit package.", "Conduct a benefits specific survey to better understand the needs of the employee population. Be sure to communicate any changes that are made as a result."]
+		}
+	},
+	"avgIdx": 2.75,
+	"pctFav": 38,
+	"companyBenchmark": 64,
+	"companyDelta": -0.267,
+	"historicalDelta":-0.425
+},{
+	"question": {
+		"question": {
+			"en": ["My director supported my professional development"],
+			"es": ["En general, el paquete de beneficios satisfizo mis necesidades"],
+			"zh-Hans": ["总的来说，收益包满足了我的需求"]
+		},
+		"category": {
+			"en": ["Benefits"],
+			"es": ["Beneficios"],
+			"zh-Hans": ["好处"],
+			"category_description": {
+				"en": "(Answer only if you received benefits from the organization)",
+				"es": "(Responda sólo si recibió beneficios de la organización)",
+				"zh-Hans": "（仅当您从组织获得福利时回答）"
+			}
+		},
+		"baseQuestionId": "5922af8066b53d84f9d29196",
+		"actionItems": {
+			"en": ["Have a manager or HR representative meet with your employees to fully explain their benefit package.", "Conduct a benefits specific survey to better understand the needs of the employee population. Be sure to communicate any changes that are made as a result."]
+		}
+	},
+	"avgIdx": 2.75,
+	"pctFav": 38,
+	"companyBenchmark": 72,
+	"companyDelta": -0.347,
+	"historicalDelta":-0.425
+},{
+	"question": {
+		"question": {
+			"en": ["My director held people accountable for doing quality work"],
+			"es": ["En general, el paquete de beneficios satisfizo mis necesidades"],
+			"zh-Hans": ["总的来说，收益包满足了我的需求"]
+		},
+		"category": {
+			"en": ["Benefits"],
+			"es": ["Beneficios"],
+			"zh-Hans": ["好处"],
+			"category_description": {
+				"en": "(Answer only if you received benefits from the organization)",
+				"es": "(Responda sólo si recibió beneficios de la organización)",
+				"zh-Hans": "（仅当您从组织获得福利时回答）"
+			}
+		},
+		"baseQuestionId": "5922af8066b53d84f9d29196",
+		"actionItems": {
+			"en": ["Have a manager or HR representative meet with your employees to fully explain their benefit package.", "Conduct a benefits specific survey to better understand the needs of the employee population. Be sure to communicate any changes that are made as a result."]
+		}
+	},
+	"avgIdx":2.625,
+	"pctFav": 38,
+	"companyBenchmark": 66,
+	"companyDelta": -0.284,
+	"historicalDelta":-0.325
+},{
+	"question": {
+		"question": {
+			"en": ["My director was effective in resolving problems"],
+			"es": ["En general, el paquete de beneficios satisfizo mis necesidades"],
+			"zh-Hans": ["总的来说，收益包满足了我的需求"]
+		},
+		"category": {
+			"en": ["Benefits"],
+			"es": ["Beneficios"],
+			"zh-Hans": ["好处"],
+			"category_description": {
+				"en": "(Answer only if you received benefits from the organization)",
+				"es": "(Responda sólo si recibió beneficios de la organización)",
+				"zh-Hans": "（仅当您从组织获得福利时回答）"
+			}
+		},
+		"baseQuestionId": "5922af8066b53d84f9d29196",
+		"actionItems": {
+			"en": ["Have a manager or HR representative meet with your employees to fully explain their benefit package.", "Conduct a benefits specific survey to better understand the needs of the employee population. Be sure to communicate any changes that are made as a result."]
+		}
+	},
+	"avgIdx":2.625,
+	"pctFav": 38,
+	"companyBenchmark": 59,
+	"companyDelta": -0.213,
+	"historicalDelta":-0.325
+}]
